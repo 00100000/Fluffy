@@ -1,15 +1,16 @@
 const { RichEmbed } = require('discord.js');
-const { embedColor, owner } = require('../config');
+const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
     if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
-    if (!message.member.permissions.has('BAN_MEMBERS') && message.author.id !== owner) return noPerms(message, 'BAN_MEMBERS');
+    if (!message.member.permissions.has('MANAGE_NICKNAMES')) return noPerms(message, 'MANAGE_NICKNAMES');
 
     let logs = client.channels.get('790446365762387968');
     let reason = args.slice(1).join(' ');
-    let user = message.mentions.members.first();
+    let user = parseUser(client, args[0]);
 
     if (!user) return message.channel.send('You didn\'t provide me with a user to warn!');
     if (!reason) reason = 'Disruptive behavior';
@@ -25,7 +26,7 @@ exports.run = async (client, message, args) => {
         .setFooter('Naughty naughty!')
         .setTimestamp();
     // ban
-    user.send(`You've been warned by ${message.author.tag}(${message.author.id}), in ${message.guild.name}(${message.guild.id}) for ${reason}.`).then(() => {
+    user.send(`You've been warned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).then(() => {
         logs.send(warnEmbed);
     });
 }

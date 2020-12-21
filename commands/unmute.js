@@ -1,14 +1,15 @@
 const { RichEmbed } = require('discord.js');
-const { embedColor, owner } = require('../config');
+const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
     if (!perms.has('MANAGE_ROLES')) return noBotPerms(message, 'MANAGE_ROLES');
-    if (!message.member.permissions.has('MANAGE_ROLES') && message.author.id !== owner) return noPerms(message, 'MANAGE_ROLES');
+    if (!message.member.permissions.has('MANAGE_ROLES')) return noPerms(message, 'MANAGE_ROLES');
 
     let reason = args.slice(1).join(' ');
-    let user = message.mentions.members.first();
+    let user = parseUser(client, args[0]);
 
     let logs = client.channels.get('790485209052610560');
     let muteRole = message.guild.roles.find(r => r.name === 'Muted');
@@ -27,7 +28,7 @@ exports.run = async (client, message, args) => {
         });
     }
 
-    if (!user) return message.channel.send('You didn\'t provide me with a user to unmute!');
+    if (!user) return message.channel.send('This is not a user id or mention!');
     if (!reason) reason = 'Served punishment';
     if (!user.roles.has(muteRole.id)) return message.channel.send('This person isn\'t muted!');
 
@@ -44,7 +45,7 @@ exports.run = async (client, message, args) => {
     user.removeRole(muteRole).then(() => {
         logs.send(unmuteEmbed)
     }).then(() => {
-        user.send(`You've been unmuted by ${message.author.tag}(${message.author.id}), in ${message.guild.name}(${message.guild.id}) for ${reason}.`);
+        user.send(`You've been unmuted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
     });
 }
 

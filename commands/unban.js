@@ -1,17 +1,17 @@
 const { RichEmbed } = require('discord.js');
-const { embedColor, owner } = require('../config');
-const { getIdFromMention } = require('../utils/mention')
+const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
     if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
-    if (!message.member.permissions.has('BAN_MEMBERS') && message.author.id !== owner) return noPerms(message, 'BAN_MEMBERS');
+    if (!message.member.permissions.has('BAN_MEMBERS')) return noPerms(message, 'BAN_MEMBERS');
     
     let logs = client.channels.get('790485234968821791');
     
     let reason = args.slice(1).join(' ');
-    let user = getIdFromMention(args[0]);
+    let user = parseUser(client, args[0]);
     let dmUser = message.mentions.members.first();
 
     if (!user) return message.channel.send('You didn\'t provide me with a user to unban!');
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
     message.guild.unban(user).then(() => {
         logs.send(unbanEmbed);
     }).then(() => {
-        dmUser.send(`You've been unbanned by ${message.author.tag}(${message.author.id}), in ${message.guild.name}(${message.guild.id}) for ${reason}.`);
+        dmUser.send(`You've been unbanned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
     });
 }
 

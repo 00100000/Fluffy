@@ -1,5 +1,5 @@
 const { RichEmbed } = require('discord.js');
-const { embedColor, owner } = require('../config');
+const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
 
     let perms = message.guild.me.permissions;
     if (!perms.has('ADMINISTRATOR')) return noBotPerms(message, 'ADMINISTRATOR');
-    if (!message.member.permissions.has('ADMINISTRATOR') && message.author.id !== owner) return noPerms(message, 'ADMINISTRATOR');
+    if (!message.member.permissions.has('ADMINISTRATOR')) return noPerms(message, 'ADMINISTRATOR');
 
     let logs = client.channels.get('790446527281627176');
     if (!args[0]) return message.author.send('You didn\'t tell me how many messages to nuke!');
