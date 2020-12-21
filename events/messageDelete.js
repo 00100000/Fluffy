@@ -5,6 +5,7 @@ module.exports = (client, message) => {
     let logs = client.channels.get('790446481492017192');
 
     if (!message.content) return;
+    if (message.author.bot) return;
 
     const deleteEmbed = new RichEmbed()
         .setTitle('Delete Event')
