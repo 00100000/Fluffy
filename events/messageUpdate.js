@@ -2,8 +2,8 @@ const { RichEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 
 module.exports = (client, oldMessage, newMessage) => {
-    let actionlogs = client.channels.get('783520521236906005');
-
+    let logs = client.channels.get('790446502253428746');
+    
     if (newMessage.content === oldMessage.content) return;
 
     const updateEmbed = new RichEmbed()
@@ -16,5 +16,5 @@ module.exports = (client, oldMessage, newMessage) => {
         .setFooter('Sneaky edit')
         .setTimestamp();
 
-    actionlogs.send(updateEmbed);
+    logs.send(updateEmbed);
 };

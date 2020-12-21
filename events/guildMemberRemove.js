@@ -2,7 +2,7 @@ const { RichEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 
 module.exports = (client, member) => {
-    let actionlogs = client.channels.get('783520521236906005');
+    let logs = client.channels.get('790446610466209822');
 
     const removeEmbed = new RichEmbed()
         .setTitle('Remove Event')
@@ -12,5 +12,5 @@ module.exports = (client, member) => {
         .setFooter('Bye')
         .setTimestamp();
 
-    actionlogs.send(removeEmbed);
+    logs.send(removeEmbed);
 };
