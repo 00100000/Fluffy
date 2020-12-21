@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
 
 exports.help = {
     name: 'unblacklist',
-    aliases: ['ub'],
+    aliases: [],
     description: 'Unblacklists someone from using this bot.',
     usage: 'b <id>'
 };

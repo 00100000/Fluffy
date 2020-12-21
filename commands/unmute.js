@@ -46,12 +46,16 @@ exports.run = async (client, message, args) => {
         logs.send(unmuteEmbed)
     }).then(() => {
         user.send(`You've been unmuted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
+    }).then(() => {
+        message.channel.send(`Success! ${user.tag} has been unmuted.`);
+    }).catch(() => {
+        message.channel.send('There was an error while processing your request!');
     });
 }
 
 exports.help = {
     name: 'unmute',
-    aliases: [],
+    aliases: ['um'],
     description: 'Unsilence someone.',
     usage: 'unmute <user> <reason>'
 }

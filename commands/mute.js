@@ -46,12 +46,16 @@ exports.run = async (client, message, args) => {
         logs.send(muteEmbed)
     }).then(() => {
         user.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
+    }).then(() => {
+        message.channel.send(`Success! ${user.tag} has been muted.`);
+    }).catch(() => {
+        message.channel.send('There was an error while processing your request!');
     });
 }
 
 exports.help = {
     name: 'mute',
-    aliases: [],
+    aliases: ['m'],
     description: 'Silence someone with the power of the mute command.',
     usage: 'mute <user> <reason>'
 }

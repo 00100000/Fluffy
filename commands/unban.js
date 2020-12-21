@@ -33,12 +33,16 @@ exports.run = async (client, message, args) => {
         logs.send(unbanEmbed);
     }).then(() => {
         dmUser.send(`You've been unbanned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
+    }).then(() => {
+        message.channel.send(`Success! ${user.tag} has been unbanned.`);
+    }).catch(() => {
+        message.channel.send('There was an error while processing your request!');
     });
 }
 
 exports.help = {
     name: 'unban',
-    aliases: [],
+    aliases: ['ub'],
     description: 'Unbans a user for a reason and DMs them.',
     usage: 'unban <user> <reason>'
 };

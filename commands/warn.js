@@ -28,12 +28,16 @@ exports.run = async (client, message, args) => {
     // ban
     user.send(`You've been warned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).then(() => {
         logs.send(warnEmbed);
+    }).then(() => {
+        message.channel.send(`Success! ${user.tag} has been warned for \`${reason}\`.`);
+    }).catch(() => {
+        message.channel.send('There was an error while processing your request!');
     });
 }
 
 exports.help = {
     name: 'warn',
-    aliases: [],
+    aliases: ['w'],
     description: 'Warns a user for a reason and DMs them.',
     usage: 'warn <user> <reason>'
 };

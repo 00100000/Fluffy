@@ -30,12 +30,16 @@ exports.run = async (client, message, args) => {
         logs.send(banEmbed);
     }).then(() => {
         message.guild.member(user).ban();
+    }).then(() => {
+        message.channel.send(`Success! ${user.tag} has been banned.`);
+    }).catch(() => {
+        message.channel.send('There was an error while processing your request!');
     });
 }
 
 exports.help = {
     name: 'ban',
-    aliases: [],
+    aliases: ['b'],
     description: 'Bans a user for a reason and DMs them.',
     usage: 'ban <user> <reason>'
 };

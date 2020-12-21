@@ -3,8 +3,6 @@ const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
-    message.delete();
-
     let perms = message.guild.me.permissions;
     if (!perms.has('ADMINISTRATOR')) return noBotPerms(message, 'ADMINISTRATOR');
     if (!message.member.permissions.has('ADMINISTRATOR')) return noPerms(message, 'ADMINISTRATOR');
@@ -22,14 +20,14 @@ exports.run = async (client, message, args) => {
         .setFooter('Begone, messages!')
         .setTimestamp();
     // nuke event
-    message.channel.bulkDelete(args[0], true).then(() => {
+    message.channel.bulkDelete(args[0] + 1, true).then(() => {
         logs.send(nukeEmbed);
     });
 }
 
 exports.help = {
     name: 'nuke',
-    aliases: [],
+    aliases: ['n'],
     description: 'Purges up to 100 messages from a channel.',
     usage: 'nuke <amount>'
 }

@@ -30,12 +30,16 @@ exports.run = async (client, message, args) => {
         logs.send(kickEmbed);
     }).then(() => {
         message.guild.member(user).kick();
+    }).then(() => {
+        message.channel.send(`Success! ${user.tag} has been kicked.`);
+    }).catch(() => {
+        message.channel.send('There was an error while processing your request!');
     });
 }
 
 exports.help = {
     name: 'kick',
-    aliases: [],
+    aliases: ['k'],
     description: 'Kicks a user for a reason and DMs them.',
     usage: 'kick <user> <reason>'
 };
