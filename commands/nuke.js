@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     if (!perms.has('ADMINISTRATOR')) return noBotPerms(message, 'ADMINISTRATOR');
     if (!message.member.permissions.has('ADMINISTRATOR') && message.author.id !== owner) return noPerms(message, 'ADMINISTRATOR');
 
-    let modlogs = client.channels.get('783520325547196416');
+    let logs = client.channels.get('790446527281627176');
     if (!args[0]) return message.author.send('You didn\'t tell me how many messages to nuke!');
 
     const nukeEmbed = new RichEmbed()
@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     // nuke event
     message.channel.bulkDelete(args[0], true).then(() => {
-        modlogs.send(nukeEmbed);
+        logs.send(nukeEmbed);
     });
 }
 

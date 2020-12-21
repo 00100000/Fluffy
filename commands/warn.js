@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
     if (!message.member.permissions.has('BAN_MEMBERS') && message.author.id !== owner) return noPerms(message, 'BAN_MEMBERS');
 
-    let modlogs = client.channels.get('783520325547196416');
+    let logs = client.channels.get('790446365762387968');
     let reason = args.slice(1).join(' ');
     let user = message.mentions.members.first();
 
@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     // ban
     user.send(`You've been warned by ${message.author.tag}(${message.author.id}), in ${message.guild.name}(${message.guild.id}) for ${reason}.`).then(() => {
-        modlogs.send(warnEmbed);
+        logs.send(warnEmbed);
     });
 }
 

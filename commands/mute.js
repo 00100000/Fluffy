@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     let reason = args.slice(1).join(' ');
     let user = message.mentions.members.first();
 
-    let modlogs = client.channels.get('783520325547196416');
+    let logs = client.channels.get('790446444112773130');
     let muteRole = message.guild.roles.find(r => r.name === 'Muted');
 
     if (!muteRole) {
@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     // mute event
     user.addRole(muteRole).then(() => {
-        modlogs.send(muteEmbed)
+        logs.send(muteEmbed)
     }).then(() => {
         user.send(`You've been muted by ${message.author.tag}(${message.author.id}), in ${message.guild.name}(${message.guild.id}) for ${reason}.`);
     });

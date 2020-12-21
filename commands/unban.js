@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
     if (!message.member.permissions.has('BAN_MEMBERS') && message.author.id !== owner) return noPerms(message, 'BAN_MEMBERS');
     
-    let modlogs = client.channels.get('783520325547196416');
+    let logs = client.channels.get('790485234968821791');
     
     let reason = args.slice(1).join(' ');
     let user = getIdFromMention(args[0]);
@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     // unban
     message.guild.unban(user).then(() => {
-        modlogs.send(unbanEmbed);
+        logs.send(unbanEmbed);
     }).then(() => {
         dmUser.send(`You've been unbanned by ${message.author.tag}(${message.author.id}), in ${message.guild.name}(${message.guild.id}) for ${reason}.`);
     });
