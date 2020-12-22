@@ -20,7 +20,9 @@ exports.run = async (client, message, args) => {
         .setFooter('Begone, messages!')
         .setTimestamp();
     // nuke event
-    message.channel.bulkDelete(args[0] + 1, true).then(() => {
+    message.delete().then(() => {
+        message.channel.bulkDelete(args[0], true);
+    }).then(() => {
         logs.send(nukeEmbed);
     });
 }

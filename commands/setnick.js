@@ -65,7 +65,7 @@ exports.run = async (client, message, args) => {
 
 exports.help = {
     name: 'setnick',
-    aliases: ['sn'],
+    aliases: ['nick', 'sn'],
     description: 'Sets your nickname or lets a moderator change another user\'s nickname.',
     usage: 'setnick <new nickname> OR setnick <user> <new nickname>'
 };

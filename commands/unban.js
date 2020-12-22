@@ -12,13 +12,11 @@ exports.run = async (client, message, args) => {
     
     let reason = args.slice(1).join(' ');
     let user = parseUser(client, args[0]);
-    let dmUser = message.mentions.members.first();
 
     if (!user) return message.channel.send('You didn\'t provide me with a user to unban!');
     if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
-    if (!reason) reason = 'Appeal accepted';
 
     if(!reason) reason = 'Served punishment.';
 
