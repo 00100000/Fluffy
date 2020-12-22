@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         message.guild.member(user).kick();
     }).then(() => {
-        message.channel.send(`Success! ${user.tag} has been kicked.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been kicked.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });

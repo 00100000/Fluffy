@@ -36,8 +36,8 @@ exports.run = async (client, message, args) => {
     }
 
     const muteEmbed = new RichEmbed()
-        .setTitle('member Muted')
-        .addField('member', args[0], false)
+        .setTitle('User Muted')
+        .addField('User', args[0], false)
         .addField('Moderator', message.author.tag, false)
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
@@ -50,7 +50,7 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
     }).then(() => {
-        message.channel.send(`Success! ${member.user.tag} has been muted.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });

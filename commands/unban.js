@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
     message.guild.unban(user).then(() => {
         logs.send(unbanEmbed);
     }).then(() => {
-        message.channel.send(`Success! ${user.tag} has been unbanned.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been unbanned.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });

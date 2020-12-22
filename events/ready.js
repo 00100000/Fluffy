@@ -1,10 +1,4 @@
 const { prefix } = require('../config');
-const { version } = require('../package.json');
-
-const versions = {
-    production: 'Production',
-    development: 'Development'
-};
 
 module.exports = async client => {
 

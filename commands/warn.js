@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
     user.send(`You've been warned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).then(() => {
         logs.send(warnEmbed);
     }).then(() => {
-        message.channel.send(`Success! ${user.tag} has been warned for \`${reason}\`.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been warned for \`${reason}\`.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
