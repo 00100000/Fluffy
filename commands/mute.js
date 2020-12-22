@@ -31,6 +31,9 @@ exports.run = async (client, message, args) => {
     if (!user) return message.channel.send('This is not a user id or mention!');
     if (!reason) reason = 'Disruptive behavior';
     if (user.roles.has(muteRole.id)) return message.channel.send('This person is already muted!');
+    if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
+        return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
+    }
 
     const muteEmbed = new RichEmbed()
         .setTitle('User Muted')
