@@ -12,9 +12,6 @@ exports.run = async (client, message, args) => {
 
     if (!user) {
         if (!message.guild.member(message.author).bannable) return message.channel.send('You are too powerful to have your nickname changed by me!');
-        if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) <= 0) {
-            return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
-        }
         let newNick = args.join(' ');
         let oldNick = message.guild.member.displayName ? message.guild.member.displayName : message.author.username;
 
@@ -39,7 +36,7 @@ exports.run = async (client, message, args) => {
     } else {
         if (!message.member.permissions.has('MANAGE_NICKNAMES') && message.author.id !== owner) return noPerms(message, 'MANAGE_NICKNAMES');
         if (!message.guild.member(user).bannable) return message.channel.send('This person is too powerful to have their nickname changed!');
-        if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) <= 0) {
+        if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
             return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
         }
         let newNick = args.slice(1).join(' ');
