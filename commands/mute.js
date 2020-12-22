@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('MANAGE_ROLES')) return noPerms(message, 'MANAGE_ROLES');
 
     let reason = args.slice(1).join(' ');
-    let user = parseUser(client, args[0]);
+    let member = message.guild.member(parseUser(client, args[0]));
 
     let logs = client.channels.get('790446444112773130');
     let muteRole = message.guild.roles.find(r => r.name === 'Muted');
@@ -28,16 +28,16 @@ exports.run = async (client, message, args) => {
         });
     }
 
-    if (!user) return message.channel.send('This is not a user id or mention!');
+    if (!member) return message.channel.send('This is not a member id or mention!');
     if (!reason) reason = 'Disruptive behavior';
-    if (user.roles.has(muteRole.id)) return message.channel.send('This person is already muted!');
-    if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
+    if (member.roles.has(muteRole.id)) return message.channel.send('This person is already muted!');
+    if (member.highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
 
     const muteEmbed = new RichEmbed()
-        .setTitle('User Muted')
-        .addField('User', args[0], false)
+        .setTitle('member Muted')
+        .addField('member', args[0], false)
         .addField('Moderator', message.author.tag, false)
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
@@ -45,12 +45,12 @@ exports.run = async (client, message, args) => {
         .setFooter('Silence, mortal!')
         .setTimestamp();
     // mute event
-    user.addRole(muteRole).then(() => {
+    member.addRole(muteRole).then(() => {
         logs.send(muteEmbed)
     }).then(() => {
-        user.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
+        member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
     }).then(() => {
-        message.channel.send(`Success! ${user.tag} has been muted.`);
+        message.channel.send(`Success! ${member.user.tag} has been muted.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
@@ -60,5 +60,5 @@ exports.help = {
     name: 'mute',
     aliases: ['m'],
     description: 'Silence someone with the power of the mute command.',
-    usage: 'mute <user> <reason>'
+    usage: 'mute <member> <reason>'
 }
