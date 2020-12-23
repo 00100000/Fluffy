@@ -3,8 +3,12 @@ const { blacklist } = require('../data.json');
 
 module.exports = async (client, message) => {
 
-    if (!message.guild && message.author.id !== owner) return;
+    if (!message.guild) return;
     if (blacklist.includes(message.author.id)) return;
+
+    // FILTER
+    if (message.content.includes('https://') && !message.guild.member(message.author).hasPermission('EMBED_LINKS')) message.delete();
+    // FILTER
 
     const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
     const newPrefix = message.content.match(prefixMention) ? message.content.match(prefixMention)[0] : prefix;

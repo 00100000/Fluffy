@@ -9,15 +9,9 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('BAN_MEMBERS')) return noPerms(message, 'BAN_MEMBERS');
     
     let logs = client.channels.get('790485234968821791');
-    
     let reason = args.slice(1).join(' ');
-    let user = parseUser(client, args[0]);
 
-    if (!user) return message.channel.send('You didn\'t provide me with a user to unban!');
-    if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
-        return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
-    }
-
+    if (!args[0]) return message.channel.send('You didn\'t provide me with a user to unban!');
     if(!reason) reason = 'Served punishment.';
 
     const unbanEmbed = new RichEmbed()
@@ -30,10 +24,10 @@ exports.run = async (client, message, args) => {
         .setFooter('The hammer shows mercy!')
         .setTimestamp();
     // unban
-    message.guild.member(user).unban().then(() => {
+    message.guild.unban(args[0]).then(() => {
         logs.send(unbanEmbed);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been unbanned.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${parseUser(client, args[0]).tag} has been unbanned.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
