@@ -5,7 +5,7 @@ const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
-    if (!perms.has('MANAGE_ROLES')) return noBotPerms(message, 'MANAGE_ROLES');
+    if (!perms.has('MUTE_MEMBERS')) return noBotPerms(message, 'MUTE_MEMBERS');
     if (!message.member.permissions.has('MANAGE_ROLES')) return noPerms(message, 'MANAGE_ROLES');
 
     let reason = args.slice(1).join(' ');

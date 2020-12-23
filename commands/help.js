@@ -3,7 +3,6 @@ const { owner, prefix, embedColor, discord } = require('../config');
 const { noBotPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
-
     let perms = message.guild.me.permissions;
     if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
 
@@ -19,7 +18,7 @@ exports.run = async (client, message, args) => {
         let cmdHelp = cmdObj.help;
 
         let cmdHelpEmbed = new RichEmbed()
-            .setTitle(`${cmdHelp.name} Commands`)
+            .setTitle(`${cmdHelp.name} Command`)
             .setDescription(cmdHelp.description)
             .addField('Usage', `\`${prefix}${cmdHelp.usage}\``, true)
             .setColor(embedColor);
