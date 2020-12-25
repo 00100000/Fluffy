@@ -9,11 +9,11 @@ exports.run = async (client, message, args) => {
     let cmds = Array.from(client.commands.keys());
     let cmd = args[0];
 
-    let cmdName = client.commands.cache.get('help', 'help.name');
+    let cmdName = client.commands.get('help', 'help.name');
 
     if (cmd) {
 
-        let cmdObj = client.commands.cache.get(cmd) || client.commands.cache.get(client.aliases.cache.get(cmd));
+        let cmdObj = client.commands.get(cmd) || client.commands.get(client.aliases.cache.get(cmd));
         if (!cmdObj) return;
         let cmdHelp = cmdObj.help;
 

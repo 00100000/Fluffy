@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
     const args = message.content.slice(newPrefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    const cmd = client.commands.cache.get(command) || client.commands.cache.get(client.aliases.cache.get(command));
+    const cmd = client.commands.get(command) || client.commands.get(client.aliases.cache.get(command));
     if (!cmd) return;
 
     cmd.run(client, message, args);
