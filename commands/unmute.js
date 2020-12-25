@@ -4,16 +4,16 @@ const { noBotPerms, noPerms } = require('../utils/errors');
 const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
+    // permissions
     let perms = message.guild.me.permissions;
-    if (!perms.has('MANAGE_ROLES')) return noBotPerms(message, 'MANAGE_ROLES');
+    if (!perms.has('MUTE_MEMBERS')) return noBotPerms(message, 'MUTE_MEMBERS');
     if (!message.member.permissions.has('MANAGE_ROLES')) return noPerms(message, 'MANAGE_ROLES');
-
+    // command requirements
     let reason = args.slice(1).join(' ');
     let member = message.guild.member(parseUser(client, args[0]));
-
     let logs = client.channels.get('790485209052610560');
     let muteRole = message.guild.roles.find(r => r.name === 'Muted');
-
+    // user issues
     if (!muteRole) {
         muteRole = await message.guild.createRole({
             name: 'Muted',
@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
     if (member.highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
-
+    // action
     const unmuteEmbed = new RichEmbed()
         .setTitle('User Unmuted')
         .addField('User', args[0], false)
@@ -44,11 +44,12 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setFooter('You may speak, my son.')
         .setTimestamp();
-    // mute event
+
+    member.send(`You've been unmuted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
+        message.channel.send('I wasn\'t able to DM this user.');
+    });
     member.removeRole(muteRole).then(() => {
         logs.send(unmuteEmbed)
-    }).then(() => {
-        member.send(`You've been unmuted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been unmuted.`);
     }).catch(() => {

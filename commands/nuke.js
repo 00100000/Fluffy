@@ -8,7 +8,8 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('ADMINISTRATOR')) return noPerms(message, 'ADMINISTRATOR');
 
     let logs = client.channels.get('790446527281627176');
-    if (!args[0]) return message.author.send('You didn\'t tell me how many messages to nuke!');
+    if (!args[0]) return message.channel.send('You didn\'t tell me how many messages to nuke!');
+    if (args[0] > 100 || args[0] < 1) return message.channel.send('You can only nuke between 1 and 100 messages!');
 
     const nukeEmbed = new RichEmbed()
         .setTitle('Nuked!')

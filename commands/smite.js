@@ -5,8 +5,8 @@ const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
-    if (!perms.has('MUTE_MEMBERS')) return noBotPerms(message, 'MUTE_MEMBERS');
-    if (!message.member.permissions.has('EMBED_LINKS')) return noPerms(message, 'EMBED_LINKS');
+    if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
+    if (!message.member.permissions.has('MUTE_MEMBERS')) return noPerms(message, 'MUTE_MEMBERS');
 
     let member = message.guild.member(parseUser(client, args[0]));
 

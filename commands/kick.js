@@ -4,21 +4,22 @@ const { noBotPerms, noPerms } = require('../utils/errors');
 const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
+    // permissions
     let perms = message.guild.me.permissions;
     if (!perms.has('KICK_MEMBERS')) return noBotPerms(message, 'KICK_MEMBERS');
     if (!message.member.permissions.has('KICK_MEMBERS')) return noPerms(message, 'KICK_MEMBERS');
-
+    // command requirements
     let logs = client.channels.get('790446455256252446');
     let reason = args.slice(1).join(' ');
     let user = parseUser(client, args[0]);
-
+    // user issues
     if (!user) return message.channel.send('This is not a user id or mention!');
     if (!reason) reason = 'Disruptive behavior';
     if (!message.guild.member(user).bannable) return message.channel.send('This person is too powerful to be kicked!');
     if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
-
+    // action
     const kickEmbed = new RichEmbed()
         .setTitle('User Kicked')
         .addField('User', args[0], false)
@@ -28,10 +29,11 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setFooter('The boot strikes again!')
         .setTimestamp();
-    // ban
-    user.send(`You've been kicked by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).then(() => {
-        logs.send(kickEmbed);
-    }).then(() => {
+    
+    user.send(`You've been kicked by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
+        message.channel.send('I wasn\'t able to DM this user.');
+    });
+    logs.send(kickEmbed).then(() => {
         message.guild.member(user).kick();
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been kicked.`);

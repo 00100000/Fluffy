@@ -19,7 +19,9 @@ exports.run = async (client, message, args) => {
         .setColor(b ? '#f775ff' : embedColor)
         .setTimestamp();
     
-    message.channel.send(embed).catch(() => {
+    message.channel.send(embed).then(() => {
+        message.delete();
+    }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
 }

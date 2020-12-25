@@ -4,21 +4,22 @@ const { noBotPerms, noPerms } = require('../utils/errors');
 const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
+    // permissions
     let perms = message.guild.me.permissions;
     if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
     if (!message.member.permissions.has('MANAGE_NICKNAMES')) return noPerms(message, 'MANAGE_NICKNAMES');
-
+    // command requirements
     let logs = client.channels.get('790446365762387968');
     let reason = args.slice(1).join(' ');
     let user = parseUser(client, args[0]);
-
+    // user issues
     if (!user) return message.channel.send('You didn\'t provide me with a user to warn!');
     if (!reason) reason = 'Disruptive behavior';
     if (!message.guild.member(user).bannable) return message.channel.send('This person is too powerful to be warned!');
     if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
-
+    // action
     const warnEmbed = new RichEmbed()
         .setTitle('User Warned')
         .addField('User', args[0], false)
@@ -28,10 +29,11 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setFooter('Naughty naughty!')
         .setTimestamp();
-    // ban
-    user.send(`You've been warned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).then(() => {
-        logs.send(warnEmbed);
-    }).then(() => {
+
+    user.send(`You've been warned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
+        message.channel.send('I wasn\'t able to DM this user.');
+    });
+    logs.send(warnEmbed).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been warned for \`${reason}\`.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
@@ -41,6 +43,6 @@ exports.run = async (client, message, args) => {
 exports.help = {
     name: 'warn',
     aliases: ['w'],
-    description: 'Warns a user for a reason and DMs them.',
+    description: 'Warns a user.',
     usage: 'warn <user> <reason>'
 };

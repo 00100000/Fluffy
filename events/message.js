@@ -1,4 +1,4 @@
-const { prefix, owner } = require('../config');
+const { prefix } = require('../config');
 const { blacklist } = require('../data.json');
 
 module.exports = async (client, message) => {
