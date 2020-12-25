@@ -3,7 +3,6 @@ const { owner } = require('../config');
 const { noBotPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
-
     let perms = message.guild.me.permissions;
     if (!perms.has('SEND_MESSAGES')) return noBotPerms(message, 'SEND_MESSAGES');
 

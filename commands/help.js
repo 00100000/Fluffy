@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 
     if (cmd) {
 
-        let cmdObj = client.commands.get(cmd) || client.commands.get(client.aliases.cache.get(cmd));
+        let cmdObj = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
         if (!cmdObj) return;
         let cmdHelp = cmdObj.help;
 

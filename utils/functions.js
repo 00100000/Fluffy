@@ -33,7 +33,7 @@ module.exports = (client) => {
     client.unloadCommand = async (cmdName) => {
         let cmd;
         if (client.commands.get(cmdName)) cmd = client.commands.get(cmdName);
-        else if (client.aliases.has(cmdName)) cmd = client.commands.get(client.aliases.cache.get(cmdName));
+        else if (client.aliases.has(cmdName)) cmd = client.commands.get(client.aliases.get(cmdName));
         
         if (!cmd) return `The command \`${cmdName}\` doesn't seem to exist.`;
 

@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
         .setFooter('The hammer shows mercy!')
         .setTimestamp();
 
-    message.guild.unban(args[0]).then(() => {
+    message.guild.members.unban(args[0]).then(() => {
         logs.send(unbanEmbed);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${parseUser(client, args[0]).tag} has been unbanned.`);

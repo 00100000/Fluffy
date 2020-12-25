@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     let reason = args.slice(1).join(' ');
     let member = message.guild.member(parseUser(client, args[0]));
     let logs = client.channels.cache.get('790446444112773130');
-    let muteRole = message.guild.roles.find(r => r.name === 'Muted');
+    let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
     // user issues
     if (!muteRole) {
         muteRole = await message.guild.createRole({
@@ -30,8 +30,8 @@ exports.run = async (client, message, args) => {
 
     if (!member) return message.channel.send('This is not a member id or mention!');
     if (!reason) reason = 'Disruptive behavior';
-    if (member.roles.has(muteRole.id)) return message.channel.send('This user is already muted!');
-    if (member.roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
+    if (member.roles.cache.has(muteRole.id)) return message.channel.send('This user is already muted!');
+    if (member.roles.cache.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
     // action

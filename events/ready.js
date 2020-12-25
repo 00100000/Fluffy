@@ -2,7 +2,7 @@ const { prefix } = require('../config');
 
 module.exports = async client => {
 
-    await client.logger.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.size} server(s).`);
+    await client.logger.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.cache.size} server(s).`);
     
     const cmdHelp = client.commands.get('help', 'help.name');
     

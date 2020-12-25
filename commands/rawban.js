@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     // user issues
     if (message.guild.member(args[0])) return message.channel.send('This user is in this server! Use ?ban instead!');
     // action
-    message.guild.ban(args[0], {days: 7, reason: 'rawban'}).then(() => {
+    message.guild.members.ban(args[0], {days: 7, reason: 'rawban'}).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600>`);
     }).catch(err => {
         message.channel.send(`\`\`\`xl\n${err}\`\`\``);
