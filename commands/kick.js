@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
 const { parseUser } = require('../utils/parse');
@@ -9,19 +9,19 @@ exports.run = async (client, message, args) => {
     if (!perms.has('KICK_MEMBERS')) return noBotPerms(message, 'KICK_MEMBERS');
     if (!message.member.permissions.has('KICK_MEMBERS')) return noPerms(message, 'KICK_MEMBERS');
     // command requirements
-    let logs = client.channels.get('790446455256252446');
+    let logs = client.channels.cache.get('790446455256252446');
     let reason = args.slice(1).join(' ');
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send('This is not a user id or mention!');
     if (!message.guild.member(user)) return message.channel.send('This user is not in this server!');
     if (!message.guild.member(user).bannable) return message.channel.send('This user is too powerful to be kicked!');
-    if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
+    if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
     if (!reason) reason = 'Disruptive behavior';
     // action
-    const kickEmbed = new RichEmbed()
+    const kickEmbed = new MessageEmbed()
         .setTitle('User Kicked')
         .addField('User', args[0], false)
         .addField('Moderator', message.author.tag, false)
@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
-}
+};
 
 exports.help = {
     name: 'kick',

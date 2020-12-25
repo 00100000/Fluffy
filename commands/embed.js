@@ -1,6 +1,6 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
-const { noBotPerms } = require('../utils/errors');
+const { noBotPerms, noPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
@@ -13,8 +13,8 @@ exports.run = async (client, message, args) => {
         b = true;
     }
 
-    const embed = new RichEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL)
+    const embed = new MessageEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL())
         .setDescription(args.join(' '))
         .setColor(b ? '#f775ff' : embedColor)
         .setTimestamp();
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
-}
+};
 
 exports.help = {
     name: 'embed',

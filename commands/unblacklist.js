@@ -18,5 +18,5 @@ exports.help = {
     name: 'unblacklist',
     aliases: [],
     description: 'Unblacklists someone from using this bot.',
-    usage: 'b <id>'
+    usage: 'unblacklist <id>'
 };

@@ -1,10 +1,10 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 
 module.exports = (client, member) => {
-    let logs = client.channels.get('790446610466209822');
+    let logs = client.channels.cache.get('790446610466209822');
 
-    const removeEmbed = new RichEmbed()
+    const removeEmbed = new MessageEmbed()
         .setTitle('Remove Event')
         .addField('User', `${member.displayName}(${member.id})`, false)
         .addField('Server', member.guild.name + `(${member.guild.id})`, false)

@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { noBotPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     let color = message.guild.member(user).displayHexColor;
     let colorB = message.guild.member(user).displayColor;
 
-    const colorEmbed = new RichEmbed()
+    const colorEmbed = new MessageEmbed()
         .setTitle('Color Profile')
         .addField('User', args[0], false)
         .addField('Hex Color', color, false)
@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     
     message.channel.send(colorEmbed);
-}
+};
 
 exports.help = {
     name: 'color',

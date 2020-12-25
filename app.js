@@ -19,7 +19,6 @@ client.logger = require('./utils/logger');
 require('./utils/functions')(client);
 
 const init = async () => {
-
 	const cmdFiles = await readdir('./commands/');
 	cmdFiles.forEach(f => {
 		if (!f.endsWith('.js')) return;
