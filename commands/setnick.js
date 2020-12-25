@@ -62,7 +62,7 @@ exports.run = async (client, message, args) => {
             logs.send(modNickEmbed);
         });
     }
-}
+};
 
 exports.help = {
     name: 'setnick',

@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
         .setFooter('KABLAM!')
         .setTimestamp();
     message.channel.send(smiteEmbed);
-}
+};
 
 exports.help = {
     name: 'smite',

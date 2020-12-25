@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     }).catch(err => {
         message.channel.send(`\`\`\`xl\n${err}\`\`\``);
     });
-}
+};
 
 exports.help = {
     name: 'rawban',

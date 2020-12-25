@@ -26,11 +26,11 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         logs.send(nukeEmbed);
     });
-}
+};
 
 exports.help = {
     name: 'nuke',
     aliases: ['n'],
     description: 'Purges up to 100 messages from a channel.',
     usage: 'nuke <amount>'
-}
+};

@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     
     message.channel.send(colorEmbed);
-}
+};
 
 exports.help = {
     name: 'color',

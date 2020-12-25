@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
-}
+};
 
 exports.help = {
     name: 'unban',

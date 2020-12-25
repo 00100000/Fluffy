@@ -39,11 +39,11 @@ exports.run = async (client, message, args) => {
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
-}
+};
 
 exports.help = {
     name: 'giverole',
     aliases: ['grole', 'gr'],
     description: 'Gives a member a role.',
     usage: 'giverole <member> <role>'
-}
+};

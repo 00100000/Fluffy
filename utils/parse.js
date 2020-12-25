@@ -25,4 +25,4 @@ function parseRole(member, s) {
 module.exports = {
     parseUser,
     parseRole
-}
+};

@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
     message.channel.send(countEmbed).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
-}
+};
 
 exports.help = {
     name: 'membercount',

@@ -25,11 +25,11 @@ exports.run = async (client, message, args) => {
             message.channel.send('There was an error while processing your request!');
         });
     }
-}
+};
 
 exports.help = {
     name: 'catcult',
     aliases: [],
     description: 'Join (or leave...) Chill Hub\'s glorious society of felines!',
     usage: 'catcult <join/leave>'
-}
+};

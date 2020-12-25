@@ -55,11 +55,11 @@ exports.run = async (client, message, args) => {
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
-}
+};
 
 exports.help = {
     name: 'unmute',
     aliases: ['um'],
     description: 'Unsilence someone.',
     usage: 'unmute <member> <reason>'
-}
+};
