@@ -1,7 +1,6 @@
 const { Client } = require('discord.js');
 const { promisify } = require('util');
 const readdir = promisify(require('fs').readdir);
-const Enmap = require('enmap');
 require('dotenv-flow').config();
 
 const client = new Client({
@@ -11,8 +10,8 @@ const client = new Client({
 	messageSweepInterval: 60
 });
 
-client.commands = new Enmap();
-client.aliases = new Enmap();
+client.commands = new Map();
+client.aliases = new Map();
 
 client.logger = require('./utils/logger');
 
