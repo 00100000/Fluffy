@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
     member.roles.add(muteRole).then(() => {
-        logs.send(muteEmbed)
+        logs.send(muteEmbed);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
     }).catch(() => {

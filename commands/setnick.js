@@ -31,8 +31,8 @@ exports.run = async (client, message, args) => {
         message.member.setNickname(newNick).then(() => {
             message.channel.send('Done! Your new nickname is: ' + newNick);
         }).then(() => {
-            modlogs.send(selfNickEmbed);
-        })
+            logs.send(selfNickEmbed);
+        });
     } else {
         if (!message.member.permissions.has('MANAGE_NICKNAMES') && message.author.id !== owner) return noPerms(message, 'MANAGE_NICKNAMES');
         if (!message.guild.member(user)) return message.channel.send('This user is not in this server!');

@@ -9,11 +9,15 @@ const noPerms = (message, perm) => {
         .setColor('#FF4500')
         .addField('Permission', `\`${permissions[perm]} (${perm})\``);
 
-    message.channel.send(embed).then(m => m.delete(5000)).catch(err => console.log(err));
+    message.channel.send(embed)
+        .then(msg => msg.delete({ timeout: 5000 }))
+        .catch(err => console.log(err));
 };
 
 const noBotPerms = (message, perm) => {
-    message.channel.send(`I don't have permissions to do this! Make sure I have this permission: \`${permissions[perm]} (${perm})\``).then(msg => msg.delete(5000));
+    message.channel.send(`I don't have permissions to do this! Make sure I have this permission: \`${permissions[perm]} (${perm})\``)
+        .then(msg => msg.delete({ timeout: 5000 }))
+        .catch(err => console.log(err));
 };
 
 module.exports = { 
