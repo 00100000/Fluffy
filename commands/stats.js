@@ -1,4 +1,4 @@
-const { RichEmbed, version: discordVersion } = require('discord.js');
+const { MessageEmbed, version: discordVersion } = require('discord.js');
 const moment = require('moment');
 const { embedColor } = require('../config');
 const { version } = require('../package.json');
@@ -15,8 +15,8 @@ exports.run = async (client, message, args) => {
     const guildSize = client.guilds.size.toLocaleString();
     const userSize = client.users.size.toLocaleString();
 
-    const statsEmbed = new RichEmbed()
-        .setAuthor(client.user.username, client.user.avatarURL)
+    const statsEmbed = new MessageEmbed()
+        .setAuthor(client.user.username, client.user.avatarURL())
         .setColor(embedColor)
         .addField('Guilds', guildSize, true)
         .addField('Users', userSize, true)

@@ -12,14 +12,14 @@ exports.run = async (client, message, args) => {
 
     if (args[0] == 'join') {
         if (member.roles.has(catRole.id)) return message.channel.send('You are already a member of the Cat Cult!');
-        member.addRole(catRole).then(() => {
+        member.roles.add(catRole).then(() => {
             message.channel.send(`<a:SuccessCheck:790804428495257600> You have joined the Cat Cult! Traditionally, members add [CAT] to the front of their names and have a cat pfp. Not required, but suggested!`);
         }).catch(() => {
             message.channel.send('There was an error while processing your request!');
         });
     } else {
         if (!member.roles.has(catRole.id)) return message.channel.send('You are not a member of the Cat Cult!');
-        member.removeRole(catRole).then(() => {
+        member.roles.remove(catRole).then(() => {
             message.channel.send(`<a:SuccessCheck:790804428495257600> You have left the Cat Cult :(`);
         }).catch(() => {
             message.channel.send('There was an error while processing your request!');

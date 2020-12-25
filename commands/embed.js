@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms } = require('../utils/errors');
 
@@ -13,8 +13,8 @@ exports.run = async (client, message, args) => {
         b = true;
     }
 
-    const embed = new RichEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL)
+    const embed = new MessageEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL())
         .setDescription(args.join(' '))
         .setColor(b ? '#f775ff' : embedColor)
         .setTimestamp();

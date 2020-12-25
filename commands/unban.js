@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
 const { parseUser } = require('../utils/parse');
@@ -9,13 +9,13 @@ exports.run = async (client, message, args) => {
     if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
     if (!message.member.permissions.has('BAN_MEMBERS')) return noPerms(message, 'BAN_MEMBERS');
     // command requirements
-    let logs = client.channels.get('790485234968821791');
+    let logs = client.channels.cache.get('790485234968821791');
     let reason = args.slice(1).join(' ');
     // user issues
     if (!args[0]) return message.channel.send('You didn\'t provide me with a user to unban!');
     if(!reason) reason = 'Served punishment.';
     // action
-    const unbanEmbed = new RichEmbed()
+    const unbanEmbed = new MessageEmbed()
         .setTitle('User Unbanned')
         .addField('User', args[0], false)
         .addField('Moderator', message.author.tag, false)

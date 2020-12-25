@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms } = require('../utils/errors');
 
@@ -6,8 +6,8 @@ exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
     if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
 
-    const countEmbed = new RichEmbed()
-        .setAuthor(message.guild.name, message.guild.iconURL)
+    const countEmbed = new MessageEmbed()
+        .setAuthor(message.guild.name, message.guild.iconURL())
         .setDescription('Members: ' + message.guild.members.size)
         .setColor(embedColor)
         .setTimestamp();

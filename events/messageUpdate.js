@@ -1,12 +1,12 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 
 module.exports = (client, oldMessage, newMessage) => {
-    let logs = client.channels.get('790446502253428746');
+    let logs = client.channels.cache.get('790446502253428746');
     
     if (newMessage.content === oldMessage.content) return;
 
-    const updateEmbed = new RichEmbed()
+    const updateEmbed = new MessageEmbed()
         .setTitle('Edit Event')
         .addField('User', oldMessage.author, false)
         .addField('Original Message', oldMessage.content, false)

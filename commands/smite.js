@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
 const { parseUser } = require('../utils/parse');
@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     if (!member) return message.channel.send('This is not a user id or mention!');
     if (member.permissions.has('MUTE_MEMBERS')) return message.channel.send('You cannot smite other staff!');
 
-    const smiteEmbed = new RichEmbed()
+    const smiteEmbed = new MessageEmbed()
         .setTitle(`${member.displayName} has been SMITED by ${message.guild.member(message.author).displayName}`)
         .setImage('https://i.imgur.com/iFVsZgp.gif')
         .setColor(embedColor)

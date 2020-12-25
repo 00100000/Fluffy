@@ -1,10 +1,10 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 
 module.exports = (client, messageReaction, user) => {
-    let logs = client.channels.get('790446570445209600');
+    let logs = client.channels.cache.get('790446570445209600');
 
-    const removeEmbed = new RichEmbed()
+    const removeEmbed = new MessageEmbed()
         .setTitle('Reaction Remove Event')
         .addField('User Removing Reaction', `<@${user.id}>`, false)
         .addField('Reaction', messageReaction.emoji, false)

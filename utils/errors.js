@@ -1,9 +1,9 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const permissions = require('./perms');
 
 const noPerms = (message, perm) => {
 
-    let embed = new RichEmbed()
+    let embed = new MessageEmbed()
         .setTitle('Error')
         .setDescription(message.author + ', you lack certain permissions to do this action.')
         .setColor('#FF4500')
