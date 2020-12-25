@@ -35,7 +35,8 @@ exports.run = async (client, message, args) => {
         })
     } else {
         if (!message.member.permissions.has('MANAGE_NICKNAMES') && message.author.id !== owner) return noPerms(message, 'MANAGE_NICKNAMES');
-        if (!message.guild.member(user).bannable) return message.channel.send('This person is too powerful to have their nickname changed!');
+        if (!message.guild.member(user)) return message.channel.send('This user is not in this server!');
+        if (!message.guild.member(user).bannable) return message.channel.send('This user is too powerful to have their nickname changed!');
         if (message.guild.member(user).highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
             return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
         }

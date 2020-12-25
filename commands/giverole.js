@@ -4,24 +4,25 @@ const { noBotPerms, noPerms } = require('../utils/errors');
 const { parseUser, parseRole } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
+    // permissions
     let perms = message.guild.me.permissions;
     if (!perms.has('MANAGE_ROLES')) return noBotPerms(message, 'MANAGE_ROLES');
     if (!message.member.permissions.has('MANAGE_ROLES')) return noPerms(message, 'MANAGE_ROLES');
-
+    // command requirements
     let logs = client.channels.get('790814348519407647');
     let member = message.guild.member(parseUser(client, args[0]));
-    if (!member) return message.channel.send('This is not a member id or mention!');
-
     let roleToGive = parseRole(member, args.slice(1).join(' '));
-    if (!roleToGive) return message.channel.send('This is not a valid role, role mention, or role ID.')
-    if (member.roles.has(roleToGive.id)) return message.channel.send('This person already has this role!');
+    // user issues
+    if (!member) return message.channel.send('This is not a member id or mention!');
+    if (!roleToGive) return message.channel.send('This is not a valid role, role mention, or role ID.');
+    if (member.roles.has(roleToGive.id)) return message.channel.send('This user already has this role!');
     if (member.highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
     if (roleToGive.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) {
         return message.channel.send('You can\'t give someone a role higher than or equal to yours!');
     }
-
+    // action
     const giveEmbed = new RichEmbed()
         .setTitle('Role Given to User')
         .addField('User', args[0], false)
@@ -30,7 +31,7 @@ exports.run = async (client, message, args) => {
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
-    // give event
+
     member.addRole(roleToGive).then(() => {
         logs.send(giveEmbed);
     }).then(() => {
