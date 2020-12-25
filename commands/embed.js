@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
-const { noBotPerms } = require('../utils/errors');
+const { noBotPerms, noPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;

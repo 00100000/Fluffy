@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
     // user issues
     if (!roleToTake) return message.channel.send('This is not a valid role, role mention, or role ID.');
     if (!member.roles.cache.has(roleToTake.id)) return message.channel.send('This user doesn\'t have this role!');
-    if (member.roles.cache.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
+    if (member.roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
     if (roleToTake.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {

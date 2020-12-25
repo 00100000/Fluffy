@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
     if (!member) return message.channel.send('This is not a member id or mention!');
     if (!reason) reason = 'Disruptive behavior';
     if (member.roles.cache.has(muteRole.id)) return message.channel.send('This user is already muted!');
-    if (member.roles.cache.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
+    if (member.roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
     // action
