@@ -9,8 +9,6 @@ exports.run = async (client, message, args) => {
     let cmds = Array.from(client.commands.keys());
     let cmd = args[0];
 
-    let cmdName = client.commands.get('help', 'help.name');
-
     if (cmd) {
 
         let cmdObj = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
@@ -34,7 +32,7 @@ exports.run = async (client, message, args) => {
 
     const helpEmbed = new MessageEmbed()
         .setTitle('Help Information')
-        .setDescription(`View help information for ${client.user}. \n (Do \`${prefix + cmdName} <command>\` for specific help information).`)
+        .setDescription(`View help information for ${client.user}. \n (Do \`${prefix}help <command>\` for specific help information).`)
         .addField('Current Prefix', prefix)
         .addField('Bot Commands', helpCmds.join(' | '))
         .addField('Found an issue?', `Please report any issues to <@${owner}>.`)
