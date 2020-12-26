@@ -60,12 +60,11 @@ typings/
 # next.js build output
 .next
 
-# templates for commands and events
-commands/newCommand.txt/
-events/newEvent.txt/
-
 # Other
 data/
 package-lock.json
 nodemon.json
 TODO
+
+# Project Specific Lol
+data.json
