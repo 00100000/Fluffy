@@ -7,7 +7,11 @@ module.exports = async (client, message) => {
     if (blacklist.includes(message.author.id)) return;
 
     // FILTER
+<<<<<<< Updated upstream
     if (message.content.toLowercase().includes('https:') && !message.guild.member(message.author).hasPermission('MUTE_MEMBERS') && message.channel.id != '774142671249211403') message.delete();
+=======
+    if (message.content.toLowercase().includes('https://') && !message.guild.member(message.author).hasPermission('MUTE_MEMBERS')) message.delete();
+>>>>>>> Stashed changes
     // FILTER
 
     const prefixMention = new RegExp(`^<@!?${client.user.id}> `);

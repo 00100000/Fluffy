@@ -6,7 +6,7 @@ module.exports = (client, messageReaction, user) => {
 
     const removeEmbed = new MessageEmbed()
         .setTitle('Reaction Remove Event')
-        .addField('User Removing Reaction', `<@${user.id}>`, false)
+        .addField('User Who Reacted', `<@${user.id}>`, false)
         .addField('Reaction', messageReaction.emoji, false)
         .addField('Message Content', messageReaction.message.content, false)
         .addField('Message ID', messageReaction.message.id, false)
