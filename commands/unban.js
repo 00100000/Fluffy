@@ -22,7 +22,6 @@ exports.run = async (client, message, args) => {
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
-        .setFooter('The hammer shows mercy!')
         .setTimestamp();
 
     message.guild.members.unban(args[0]).then(() => {

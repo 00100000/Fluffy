@@ -28,7 +28,6 @@ exports.run = async (client, message, args) => {
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
-        .setFooter('Naughty naughty!')
         .setTimestamp();
 
     user.send(`You've been warned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {

@@ -4,6 +4,7 @@ const { embedColor } = require('../config');
 module.exports = (client, oldMessage, newMessage) => {
     let logs = client.channels.cache.get('790446502253428746');
     
+    if (oldMessage.author.bot) return;
     if (newMessage.content === oldMessage.content) return;
 
     const updateEmbed = new MessageEmbed()

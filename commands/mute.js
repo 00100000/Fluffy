@@ -6,8 +6,8 @@ const { parseUser } = require('../utils/parse');
 exports.run = async (client, message, args) => {
     // permissions
     let perms = message.guild.me.permissions;
-    if (!perms.has('MUTE_MEMBERS')) return noBotPerms(message, 'MUTE_MEMBERS');
-    if (!message.member.permissions.has('MANAGE_ROLES')) return noPerms(message, 'MANAGE_ROLES');
+    if (!perms.has('MANAGE_ROLES')) return noBotPerms(message, 'MANAGE_ROLES');
+    if (!message.member.permissions.has('MUTE_MEMBERS')) return noPerms(message, 'MUTE_MEMBERS');
     // command requirements
     let reason = args.slice(1).join(' ');
     let member = message.guild.member(parseUser(client, args[0]));
@@ -42,7 +42,6 @@ exports.run = async (client, message, args) => {
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
-        .setFooter('Silence, mortal!')
         .setTimestamp();
 
     member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {

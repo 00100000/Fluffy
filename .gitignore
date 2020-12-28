@@ -65,6 +65,3 @@ data/
 package-lock.json
 nodemon.json
 TODO
-
-# Project Specific Lol
-data.json
