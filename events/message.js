@@ -1,11 +1,9 @@
 const { prefix } = require('../config');
-const { filter } = require('../utils/filter');
 const { blacklist } = require('../data.json');
 
 module.exports = async (client, message) => {
 
     if (!message.guild) return;
-    if (filter(message)) return message.delete();
     if (blacklist.includes(message.author.id)) return;
 
     const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
