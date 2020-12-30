@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { owner, prefix, embedColor, discord } = require('../config');
+const { owner, prefix, embedColor } = require('../config');
 const { noBotPerms } = require('../utils/errors');
 
 exports.run = async (client, message, args) => {
@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
         .addField('Bot Commands', helpCmds.join(' | '))
         .addField('Found an issue?', `Please report any issues to <@${owner}>.`)
         .setColor(embedColor)
-        .setFooter(`Made with <3 and discord.js by <@${owner}>`)
+        .setFooter(`Made with <3 and discord.js by 00100000#1337`)
         .setTimestamp();
 
     message.channel.send(helpEmbed);

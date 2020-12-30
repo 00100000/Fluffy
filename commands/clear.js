@@ -15,11 +15,11 @@ exports.run = async (client, message, args) => {
     if (!user) return message.channel.send('This is not a user id or mention!');
     if (!message.guild.member(user)) return message.channel.send('This person isn\'t in this server!');
     if (!args[1]) args[1] = 25;
-    if (isNaN(args[1])) return message.channel.send('You must provide a number of messages for me to clean!');
-    if (args[1] > 100 || args[1] < 1) return message.channel.send('You can only clean between 1 and 100 messages!');
+    if (isNaN(args[1])) return message.channel.send('You must provide a number of messages for me to clear!');
+    if (args[1] > 100 || args[1] < 1) return message.channel.send('You can only clear between 1 and 100 messages!');
     // action
-    const cleanEmbed = new MessageEmbed()
-        .setTitle('User Cleaned')
+    const clearEmbed = new MessageEmbed()
+        .setTitle('User\'s Messages Cleared')
         .addField('Amount of Messages', args[1], false)
         .addField('User', user.tag + `(${message.channel.id})`, false)
         .addField('Moderator', message.author.tag, false)
@@ -28,20 +28,20 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
     message.channel.messages.fetch({ limit: args[1] }).then(messages => {
-        const toClean = messages.filter(m => m.author.id === user.id);
-        message.channel.bulkDelete(toClean);
+        const toClear = messages.filter(m => m.author.id === user.id);
+        message.channel.bulkDelete(toClear);
     }).then(() => {
-        logs.send(cleanEmbed);
+        logs.send(clearEmbed);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[1]} of ${user.tag}\'s messages have been cleaned.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[1]} of ${user.tag}\'s messages have been cleared.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
 }
 
 exports.help = {
-    name: 'clean',
+    name: 'clear',
     aliases: ['c'],
     description: 'Purges a user\'s messages from a specific channel.',
-    usage: 'clean <user> [amount]'
+    usage: 'clear <user> [amount]'
 };

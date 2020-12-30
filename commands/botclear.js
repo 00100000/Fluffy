@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     message.channel.messages.fetch({ limit: args[0] }).then(messages => {
         const toClear = messages.filter(m => m.author.bot || botPrefixes.some(p => {
-            if (m.content.toLowerCase().startsWith(p)) return m.id;
+            return (m.content.toLowerCase().startsWith(p));
         }));
         message.channel.bulkDelete(toClear);
     }).then(() => {

@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
         .addField('Discord.js', `v${discordVersion}`, true)
         .addField('Node', `${process.version}`, true)
         .addField('Bot Version', version, true)
-        .setFooter(`Made with <3 and discord.js by <@${owner}>`)
+        .setFooter(`Made with <3 and discord.js by 00100000#1337`)
         .setTimestamp();
 
     message.channel.send(statsEmbed);
