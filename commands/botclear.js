@@ -25,9 +25,11 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     message.channel.messages.fetch({ limit: args[0] }).then(messages => {
         const toClear = messages.filter(m => m.author.bot || botPrefixes.some(p => {
-            m.content.toLowerCase().startsWith(p);
+            return m.content.toLowerCase().startsWith(p);
         }));
         message.channel.bulkDelete(toClear);
+    }).then(() => {
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[1]} bot and bot-related messages cleared.`);
     }).then(() => {
         logs.send(botclearEmbed);
     }).catch(() => {

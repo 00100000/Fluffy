@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         logs.send(cleanEmbed);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has had ${args[1]} messages cleaned.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[1]} of ${user.tag}\'s messages have been cleaned.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });
