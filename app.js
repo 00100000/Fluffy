@@ -29,7 +29,7 @@ const init = async () => {
 	const evtFiles = await readdir('./events/');
 	evtFiles.forEach(f => {
 		const evtName = f.split('.')[0];
-		client.logger.log(`Loading Event: ${evtName} 👌`);
+		// client.logger.log(`Loading Event: ${evtName} 👌`);
 		const event = require(`./events/${f}`);
 		client.on(evtName, event.bind(null, client));
 	});
