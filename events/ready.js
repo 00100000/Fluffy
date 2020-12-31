@@ -1,4 +1,7 @@
 const { prefix } = require('../config');
+const fs = require('fs');
+
+const jf = require('../utils/file');
 
 module.exports = async client => {
     await client.logger.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.cache.size} server(s).`);

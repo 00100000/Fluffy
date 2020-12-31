@@ -65,3 +65,6 @@ data/
 package-lock.json
 nodemon.json
 TODO
+
+muted.json
+banned.json

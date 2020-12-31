@@ -49,6 +49,8 @@ exports.run = async (client, message, args) => {
     });
     member.roles.add(muteRole).then(() => {
         logs.send(muteEmbed);
+
+        
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
     }).catch(() => {
