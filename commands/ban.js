@@ -14,10 +14,11 @@ exports.run = async (client, message, args) => {
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send('This is not a user id or mention!');
-    if (!message.guild.member(user)) return message.channel.send('This user is not in this server!');
-    if (!message.guild.member(user).bannable) return message.channel.send('This user is too powerful to be banned!');
-    if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
-        return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
+    if (message.guild.member(user)) {
+        if (!message.guild.member(user).bannable) return message.channel.send('This user is too powerful to be banned!');
+        if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
+            return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
+        }
     }
     if (!reason) reason = 'Disruptive behavior';
     // action
@@ -34,11 +35,11 @@ exports.run = async (client, message, args) => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
     logs.send(banEmbed).then(() => {
-        message.guild.member(user).ban();
+        message.guild.members.ban(user, { reason: reason });
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been banned.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
 

@@ -11,37 +11,54 @@ exports.run = async (client, message, args) => {
     // command requirements
     let logs = client.channels.cache.get('793627033913131018');
     let user = parseUser(client, args[0]);
+    let amount = user ? args[1] : args[0];
     // user issues
-    if (!user) return message.channel.send('This is not a user id or mention!');
-    if (!message.guild.member(user)) return message.channel.send('This person isn\'t in this server!');
-    if (!args[1]) args[1] = 25;
-    if (isNaN(args[1])) return message.channel.send('You must provide a number of messages for me to clear!');
-    if (args[1] > 100 || args[1] < 1) return message.channel.send('You can only clear between 1 and 100 messages!');
+    if (!amount) amount = 25;
+    if (isNaN(amount)) return message.channel.send('You must provide a number of messages for me to clear!');
+    if (amount > 100 || amount < 1) return message.channel.send('You can only clear between 1 and 100 messages!');
     // action
-    const clearEmbed = new MessageEmbed()
-        .setTitle('User\'s Messages Cleared')
-        .addField('Amount of Messages', args[1], false)
-        .addField('User', user.tag + `(${message.channel.id})`, false)
-        .addField('Moderator', message.author.tag, false)
-        .addField('Channel', message.channel.name + `(${message.channel.id})`, false)
-        .addField('Server', message.guild.name + `(${message.guild.id})`, false)
-        .setColor(embedColor)
-        .setTimestamp();
-    message.channel.messages.fetch({ limit: args[1] }).then(messages => {
-        const toClear = messages.filter(m => m.author.id === user.id);
-        message.channel.bulkDelete(toClear);
-    }).then(() => {
-        logs.send(clearEmbed);
-    }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[1]} of ${user.tag}\'s messages have been cleared.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
-    });
+    if (user) {
+        const clearEmbed = new MessageEmbed()
+            .setTitle('User\'s Messages Cleared')
+            .addField('Amount of Messages', amount, false)
+            .addField('User', user.tag, false)
+            .addField('Moderator', message.author.tag, false)
+            .addField('Channel', message.channel.name + `(${message.channel.id})`, false)
+            .addField('Server', message.guild.name + `(${message.guild.id})`, false)
+            .setColor(embedColor)
+            .setTimestamp();
+        message.channel.messages.fetch({ limit: amount }).then(messages => {
+            const toClear = messages.filter(m => m.author.id === user.id);
+            message.channel.bulkDelete(toClear);
+        }).then(() => {
+            logs.send(clearEmbed);
+        }).then(() => {
+            message.channel.send(`<a:SuccessCheck:790804428495257600> ${amount} of ${user.tag}\'s messages have been cleared.`);
+        }).catch(() => {
+            message.channel.send('There was an error while processing your request!');
+        });
+    } else {
+        const nukeEmbed = new MessageEmbed()
+            .setTitle('Messages Cleared')
+            .addField('Amount of Messages', amount, false)
+            .addField('Channel', message.channel.name + `(${message.channel.id})`, false)
+            .addField('Moderator', message.author.tag, false)
+            .addField('Server', message.guild.name + `(${message.guild.id})`, false)
+            .setColor(embedColor)
+            .setTimestamp();
+        message.delete().then(() => {
+            message.channel.bulkDelete(amount, true);
+        }).then(() => {
+            logs.send(nukeEmbed);
+        }).catch(() => {
+            message.channel.send('There was an error while processing your request!');
+        });
+    }
 }
 
 exports.help = {
     name: 'clear',
     aliases: ['c'],
-    description: 'Purges a user\'s messages from a specific channel.',
-    usage: 'clear <user> [amount]'
+    description: 'Purges messages from a specific channel. Optionally from a user. Defaults to 25.',
+    usage: 'clear [user] [amount]'
 };
