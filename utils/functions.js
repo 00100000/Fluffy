@@ -15,10 +15,10 @@ module.exports = (client) => {
         }
     };
 
-    client.loadCommand = (cmdName) => {
+    client.loadCommand = (cmdFileName) => {
         try {
-            // client.logger.log(`Loading Command: ${cmdName} 👌`);
-            const props = require(`../commands/${cmdName}`);
+            // client.logger.log(`Loading Command: ${cmdFileName} 👌`);
+            const props = require(`../commands/${cmdFileName}`);
             if (props.init) props.init(client);
             client.commands.set(props.help.name, props);
             props.help.aliases.forEach(alias => {
@@ -26,20 +26,32 @@ module.exports = (client) => {
             });
             return;
         } catch (err) {
-            return `Unmable to load command ${cmdName}: ${err}`;
+            return `Unable to load command ${cmdFileName}: ${err}`;
         }
     };
 
-    client.unloadCommand = async (cmdName) => {
+    client.loadEvent = (eventFileName) => {
+        try {
+            // client.logger.log(`Loading Event: ${eventFileName} 👌`);
+            const event = require(`../events/${eventFileName}`);
+            const evtName = eventFileName.split('.')[0];
+            client.on(evtName, event.bind(null, client));
+            return;
+        } catch (err) {
+            return `Unable to load event ${eventFileName}: ${err}`;
+        }
+    };
+
+    client.unloadCommand = async (cmdFileName) => {
         let cmd;
-        if (client.commands.get(cmdName)) cmd = client.commands.get(cmdName);
-        else if (client.aliases.has(cmdName)) cmd = client.commands.get(client.aliases.get(cmdName));
+        if (client.commands.get(cmdFileName)) cmd = client.commands.get(cmdFileName);
+        else if (client.aliases.has(cmdFileName)) cmd = client.commands.get(client.aliases.get(cmdFileName));
         
-        if (!cmd) return `The command \`${cmdName}\` doesn't seem to exist.`;
+        if (!cmd) return `The command \`${cmdFileName}\` doesn't seem to exist.`;
 
         if (cmd.shutdown) await cmd.shutdown;
-        const mod = require.cache[require.resolve(`../commands/${cmdName}`)];
-        delete require.cache[require.resolve(`../commands/${cmdName}.js`)];
+        const mod = require.cache[require.resolve(`../commands/${cmdFileName}`)];
+        delete require.cache[require.resolve(`../commands/${cmdFileName}.js`)];
         for (let i = 0; i < mod.parent.children.length; i++) {
             mod.parent.children.splice(i, 1);
             break;

@@ -1,6 +1,8 @@
 const { MessageEmbed } = require('discord.js');
+const ms = require('ms');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
@@ -47,9 +49,14 @@ exports.run = async (client, message, args) => {
     member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
-    member.roles.add(muteRole).then(() => {
+    member.roles.add(muteRole).then(async () => {
         logs.send(muteEmbed);
 
+        let muted = await jsonReadFile("muted.json");
+        // set default
+        muted[member.guild.id] = muted[member.guild.id] || {};
+        muted[member.guild.id][member.id] = Date.now() + ms("1d");
+        await jsonWriteFile("muted.json", muted);
         
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
