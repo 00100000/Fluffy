@@ -22,16 +22,15 @@ const init = async () => {
 	cmdFiles.forEach(f => {
 		if (!f.endsWith('.js')) return;
 		const response = client.loadCommand(f);
-		if (response) client.logger.log(response);
+		if (response) client.logger.error(response);
 	});
 	client.logger.log(`Loading a total of ${cmdFiles.length} commands.`);
 
 	const evtFiles = await readdir('./events/');
 	evtFiles.forEach(f => {
-		const evtName = f.split('.')[0];
-		// client.logger.log(`Loading Event: ${evtName} 👌`);
-		const event = require(`./events/${f}`);
-		client.on(evtName, event.bind(null, client));
+		if (!f.endsWith('.js')) return;
+		const response = client.loadEvent(f);
+		if (response) client.logger.error(response);
 	});
 	client.logger.log(`Loading a total of ${evtFiles.length} events.`);
 

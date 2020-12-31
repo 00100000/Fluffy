@@ -1,7 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
-const { parseUser } = require('../utils/parse');
+const { jsonReadFile, jsonWriteFile } = require('../utils/file');
+const { parseUser, parseID } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
     // permissions
@@ -24,10 +25,16 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
 
-    message.guild.members.unban(args[0]).then(() => {
+    message.guild.members.unban(args[0]).then(async () => {
         logs.send(unbanEmbed);
+
+        
+
+        let banned = await jsonReadFile("muted.json");
+        delete banned[message.guild.id][parseID(client, args[0])];
+        jsonWriteFile("banned.json", banned);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${parseUser(client, args[0]).tag} has been unbanned.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} has been unbanned.`);
     }).catch(() => {
         message.channel.send('There was an error while processing your request!');
     });

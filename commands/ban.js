@@ -1,6 +1,8 @@
 const { MessageEmbed } = require('discord.js');
+const ms = require('ms');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
@@ -10,7 +12,17 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('BAN_MEMBERS')) return noPerms(message, 'BAN_MEMBERS');
     // command requirements
     let logs = client.channels.cache.get('790446465851850794');
-    let reason = args.slice(1).join(' ');
+    let date = undefined;
+    let reason = undefined;
+    try {
+        // assume the format is ?ban <userid> <date> <reason>
+        reason = args.slice(2).join(' ');
+        date = ms(args[1]);
+    } catch {
+        // not a valid date, or not provided
+        // we know the format must be ?ban <userid> <reason>
+        reason = args.slice(1).join(' ');
+    }
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send('This is not a user id or mention!');
@@ -34,8 +46,15 @@ exports.run = async (client, message, args) => {
     user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
-    logs.send(banEmbed).then(() => {
+    logs.send(banEmbed).then(async () => {
+        let member = message.guild.member(user);
         message.guild.members.ban(user, { reason: reason });
+
+        let banned = await jsonReadFile("banned.json");
+        banned[member.guild.id] = banned[member.guild.id] || {};
+        banned[member.guild.id][member.id] = date? (Date.now() + date) : -1;
+
+        await jsonWriteFile("banned.json", banned);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been banned.`);
     }).catch(e => {

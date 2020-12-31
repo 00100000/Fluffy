@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
@@ -47,8 +48,12 @@ exports.run = async (client, message, args) => {
     member.send(`You've been unmuted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
-    member.roles.remove(muteRole).then(() => {
+    member.roles.remove(muteRole).then(async () => {
         logs.send(unmuteEmbed);
+
+        let muted = await jsonReadFile("muted.json");
+        delete muted[message.guild.id][member.id];
+        jsonWriteFile("muted.json", muted);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been unmuted.`);
     }).catch(() => {

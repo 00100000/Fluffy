@@ -1,6 +1,8 @@
 const { MessageEmbed } = require('discord.js');
+const ms = require('ms');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
@@ -9,7 +11,17 @@ exports.run = async (client, message, args) => {
     if (!perms.has('MANAGE_ROLES')) return noBotPerms(message, 'MANAGE_ROLES');
     if (!message.member.permissions.has('MUTE_MEMBERS')) return noPerms(message, 'MUTE_MEMBERS');
     // command requirements
-    let reason = args.slice(1).join(' ');
+    let date = undefined;
+    let reason = undefined;
+    try {
+        // assume the format is ?mute <userid> <date> <reason>
+        reason = args.slice(2).join(' ');
+        date = ms(args[1]);
+    } catch {
+        // not a valid date, or not provided
+        // we know the format must be ?mute <userid> <reason>
+        reason = args.slice(1).join(' ');
+    }
     let member = message.guild.member(parseUser(client, args[0]));
     let logs = client.channels.cache.get('790446444112773130');
     let muteRole = message.guild.roles.cache.find(r => r.name === 'Muted');
@@ -47,10 +59,16 @@ exports.run = async (client, message, args) => {
     member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
-    member.roles.add(muteRole).then(() => {
+    member.roles.add(muteRole).then(async () => {
         logs.send(muteEmbed);
 
-        
+        let muted = await jsonReadFile("muted.json");
+        // set default
+        muted[member.guild.id] = muted[member.guild.id] || {};
+        // sorry for this ternary :P
+        muted[member.guild.id][member.id] = date? (Date.now() + date) : -1;
+
+        await jsonWriteFile("muted.json", muted);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
     }).catch(() => {
