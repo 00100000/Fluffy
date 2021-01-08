@@ -28,7 +28,9 @@ exports.run = async (client, message, args) => {
         .setFooter(`Made with <3 and discord.js by 00100000#1337`)
         .setTimestamp();
 
-    message.channel.send(statsEmbed);
+    message.channel.send(statsEmbed).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
+    });
 };
 
 exports.help = {

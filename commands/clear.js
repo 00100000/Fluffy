@@ -12,12 +12,19 @@ exports.run = async (client, message, args) => {
     let logs = client.channels.cache.get('793627033913131018');
     let user = parseUser(client, args[0]);
     let amount = user ? args[1] : args[0];
+    let trueCleared;
     // user issues
     if (!amount) amount = 25;
     if (isNaN(amount)) return message.channel.send('You must provide a number of messages for me to clear!');
     if (amount > 100 || amount < 1) return message.channel.send('You can only clear between 1 and 100 messages!');
     // action
     if (user) {
+        if (message.guild.member(user)) {
+            if (!message.guild.member(user).bannable) return message.channel.send('This user is too powerful to have their messages cleared!');
+            if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
+                return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
+            }
+        }
         const clearEmbed = new MessageEmbed()
             .setTitle('User\'s Messages Cleared')
             .addField('Amount of Messages', amount, false)
@@ -29,13 +36,14 @@ exports.run = async (client, message, args) => {
             .setTimestamp();
         message.channel.messages.fetch({ limit: amount }).then(messages => {
             const toClear = messages.filter(m => m.author.id === user.id);
+            trueCleared = toClear.array().length;
             message.channel.bulkDelete(toClear);
         }).then(() => {
             logs.send(clearEmbed);
         }).then(() => {
-            message.channel.send(`<a:SuccessCheck:790804428495257600> ${amount} of ${user.tag}\'s messages have been cleared.`);
-        }).catch(() => {
-            message.channel.send('There was an error while processing your request!');
+            message.channel.send(`<a:SuccessCheck:790804428495257600> ${trueCleared} of the last ${amount} messages from ${user.tag} have been cleared.`);
+        }).catch(e => {
+            message.channel.send(`\`\`\`${e}\`\`\``);
         });
     } else {
         const nukeEmbed = new MessageEmbed()
@@ -50,8 +58,8 @@ exports.run = async (client, message, args) => {
             message.channel.bulkDelete(amount, true);
         }).then(() => {
             logs.send(nukeEmbed);
-        }).catch(() => {
-            message.channel.send('There was an error while processing your request!');
+        }).catch(e => {
+            message.channel.send(`\`\`\`${e}\`\`\``);
         });
     }
 }

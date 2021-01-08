@@ -21,9 +21,9 @@ exports.run = async (client, message, args) => {
     
     message.channel.send(embed).then(() => {
         message.delete();
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
-    });
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
+    });;
 };
 
 exports.help = {

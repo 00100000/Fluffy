@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
     // action
     const unmuteEmbed = new MessageEmbed()
         .setTitle('User Unmuted')
-        .addField('User', args[0], false)
+        .addField('User', member.user.tag, false)
         .addField('Moderator', message.author.tag, false)
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
@@ -56,8 +56,8 @@ exports.run = async (client, message, args) => {
         jsonWriteFile("muted.json", muted);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been unmuted.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
 

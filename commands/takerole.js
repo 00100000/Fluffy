@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
     // action
     const takeEmbed = new MessageEmbed()
         .setTitle('Role Taken From User')
-        .addField('User', args[0], false)
+        .addField('User', member.user.tag, false)
         .addField('Moderator', message.author.tag, false)
         .addField('Role', roleToTake.name, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
@@ -36,8 +36,8 @@ exports.run = async (client, message, args) => {
         logs.send(takeEmbed);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${roleToTake.name} has been taken from ${member.user.tag}.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
 

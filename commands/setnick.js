@@ -12,19 +12,20 @@ exports.run = async (client, message, args) => {
     let logs = client.channels.cache.get('790650641429168167');
     let user = parseUser(client, args[0]);
     // user issues
-    let newNick = user ? args.slice(1).join(' ') : args.join(' ');
+    if (!user) return message.channel.send('This is not a user id or mention!');
+    if (!message.guild.member(user)) return message.channel.send('This user is not in this server!');
+    let newNick = args.join(' ');
+    let oldNick = message.guild.member(user).displayName;
     if (!newNick) return message.channel.send('You didn\'t tell me what you want the new nickname to be!');
     if (newNick.length > 32) return message.channel.send('The nickname must be less than 32 characters long!');
-    if (!user) user = message.author;
-    if (!message.guild.member(user)) return message.channel.send('This user is not in this server!');
-    let oldNick = message.guild.member(user).displayName;
     if (!message.guild.member(user).bannable) return message.channel.send('This user is too powerful to have their nickname changed!');
     if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send('You can\'t use this command on someone more or just as powerful as you!');
     }
     // action
-    const modNickEmbed = new MessageEmbed()
+    const nickEmbed = new MessageEmbed()
         .setTitle('Moderator Changed A User\'s Nickame')
+        .addField('User', user.tag, false)
         .addField('Moderator', message.author.tag, false)
         .addField('Old Nickname', oldNick, false)
         .addField('New Nickname', newNick, false)
@@ -33,15 +34,15 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     // change nick
     message.guild.member(user).setNickname(newNick).then(() => {
-        message.channel.send('<a:SuccessCheck:790804428495257600> New Nickname: ' + newNick);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag}'s New Nickname: ${newNick}`);
     }).then(() => {
-        logs.send(modNickEmbed);
+        logs.send(nickEmbed);
     });
 };
 
 exports.help = {
     name: 'setnick',
     aliases: ['nick', 'sn'],
-    description: 'Sets your nickname or lets a moderator change another user\'s nickname.',
-    usage: 'setnick <new nickname> OR setnick <user> <new nickname>'
+    description: 'For changing naughty nicknames on mobile, and keeping track of them.',
+    usage: 'setnick <user> <new nickname>'
 };

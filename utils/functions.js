@@ -79,7 +79,7 @@ module.exports = (client) => {
     });
     
     process.on('unhandledRejection', error => {
-        client.logger.error(`UH OH BIG BOI ERROR: ${error}\n\n\nDetails:`);
+        client.logger.error(`I bet this is Natsumi's fault: ${error}\n\n\nDetails:`);
         console.error(error);
         console.log("\n\n\n");
     });

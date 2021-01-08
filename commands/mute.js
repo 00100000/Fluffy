@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
     // action
     const muteEmbed = new MessageEmbed()
         .setTitle('User Muted')
-        .addField('User', args[0], false)
+        .addField('User', member.user.tag, false)
         .addField('Moderator', message.author.tag, false)
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
@@ -66,13 +66,13 @@ exports.run = async (client, message, args) => {
         // set default
         muted[member.guild.id] = muted[member.guild.id] || {};
         // sorry for this ternary :P
-        muted[member.guild.id][member.id] = date? (Date.now() + date) : -1;
+        muted[member.guild.id][member.id] = date ? (Date.now() + date) : -1;
 
         await jsonWriteFile("muted.json", muted);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
 

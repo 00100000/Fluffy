@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
     // action
     const giveEmbed = new MessageEmbed()
         .setTitle('Role Given to User')
-        .addField('User', args[0], false)
+        .addField('User', member.user.tag, false)
         .addField('Moderator', message.author.tag, false)
         .addField('Role', roleToGive.name, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
@@ -36,9 +36,9 @@ exports.run = async (client, message, args) => {
         logs.send(giveEmbed);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been given the role ${roleToGive.name}.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
-    });
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
+    });;
 };
 
 exports.help = {

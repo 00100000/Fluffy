@@ -35,8 +35,8 @@ exports.run = async (client, message, args) => {
         jsonWriteFile("banned.json", banned);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} has been unbanned.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
 

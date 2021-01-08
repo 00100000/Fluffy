@@ -21,7 +21,9 @@ exports.run = async (client, message, args) => {
         .setFooter('Fancy!')
         .setTimestamp();
     
-    message.channel.send(colorEmbed);
+    message.channel.send(colorEmbed).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
+    });
 };
 
 exports.help = {

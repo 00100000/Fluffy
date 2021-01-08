@@ -12,8 +12,8 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
     
-    message.channel.send(countEmbed).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    message.channel.send(countEmbed).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
 

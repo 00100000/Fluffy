@@ -29,8 +29,8 @@ exports.run = async (client, message, args) => {
         });
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> #${channel.name} has been unlocked.`);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
 

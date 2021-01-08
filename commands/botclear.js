@@ -9,6 +9,7 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('MANAGE_MESSAGES')) return noPerms(message, 'MANAGE_MESSAGES');
     // command requirements
     let logs = client.channels.cache.get('793637785147801600');
+    let trueCleared;
     const botPrefixes = ['!', '?', '&', '-', '>', 'u.', 'pls ', '.', 'd?', '+', '%', 's.'];
     // user issues
     if (!args[0]) args[0] = 25;
@@ -27,13 +28,16 @@ exports.run = async (client, message, args) => {
         const toClear = messages.filter(m => m.author.bot || botPrefixes.some(p => {
             return (m.content.toLowerCase().startsWith(p));
         }));
+        trueCleared = toClear.array().length;
         message.channel.bulkDelete(toClear);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} bot and bot-related messages cleared.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${trueCleared} bot and bot-related messages cleared from the last ${args[0]} messages.`).then(message => {
+            message.delete({ timeout: 5000 });
+        })
     }).then(() => {
         logs.send(botclearEmbed);
-    }).catch(() => {
-        message.channel.send('There was an error while processing your request!');
+    }).catch(e => {
+        message.channel.send(`\`\`\`${e}\`\`\``);
     });
 }
 

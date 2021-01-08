@@ -36,7 +36,7 @@ exports.run = async (client, message, args) => {
     // action
     const banEmbed = new MessageEmbed()
         .setTitle('User Banned')
-        .addField('User', args[0], false)
+        .addField('User', user.tag, false)
         .addField('Moderator', message.author.tag, false)
         .addField('Reason', reason, false)
         .addField('Server', message.guild.name + `(${message.guild.id})`, false)
@@ -47,14 +47,16 @@ exports.run = async (client, message, args) => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
     logs.send(banEmbed).then(async () => {
-        let member = message.guild.member(user);
-        message.guild.members.ban(user, { reason: reason });
+        if (date) {
+            let member = message.guild.member(user);
+            message.guild.members.ban(user, { reason: reason });
 
-        let banned = await jsonReadFile("banned.json");
-        banned[member.guild.id] = banned[member.guild.id] || {};
-        banned[member.guild.id][member.id] = date? (Date.now() + date) : -1;
+            let banned = await jsonReadFile("banned.json");
+            banned[member.guild.id] = banned[member.guild.id] || {};
+            banned[member.guild.id][member.id] = date? (Date.now() + date) : -1;
 
-        await jsonWriteFile("banned.json", banned);
+            await jsonWriteFile("banned.json", banned);
+        }
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been banned.`);
     }).catch(e => {
