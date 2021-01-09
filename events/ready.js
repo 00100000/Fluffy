@@ -29,7 +29,10 @@ module.exports = async client => {
                 // if the mute IS timed, and the mute has expired, we can unmute them
                 if (Date.now() > muted[guildID][userID]) {
                     // remove muted role
-                    client.guilds.cache.get(guildID).member(userID).roles.remove(muteRole);
+                    try {
+                        client.guilds.cache.get(guildID).member(userID).roles.remove(muteRole);
+                    } catch (e) {}
+                    
                     // delete from muted.json, write to file
                     delete muted[guildID][userID];
                     jsonWriteFile("muted.json", muted);
