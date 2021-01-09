@@ -5,7 +5,7 @@ module.exports = async (client, message) => {
     const naughties = ['https:', 'dsc.gg', 'discord.gg'];
     if (!message.guild) return;
     if (blacklist.includes(message.author.id)) return;
-    if (naughties.some(s => message.content.toLowerCase().includes(s)) && !message.author.permissions.has('MANAGE_GUILD') && message.channel.id != '774142671249211403') {
+    if (naughties.some(s => message.content.toLowerCase().includes(s)) && !message.guild.member(message.author).permissions.has('MANAGE_GUILD') && message.channel.id != '774142671249211403') {
         return message.delete();
     }
 
