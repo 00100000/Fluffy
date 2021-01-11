@@ -4,7 +4,7 @@ const { blacklist } = require('../data.json');
 module.exports = async (client, message) => {
     const naughties = ['https:', 'dsc.gg', 'discord.gg'];
     if (!message.guild) return;
-    if (blacklist.includes(message.author.id)) return;
+    if (blacklist.includes(message.author.id)) return message.channel.send('You are not allowed to use this bot 😘');
     if (naughties.some(s => message.content.toLowerCase().includes(s)) && !message.guild.member(message.author).permissions.has('EMBED_LINKS') && message.channel.id != '774142671249211403') {
         return message.delete();
     }
