@@ -14,6 +14,7 @@ client.commands = new Map();
 client.aliases = new Map();
 
 client.logger = require('./utils/logger');
+client.lastDeletedMessageInfo;
 
 require('./utils/functions')(client);
 
