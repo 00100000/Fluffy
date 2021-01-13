@@ -1,28 +1,27 @@
 const { prefix } = require('../config');
-const { blacklist } = require('../data.json');
+const { jsonReadFile } = require('../utils/file');
 
 module.exports = async (client, message) => {
-    const naughties = ['https:', 'dsc.gg', 'discord.gg'];
+    const blacklist = await jsonReadFile('./blacklist.json');
+    // DMs and bots
     if (!message.guild) return;
-    if (naughties.some(s => message.content.toLowerCase().includes(s)) && !message.guild.member(message.author).permissions.has('EMBED_LINKS') && message.channel.id != '774142671249211403') {
+    if (message.author.bot) return;
+    // filter
+    const naughties = ['https:', 'dsc.gg', 'discord.gg'];
+    if (naughties.some(s => message.content.toLowerCase().includes(s)) && !message.guild.member(message.author).permissions.has('EMBED_LINKS') && message.channel.id != '797666779731329074') {
         return message.delete();
     }
 
-    const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
-    const newPrefix = message.content.match(prefixMention) ? message.content.match(prefixMention)[0] : prefix;
-
-    const getPrefix = new RegExp(`^<@!?${client.user.id}>( |)$`);
-    if (message.content.match(getPrefix)) return message.channel.send(`My Prefix is: \`${prefix}\``);
-
-    if (message.author.bot) return;
-    if (message.content.indexOf(newPrefix) !== 0) return;
-
-    const args = message.content.slice(newPrefix.length).trim().split(/ +/g);
+    // commands
+    if (!message.content.startsWith(prefix)) return;
+    // command and args
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-
+    // aliases
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
+    
     if (!cmd) return;
-    if (blacklist.includes(message.author.id)) return message.channel.send('You are not allowed to use this bot 😘');
+    if (blacklist.blacklist.includes(message.author.id)) return message.channel.send('You are not allowed to use this bot 😘');
     
     cmd.run(client, message, args);
 };

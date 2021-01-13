@@ -6,18 +6,17 @@ module.exports = async client => {
     client.user.setStatus('online');
     client.user.setActivity('Chill Hub', { type: 'WATCHING' });
 
-    const dataFiles = ['./muted.json', './banned.json'];
-    dataFiles.forEach(async path => {
-        await jsonCreateFile(path, {});
-    });
+    await jsonCreateFile('./muted.json', {});
+    await jsonCreateFile('./banned.json', {});
+    await jsonCreateFile('./blacklist.json', {blacklist:[]});
 
     // timed mutes/bans
     // lord please forgive me for the code I'm about to put out into the world
     // I unfortunately can't make this any simpler, so I'll excessively comment to compensate for the density of this code
     // the uncommented sections should be pretty self-explanatory
     setInterval(async () => {
-        let muted = await jsonReadFile("muted.json");
-        let banned = await jsonReadFile("banned.json");
+        let muted = await jsonReadFile('./muted.json');
+        let banned = await jsonReadFile('./banned.json');
 
         Object.keys(muted).forEach(guildID => {
             let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === 'Muted');
@@ -53,5 +52,5 @@ module.exports = async client => {
                 }
             });
         });
-    }, 5000);
+    }, 15000);
 };

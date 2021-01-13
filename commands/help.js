@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
 
     const helpEmbed = new MessageEmbed()
         .setTitle('Help Information')
-        .setDescription(`View help information for ${client.user}. \n (Do \`${prefix}help <command>\` for specific help information).`)
+        .setDescription(`View help information for ${client.user}. \n (Do \`${prefix}help [command]\` for specific help information).`)
         .addField('Current Prefix', prefix)
         .addField('Bot Commands', helpCmds.join(' | '))
         .addField('Found an issue?', `Please report any issues to <@${owner}>.`)
