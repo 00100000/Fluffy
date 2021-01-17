@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { embedColor } = require('../config');
 const { noBotPerms, noPerms } = require('../utils/errors');
+const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 
 exports.run = async (client, message, args) => {
     // permissions
@@ -17,12 +18,22 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
 
-    logs.send(endlockdownEmbed).then(() => {
-        message.guild.channels.cache.forEach(channel => {
-            channel.updateOverwrite(message.guild.roles.everyone ,{
-                'SEND_MESSAGES': true
-            });
+    logs.send(endlockdownEmbed).then(async () => {
+        let lockedDownPerms = await jsonReadFile("lockdown.json");
+        const guildID = message.guild.id;
+
+        message.guild.channels.cache.forEach(async channel => {
+            // brain death
+            if (lockedDownPerms[guildID] && lockedDownPerms[guildID][channel.id]) {
+                channel.updateOverwrite(message.guild.roles.everyone ,{
+                    'SEND_MESSAGES': lockedDownPerms[guildID][channel.id]
+                });
+                    
+                delete lockedDownPerms[guildID][channel.id];
+            }
         });
+
+        await jsonWriteFile("lockdown.json", lockedDownPerms);
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> The lockdown in ${message.guild.name} has been ended.`);
     }).catch(e => {
@@ -31,8 +42,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'endlockdown',
-    aliases: ['eld'],
+    name: 'unlockdown',
+    aliases: ['uld'],
     description: 'Ends a lockdown.',
-    usage: 'endlockdown'
+    usage: 'unlockdown'
 };

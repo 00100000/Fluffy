@@ -6,7 +6,7 @@ module.exports = async client => {
     client.user.setStatus('online');
     client.user.setActivity('Chill Hub', { type: 'WATCHING' });
 
-    const dataFiles = ['./muted.json', './banned.json'];
+    const dataFiles = ['./muted.json', './banned.json', './lockdown.json'];
     dataFiles.forEach(async path => {
         await jsonCreateFile(path, {});
     });
