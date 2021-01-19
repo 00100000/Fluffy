@@ -7,6 +7,9 @@ module.exports = (client, message) => {
     if (!message.content) return;
     if (message.author.bot) return;
 
+    // SNIPE
+    if (message.guild.id === '735967554757197856') client.lastDeletedMessageInfo = message;
+
     const deleteEmbed = new MessageEmbed()
         .setTitle('Delete Event')
         .addField('Author', message.author, false)

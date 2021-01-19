@@ -61,14 +61,12 @@ exports.run = async (client, message, args) => {
     });
     member.roles.add(muteRole).then(async () => {
         logs.send(muteEmbed);
-
+        // timed mute
         let muted = await jsonReadFile("muted.json");
-        // set default
         muted[member.guild.id] = muted[member.guild.id] || {};
-        // sorry for this ternary :P
         muted[member.guild.id][member.id] = date ? (Date.now() + date) : -1;
-
         await jsonWriteFile("muted.json", muted);
+        // timed mute
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
     }).catch(e => {

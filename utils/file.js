@@ -1,27 +1,22 @@
 const fs = require('fs');
 
-
-
-const jsonCreateFile = async (path, data={}) => {
+async function jsonCreateFile (path, data = {}) {
     if (!fs.existsSync(path)) {
         await jsonWriteFile(path, data);
     }
-    return "done";
+    return true;
 };
 
-const jsonReadFile = async (path) => {
+async function jsonReadFile (path) {
     return JSON.parse(fs.readFileSync(path, {encoding: 'utf8'}));
 };
 
-const jsonWriteFile = async (path, data) => {
-    // wouldn't want to accidentally clear all our data, haha
+async function jsonWriteFile (path, data) {
     if (data) {
         fs.writeFileSync(path, JSON.stringify(data), {encoding: 'utf8'});
     }
-    return "done";
+    return true;
 };
-
-
 
 module.exports = {
     jsonCreateFile,

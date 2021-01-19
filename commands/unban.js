@@ -27,16 +27,15 @@ exports.run = async (client, message, args) => {
 
     message.guild.members.unban(args[0]).then(async () => {
         logs.send(unbanEmbed);
-
-        
-
+        // timed unban
         let banned = await jsonReadFile("muted.json");
         delete banned[message.guild.id][parseID(client, args[0])];
         jsonWriteFile("banned.json", banned);
+        // timed unban
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} has been unbanned.`);
     }).catch(e => {
-        message.channel.send(`\`\`\`${e}\`\`\``);
+        message.channel.send(`You didn't provide an object that could be resolved as a user! More details:\`\`\`${e}\`\`\``);
     });
 };
 

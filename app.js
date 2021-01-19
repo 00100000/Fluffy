@@ -4,16 +4,17 @@ const readdir = promisify(require('fs').readdir);
 require('dotenv-flow').config({ silent: true });
 
 const client = new Client({
-	disableEveryone:  true,
+	disableMentions:  'everyone',
 	messageCacheMaxSize: 500,
-	messageCacheLifetime: 120,
-	messageSweepInterval: 60
+	messageCacheLifetime: 86400,
+	messageSweepInterval: 86400
 });
 
 client.commands = new Map();
 client.aliases = new Map();
 
 client.logger = require('./utils/logger');
+client.lastDeletedMessageInfo;
 
 require('./utils/functions')(client);
 

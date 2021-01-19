@@ -48,15 +48,15 @@ exports.run = async (client, message, args) => {
     });
     logs.send(banEmbed).then(async () => {
         if (date) {
+            // timed ban
             let member = message.guild.member(user);
-            message.guild.members.ban(user, { reason: reason });
-
             let banned = await jsonReadFile("banned.json");
             banned[member.guild.id] = banned[member.guild.id] || {};
             banned[member.guild.id][member.id] = date? (Date.now() + date) : -1;
-
             await jsonWriteFile("banned.json", banned);
+            // timed ban
         }
+        message.guild.members.ban(user, { reason: `${message.author.tag}: ${reason}` });
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been banned.`);
     }).catch(e => {

@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     // user issues
     if (!user) return message.channel.send('This is not a user id or mention!');
     if (!message.guild.member(user)) return message.channel.send('This user is not in this server!');
-    let newNick = args.join(' ');
+    let newNick = args.slice(1).join(' ');
     let oldNick = message.guild.member(user).displayName;
     if (!newNick) return message.channel.send('You didn\'t tell me what you want the new nickname to be!');
     if (newNick.length > 32) return message.channel.send('The nickname must be less than 32 characters long!');
