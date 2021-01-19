@@ -24,8 +24,8 @@ exports.run = async (client, message, args) => {
 
         message.guild.channels.cache.forEach(async channel => {
             // brain death
-            if (lockedDownPerms[guildID] && lockedDownPerms[guildID][channel.id]) {
-                channel.updateOverwrite(message.guild.roles.everyone ,{
+            if (lockedDownPerms?.[guildID]?.[channel.id] !== undefined) {
+                channel.updateOverwrite(message.guild.roles.everyone, {
                     'SEND_MESSAGES': lockedDownPerms[guildID][channel.id]
                 });
                     

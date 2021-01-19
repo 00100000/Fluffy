@@ -19,20 +19,35 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
 
     
+    let lockedDownPerms = await jsonReadFile("lockdown.json");
+    const guildID = message.guild.id;
 
+    lockedDownPerms[guildID] = lockedDownPerms[guildID] || {};
+
+    // if the guild is already in a lockdown, wait until they unlockdown first.
+    if (Object.keys(lockedDownPerms[guildID]).length) {
+        await jsonWriteFile("lockdown.json", lockedDownPerms);
+        return message.channel.send("The guild is already in lockdown! Use `?unlockdown`.");
+    }
+        
     logs.send(lockdownEmbed).then(async () => {
-        let lockedDownPerms = await jsonReadFile("lockdown.json");
-        const guildID = message.guild.id;
-
         message.guild.channels.cache.filter(channel => channel.type === 'text').forEach(async channel => {
-            // read file, if the guild doesn't exist make it an object
-            // each channel has either true, or false as the value.
-            const perms = channel.permissionsFor(message.guild.roles.everyone).serialize();
+            // https://discord.js.org/#/docs/main/stable/class/PermissionOverwrites
+            const perms = channel.permissionOverwrites.find(p => p.id === ("" + message.guild.roles.everyone));
+            // true (allowed), false (denied), null (neutral)
+            let sendMessagePerm = null;
 
             lockedDownPerms[guildID] = lockedDownPerms[guildID] || {};
-            lockedDownPerms[guildID][channel.id] = perms["SEND_MESSAGES"];
 
-            channel.updateOverwrite(message.guild.roles.everyone ,{
+            // brain go WAHHHHHHHH, I think this the first time I've used the bitwise AND operator
+            // we need to know if it's denied, allowed, OR NEUTRAL!!!!
+            // That's why we have to use this weird PermissionOverwrites workaround instead of Permissions.has()
+            // 2048 is SEND_MESSAGES
+            if (perms.allow & 2048) sendMessagePerm = true;
+            else if (perms.deny & 2048) sendMessagePerm = false;
+            lockedDownPerms[guildID][channel.id] = sendMessagePerm;
+
+            channel.updateOverwrite(message.guild.roles.everyone, {
                 'SEND_MESSAGES': false
             });
         });

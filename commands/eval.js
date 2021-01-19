@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
 
     try {
         // todo: possible paginate eval output, or give warning
-        const output = eval(args.join(' '));
+        const output = "" + eval(`(${args.join(' ')})`);
         
         if (output.length === 0) return;
         if (output.length > 2000) return message.channel.send(`Output is too big! (${output.length})`);
