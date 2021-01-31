@@ -28,7 +28,6 @@
   "homepage": "https://github.com/00100000spacebar/chill-mod#README.md",
   "dependencies": {
     "chalk": "^4.1.0",
-    "common-tags": "^1.8.0",
     "discord.js": "^12.5.1",
     "dotenv-flow": "^3.2.0",
     "moment": "^2.29.1",
