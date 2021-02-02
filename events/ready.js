@@ -6,8 +6,10 @@ module.exports = async client => {
     client.user.setStatus('online');
     client.user.setActivity('Developed by Infernal#1304', { type: 'PLAYING' });
 
-    await jsonCreateFile('./muted.json', {});
-    await jsonCreateFile('./banned.json', {});
+    const dataFiles = ['./muted.json', './banned.json', './lockdown.json'];
+    dataFiles.forEach(async path => {
+        await jsonCreateFile(path, {});
+    });
     await jsonCreateFile('./blacklist.json', {blacklist:[]});
 
     setInterval(async () => {
