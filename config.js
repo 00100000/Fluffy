@@ -2,7 +2,7 @@ require('dotenv-flow').config({ silent: true });
 
 module.exports = {
     prefix: process.env.PREFIX,
-    owner: process.env.OWNER,
+    owners: process.env.OWNERS.split(":"),
     embedColor: process.env.DEFAULT_COLOR,
     discord: process.env.DISCORD,
     invite: process.env.INVITE

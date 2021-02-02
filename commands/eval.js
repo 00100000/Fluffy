@@ -1,8 +1,8 @@
-const { owner } = require('../config');
+const { owners } = require('../config');
 
 exports.run = async (client, message, args) => {
 
-    if (message.author.id !== owner) return message.channel.send('Only the owner of this bot can use this command!');
+    if (!owners.includes(message.author.id)) return message.channel.send('Only the owner of this bot can use this command!');
 
     try {
         // todo: possible paginate eval output, or give warning
