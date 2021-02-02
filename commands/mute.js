@@ -56,7 +56,9 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
 
-    member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
+    // I am the ternary wizard
+    const dateMessage = date ? " for " + (ms(date, {long: true})) : "";
+    member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}${dateMessage}.`).catch(() => {
         message.channel.send('I wasn\'t able to DM this user.');
     });
     member.roles.add(muteRole).then(async () => {
@@ -68,8 +70,9 @@ exports.run = async (client, message, args) => {
         await jsonWriteFile("muted.json", muted);
         // timed mute
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted.`);
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted${dateMessage}.`);
     }).catch(e => {
+        console.trace(e);
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
 };
