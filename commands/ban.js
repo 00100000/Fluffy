@@ -43,9 +43,13 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
 
-    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
-        message.channel.send('I wasn\'t able to DM this user.');
-    });
+    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`)
+        .then(() => {
+            const banAppealInvite = "https://discord.gg/xhCCBvzbs8";
+            user.send(`You can appeal your ban! ${banAppealInvite}`).catch(()=>{});
+        }).catch(() => {
+            message.channel.send('I wasn\'t able to DM this user.');
+        });
     logs.send(banEmbed).then(async () => {
         if (date) {
             // timed ban
