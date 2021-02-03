@@ -1,4 +1,4 @@
-require('dotenv-flow').config({ silent: true });
+require('dotenv-flow').config({ silent: true, path: './.ENV' });
 
 module.exports = {
     prefix: process.env.PREFIX,
