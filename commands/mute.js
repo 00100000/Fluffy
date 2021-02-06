@@ -17,6 +17,7 @@ exports.run = async (client, message, args) => {
         // assume the format is ?mute <userid> <date> <reason>
         reason = args.slice(2).join(' ');
         date = ms(args[1]);
+        if (date === undefined) throw new Error("Not a date! Sad.");
     } catch {
         // not a valid date, or not provided
         // we know the format must be ?mute <userid> <reason>
