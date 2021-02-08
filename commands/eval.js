@@ -1,17 +1,10 @@
-const { owners } = require('../config');
+const { owner } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-
-    if (!owners.includes(message.author.id)) return message.channel.send('Only the owner of this bot can use this command!');
+    if (message.author.id !== owner) return message.channel.send('Only the owner of this bot can use this command!');
 
     try {
-        // todo: possible paginate eval output, or give warning
-        const output = "" + eval(args.join(' '));
-        
-        if (output.length === 0) return;
-        if (output.length > 2000) return message.channel.send(`Output is too big! (${output.length})`);
-
-        message.channel.send(output);
+        message.channel.send(eval(args.join(' ')));
     } catch (err) {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
     }

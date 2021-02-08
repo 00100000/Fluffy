@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { embedColor } = require('../config');
+const { embedColor } = require('../config.json');
 
 module.exports = (client, messageReaction, user) => {
     let logs = client.channels.cache.get('790446570445209600');

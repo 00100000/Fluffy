@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const { owners, prefix, embedColor } = require('../config');
 const { noBotPerms } = require('../utils/errors');
+const { owner, prefix, embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
     let perms = message.guild.me.permissions;
@@ -35,9 +35,9 @@ exports.run = async (client, message, args) => {
         .setDescription(`View help information for ${client.user}. \n (Do \`${prefix}help [command]\` for specific help information).`)
         .addField('Current Prefix', prefix)
         .addField('Bot Commands', helpCmds.join(' | '))
-        .addField('Found an issue?', `Please report any issues to ${owners.map(o => "<@" + o + ">").join("/")}.`)
+        .addField('Found an issue?', `Please report any issues to ${owner}`)
         .setColor(embedColor)
-        .setFooter(`Made with <3 and discord.js by 00100000#1337`)
+        .setFooter(`Made with <3 and discord.js by 00100000#0032`)
         .setTimestamp();
 
     message.channel.send(helpEmbed).catch(e => {

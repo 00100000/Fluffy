@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
-const { noBotPerms, noPerms } = require('../utils/errors');
-const { embedColor } = require('../config');
 const { parseUser } = require('../utils/parse');
+const { noBotPerms, noPerms } = require('../utils/errors');
+const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
     // permissions

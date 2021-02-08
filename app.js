@@ -1,7 +1,6 @@
 const { Client } = require('discord.js');
 const { promisify } = require('util');
 const readdir = promisify(require('fs').readdir);
-require('dotenv-flow').config({ silent: true });
 
 const client = new Client({
 	disableMentions:  'everyone',

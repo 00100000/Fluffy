@@ -4,14 +4,17 @@ module.exports = async client => {
     await client.logger.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.cache.size} server(s).`);
     
     client.user.setStatus('online');
-    client.user.setActivity('Developed by Infernal#1304', { type: 'PLAYING' });
+    client.user.setActivity('you sleep', { type: 'WATCHING' });
+    
+    // Absolute Shit Show
 
+    // set up files if they don't already exist
     const dataFiles = ['./muted.json', './banned.json', './lockdown.json'];
     dataFiles.forEach(async path => {
         await jsonCreateFile(path, {});
     });
     await jsonCreateFile('./blacklist.json', {blacklist:[]});
-
+    // check for unmuted and unbanned users
     setInterval(async () => {
         let muted = await jsonReadFile('./muted.json');
         let banned = await jsonReadFile('./banned.json');
@@ -36,7 +39,6 @@ module.exports = async client => {
                 }
             });
         });
-
         // same thing for banned, but we unban them instead of unmuting them
         Object.keys(banned).forEach(guildID => {
             Object.keys(banned[guildID]).forEach(userID => {

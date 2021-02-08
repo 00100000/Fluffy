@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const { embedColor } = require('../config');
 const { noBotPerms } = require('../utils/errors');
+const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
     // permissions
@@ -24,6 +24,6 @@ exports.run = async (client, message, args) => {
 exports.help = {
     name: 'snipe',
     aliases: [],
-    description: 'Shows the last deleted message on Chill Hub.',
+    description: 'Shows the last deleted message.',
     usage: 'snipe'
 };

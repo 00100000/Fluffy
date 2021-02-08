@@ -1,9 +1,9 @@
-const { MessageEmbed, version: discordVersion } = require('discord.js');
-const moment = require('moment');
-const { embedColor } = require('../config');
-const { version } = require('../package.json');
-const { noBotPerms } = require('../utils/errors');
 require('moment-duration-format');
+const moment = require('moment');
+const { MessageEmbed, version: discordVersion } = require('discord.js');
+const { noBotPerms } = require('../utils/errors');
+const { version } = require('../package.json');
+const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
 
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
         .addField('Discord.js', `v${discordVersion}`, true)
         .addField('Node', `${process.version}`, true)
         .addField('Bot Version', version, true)
-        .setFooter(`Made with <3 and discord.js by 00100000#1337`)
+        .setFooter(`Made with <3 and discord.js by 00100000#0032`)
         .setTimestamp();
 
     message.channel.send(statsEmbed).catch(e => {
