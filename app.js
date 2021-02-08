@@ -6,7 +6,8 @@ const client = new Client({
 	disableMentions:  'everyone',
 	messageCacheMaxSize: 500,
 	messageCacheLifetime: 86400,
-	messageSweepInterval: 86400
+	messageSweepInterval: 86400,
+	fetchAllMembers: true
 });
 
 client.commands = new Map();
