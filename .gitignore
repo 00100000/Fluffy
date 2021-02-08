@@ -64,7 +64,6 @@ typings/
 data/
 package-lock.json
 nodemon.json
-TODO
 
 # Punishments
 blacklist.json

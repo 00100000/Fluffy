@@ -1,0 +1,12 @@
+- put links and IDs in the bot in the config
+- rework no user perms and no bot perms handling
+- make ?ban work with IDs
+- make error messages in commands more consistent and use the 'X' emoji
+- make a util for handling common command errors
+- tell user how long someone was muted/banned for in embed
+- track punishments
+- make messageDelete and messageUpdate track what channel a message was deleted in
+- track manual kicks and bans for anti-raid
+- ?promote to give higher roles
+- ?demote
+- switch parse commands to built in regex
