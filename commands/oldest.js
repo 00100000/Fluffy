@@ -8,27 +8,31 @@ const { noBotPerms } = require('../utils/errors');
 require('moment-duration-format');
 
 exports.run = async (client, message, args) => {
-
     let perms = message.guild.me.permissions;
     if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
+
+    const count = args[0] || 10;
+
+    if (count < 1 || count > 20) return message.channel.send("Invalid number! The count must be 1-20!");
 
     const oldest = message.guild.members.cache
                         .map(v => v)
                         .sort((a, b) => a.id - b.id)
-                        .splice(0, 10);
+                        .slice(0, count);
 
+    const authorIndex = oldest.findIndex(v => message.author.id === v.id);
+    
     message.channel.send(
         "**Ten oldest users**:\n" +
 
-        oldest.map(gu => {
-            return `**${gu.user.username}#${gu.user.discriminator}** (${gu.id}) --> ${moment(gu.user.createdAt).calendar()}`;
+        oldest.slice(0, count).map((gu, i) => {
+            return `#${i+1} **${gu.user.username}#${gu.user.discriminator}** (${gu.id}) --> ${moment(gu.user.createdAt).calendar()}`;
         }).join("\n") +
 
         "\n...\n" +
 
-        `**${message.author.user.username}#${message.author.discriminator}** (${gu.id}) --> ${moment(gu.user.createdAt).calendar()}`
+        `#${authorIndex+1} **${message.author.username}#${message.author.discriminator}** (${message.author.id}) --> ${moment(message.author.createdAt).calendar()}`
     );
-
 };
 
 exports.help = {
