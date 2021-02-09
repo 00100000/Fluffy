@@ -1,4 +1,5 @@
 - put links and IDs in the bot in the config
+- switch parse commands to built in regex
 - rework no user perms and no bot perms handling
 - make ?ban work with IDs
 - make error messages in commands more consistent and use the 'X' emoji
@@ -6,7 +7,11 @@
 - tell user how long someone was muted/banned for in embed
 - track punishments
 - make messageDelete and messageUpdate track what channel a message was deleted in
-- track manual kicks and bans for anti-raid
+- ?quarantine: takes all roles and gives role with access to only 1 channel
 - ?promote to give higher roles
 - ?demote
-- switch parse commands to built in regex
+- auto-quarantine if a non-owner with mention everyone perms pings everyone
+- auto-quarantine if a moderator+ manually kicks/bans 5 or more people
+- ?userinfo
+- ?serverinfo
+- ?avatar

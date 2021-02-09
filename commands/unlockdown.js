@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> The lockdown in ${message.guild.name} has been ended.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
-    });;
+    });
 };
 
 exports.help = {

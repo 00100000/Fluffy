@@ -62,10 +62,11 @@ typings/
 
 # Other
 data/
-package-lock.json
+.DS_Store
 nodemon.json
+package-lock.json
 
 # Punishments
-blacklist.json
 muted.json
 banned.json
+blacklist.json

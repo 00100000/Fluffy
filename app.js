@@ -1,6 +1,7 @@
-const { Client } = require('discord.js');
 const { promisify } = require('util');
+const { Client } = require('discord.js');
 const readdir = promisify(require('fs').readdir);
+require('dotenv-flow').config({ silent: true });
 
 require('dotenv').config();
 
@@ -8,8 +9,7 @@ const client = new Client({
 	disableMentions:  'everyone',
 	messageCacheMaxSize: 500,
 	messageCacheLifetime: 86400,
-	messageSweepInterval: 86400,
-	fetchAllMembers: true
+	messageSweepInterval: 86400
 });
 
 client.commands = new Map();
