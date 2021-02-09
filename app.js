@@ -2,6 +2,8 @@ const { Client } = require('discord.js');
 const { promisify } = require('util');
 const readdir = promisify(require('fs').readdir);
 
+require('dotenv').config();
+
 const client = new Client({
 	disableMentions:  'everyone',
 	messageCacheMaxSize: 500,
