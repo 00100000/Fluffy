@@ -6,7 +6,7 @@ const { embedColor } = require('../config.json');
 exports.run = async (client, message, args) => {
     // permissions
     let perms = message.guild.me.permissions;
-    if (!perms.has('ADMINISTRATOR')) return noBotPerms(message, 'ADMINISTRATOR');
+    if (!perms.has('MANAGE_MESSAGES')) return noBotPerms(message, 'MANAGE_MESSAGES');
     if (!message.member.permissions.has('MANAGE_MESSAGES')) return noPerms(message, 'MANAGE_MESSAGES');
     // command requirements
     let logs = client.channels.cache.get('793627033913131018');
