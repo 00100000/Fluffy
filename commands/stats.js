@@ -1,14 +1,12 @@
 require('moment-duration-format');
 const moment = require('moment');
 const { MessageEmbed, version: discordVersion } = require('discord.js');
-const { noBotPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { version } = require('../package.json');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-
-    let perms = message.guild.me.permissions;
-    if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
+    if (noPerms(message, 'EMBED_LINKS', 'SEND_MESSAGES')) return;
 
     const botUptime = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
     const memUsage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);

@@ -1,14 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 const { parseUser } = require('../utils/parse');
-const { noBotPerms, noPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('KICK_MEMBERS')) return noBotPerms(message, 'KICK_MEMBERS');
-    if (!message.member.permissions.has('KICK_MEMBERS')) return noPerms(message, 'KICK_MEMBERS');
-    // command requirements
+    if (noPerms(message, 'KICK_MEMBERS', 'KICK_MEMBERS')) return;
+
     let logs = client.channels.cache.get('790446455256252446');
     let reason = args.slice(1).join(' ');
     let user = parseUser(client, args[0]);

@@ -1,14 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 const { parseUser } = require('../utils/parse');
-const { noBotPerms, noPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('MANAGE_MESSAGES')) return noBotPerms(message, 'MANAGE_MESSAGES');
-    if (!message.member.permissions.has('MANAGE_MESSAGES')) return noPerms(message, 'MANAGE_MESSAGES');
-    // command requirements
+    if (noPerms(message, 'MANAGE_MESSAGES', 'MANAGE_MESSAGES')) return;
+
     let logs = client.channels.cache.get('793627033913131018');
     let user = parseUser(client, args[0]);
     let amount = user ? args[1] : args[0];

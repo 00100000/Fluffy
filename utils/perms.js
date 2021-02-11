@@ -1,34 +1,36 @@
-const permissions = {
-    'ADMINISTRATOR': 'Administrator',
-    'CREATE_INSTANT_INVITE': 'Create Instant Invite',
-    'KICK_MEMBERS': 'Kick Members',
-    'BAN_MEMBERS': 'Ban Members',
-    'MANAGE_CHANNELS': 'Manage Channels',
-    'MANAGE_GUILD': 'Manage Server',
-    'ADD_REACTIONS': 'Add Reactions',
-    'VIEW_AUDIT_LOG': 'View Audit Log',
-    'PRIORITY_SPEAKER': 'Priority Speaker',
-    'VIEW_CHANNEL': 'View Channels',
-    'SEND_MESSAGES': 'Send Messages',
-    'SEND_TTS_MESSAGES': 'Send TTS Messages',
-    'MANAGE_MESSAGES': 'Manage Messages',
-    'EMBED_LINKS': 'Embed Links',
-    'ATTACH_FILES': 'Attach Files',
-    'READ_MESSAGE_HISTORY': 'Read Message History',
-    'MENTION_EVERYONE': 'Mention Everyone',
-    'USE_EXTERNAL_EMOJIS': 'Use External Emojis',
-    'CONNECT': 'Connect',
-    'SPEAK': 'Speak',
-    'MUTE_MEMBERS': 'Mute Members',
-    'DEAFEN_MEMBERS': 'Deafen Members',
-    'MOVE_MEMBERS': 'Use (Move) Members',
-    'USE_VAD': 'Use Voice Activity',
-    'CHANGE_NICKNAME': 'Change Nickname',
-    'MANAGE_NICKNAMES': 'Manage Nicknames',
-    'MANAGE_ROLES': 'Manage Roles',
-    'MANAGE_WEBHOOKS': 'Manage Webhooks',
-    'MANAGE_EMOJIS': 'Mange Emojis',
+const { owner } = require('../config.json');
 
+function noPerms(message, botPerm, userPerm) {
+    // owner-only commands
+    if (!botPerm) {
+        if (message.author.id == owner) {
+            return false;
+        } else {
+            return message.channel.send('<a:ErrorCross:792483434902585344> Only the owner of the bot can use this command!');
+        }
+    }
+    
+    let botOrUser = 0;
+    // checks if bot or user is missing permissions
+    if (!message.guild.me.permissions.has(botPerm)) {
+        botOrUser = 1;
+    } else if (!message.member.permissions.has(userPerm)) {
+        botOrUser = 2;
+    }
+    // return false, if not
+    if (botOrUser == 0) {
+        return false;
+    } else {
+    // Natsumi-approved ternary spam
+        return message.channel.send(
+            '<a:ErrorCross:792483434902585344> '
+            + (botOrUser == 1 ? 'I' : 'You')
+            + ' don\'t have permissions to do this! Required permission: '
+            + (botOrUser == 1 ? botPerm : userPerm)
+        );
+    }
+}
+
+module.exports = {
+    noPerms
 };
-
-module.exports = permissions;

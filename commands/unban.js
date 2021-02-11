@@ -1,15 +1,12 @@
 const { MessageEmbed } = require('discord.js');
 const { parseID } = require('../utils/parse');
-const { noBotPerms, noPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
-    if (!message.member.permissions.has('BAN_MEMBERS')) return noPerms(message, 'BAN_MEMBERS');
-    // command requirements
+    if (noPerms(message, 'BAN_MEMBERS', 'BAN_MEMBERS')) return;
+
     let logs = client.channels.cache.get('790485234968821791');
     let reason = args.slice(1).join(' ');
     // user issues
@@ -35,7 +32,7 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} has been unbanned.`);
     }).catch(e => {
-        message.channel.send(`You didn't provide an object that could be resolved as a user! More details:\`\`\`${e}\`\`\``);
+        message.channel.send(`You most likely didn't provide an object that could be resolved as a user! More details:\`\`\`${e}\`\`\``);
     });
 };
 

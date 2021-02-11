@@ -1,22 +1,14 @@
 const { MessageEmbed } = require('discord.js');
-const { noBotPerms, noPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    let perms = message.guild.me.permissions;
-    if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
-    if (!message.member.permissions.has('MANAGE_GUILD')) return noPerms(message, 'MANAGE_GUILD');
-
-    let b = false;
-    if (args[0] == 'pink') {
-        args = args.slice(1);
-        b = true;
-    }
+    if (noPerms(message, 'EMBED_LINKS', 'MANAGE_GUILD')) return;
 
     const embed = new MessageEmbed()
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setDescription(args.join(' '))
-        .setColor(b ? '#f775ff' : embedColor)
+        .setColor(embedColor)
         .setTimestamp();
     
     message.channel.send(embed).then(() => {

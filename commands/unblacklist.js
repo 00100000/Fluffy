@@ -1,13 +1,10 @@
-const { noBotPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { jsonReadFile, jsonWriteFile } = require('../utils/file');
-const { owner } = require('../config.json');
 
 exports.run = async (client, message, args) => {
+    if (noPerms(message)) return;
+
     const blacklist = await jsonReadFile('./blacklist.json');
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('SEND_MESSAGES')) return noBotPerms(message, 'SEND_MESSAGES');
-    if (message.author.id !== owner) return message.channel.send('Only the owner of this bot may use this command!');
     // user issues
     if (!blacklist.blacklist.includes(args[0])) return message.channel.send('This user isn\'t blacklisted!');
     // action

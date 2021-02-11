@@ -1,16 +1,13 @@
 const ms = require('ms');
 const { MessageEmbed } = require('discord.js');
+const { noPerms } = require('../utils/perms');
 const { parseUser } = require('../utils/parse');
-const { noBotPerms, noPerms } = require('../utils/errors');
 const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('BAN_MEMBERS')) return noBotPerms(message, 'BAN_MEMBERS');
-    if (!message.member.permissions.has('BAN_MEMBERS')) return noPerms(message, 'BAN_MEMBERS');
-    // command requirements
+    if (noPerms(message, 'BAN_MEMBERS', 'BAN_MEMBERS')) return;
+
     let logs = client.channels.cache.get('790446465851850794');
     let date = undefined;
     let reason = undefined;

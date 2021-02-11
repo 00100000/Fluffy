@@ -1,10 +1,9 @@
 const { MessageEmbed } = require('discord.js');
-const { noBotPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { owner, prefix, embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    let perms = message.guild.me.permissions;
-    if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
+    if (noPerms(message, 'EMBED_LINKS', 'SEND_MESSAGES')) return;
 
     let cmds = Array.from(client.commands.keys());
     let cmd = args[0];

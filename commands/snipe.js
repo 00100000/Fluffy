@@ -1,12 +1,10 @@
 const { MessageEmbed } = require('discord.js');
-const { noBotPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('EMBED_LINKS')) return noBotPerms(message, 'EMBED_LINKS');
-    // if no message
+    if (noPerms(message, 'EMBED_LINKS', 'SEND_MESSAGES')) return;
+
     if (!client.lastDeletedMessageInfo) return message.channel.send('There\'s nothing to snipe!');
     // action
     try {

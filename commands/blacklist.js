@@ -1,14 +1,10 @@
+const { noPerms } = require('../utils/perms');
 const { parseUser } = require('../utils/parse');
-const { noBotPerms } = require('../utils/errors');
 const { jsonReadFile, jsonWriteFile } = require('../utils/file');
-const { owner } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('SEND_MESSAGES')) return noBotPerms(message, 'SEND_MESSAGES');
-    if (message.author.id !== owner) return message.channel.send('Only the owner of this bot may use this command!');
-    // command requirements
+    if (noPerms(message)) return;
+
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send('This user doesn\'t share any guilds with the bot!');

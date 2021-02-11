@@ -1,14 +1,11 @@
 const { MessageEmbed } = require('discord.js');
-const { noBotPerms, noPerms } = require('../utils/errors');
+const { noPerms } = require('../utils/perms');
 const { jsonReadFile, jsonWriteFile } = require('../utils/file');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    if (!perms.has('ADMINISTRATOR')) return noBotPerms(message, 'ADMINISTRATOR');
-    if (!message.member.permissions.has('ADMINISTRATOR')) return noPerms(message, 'ADMINISTRATOR');
-    // command requirements
+    if (noPerms(message, 'MANAGE_CHANNELS', 'ADMINISTRATOR')) return;
+
     let logs = client.channels.cache.get('792819832818368552');
     // action
     const endlockdownEmbed = new MessageEmbed()

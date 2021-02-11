@@ -1,13 +1,11 @@
 const { MessageEmbed } = require('discord.js');
-const { embedColor } = require('../config');
-const { noBotPerms, noPerms } = require('../utils/errors');
-const { parseUser, parseRole } = require('../utils/parse');
+const { embedColor } = require('../config.json');
+const { noPerms } = require('../utils/perms');
+const { parseUser } = require('../utils/parse');
 
 exports.run = async (client, message, args) => {
-    // permissions
-    let perms = message.guild.me.permissions;
-    
-    // command requirements
+    if (noPerms(message, 'EMBED_LINKS', 'SEND_MESSAGES')) return;
+
     let member = undefined;
     if (args[0]) {
         member = parseUser(client, args[0]);
@@ -16,9 +14,10 @@ exports.run = async (client, message, args) => {
     }
 
     let avatarEmbed = new MessageEmbed()
+        .setTitle(member.tag + '\'s Avatar')
+        .setImage(member.avatarURL({ dynamic: true }))
         .setColor(embedColor)
-        .setAuthor(member.username)
-        .setThumbnail(member.avatarURL());
+        .setTimestamp();
     message.channel.send(avatarEmbed);
 };
 
@@ -26,5 +25,5 @@ exports.help = {
     name: 'avatar',
     aliases: ['av'],
     description: 'Shows a user\'s avatar',
-    usage: 'av <member>'
+    usage: 'av [member]'
 };
