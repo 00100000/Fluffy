@@ -4,7 +4,7 @@ const { noPerms } = require('../utils/perms');
 const { embedColor } = require('../config.json');
 
 exports.run = async (client, message, args) => {
-    if (noPerms(message, 'KICK_MEMBERS', 'KICK_MEMBERS')) return;
+    if (noPerms(message, 'KICK_MEMBERS', 'BAN_MEMBERS')) return;
 
     let logs = client.channels.cache.get('790446455256252446');
     let reason = args.slice(1).join(' ');
