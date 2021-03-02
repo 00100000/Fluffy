@@ -3,12 +3,17 @@ const { noPerms } = require('../utils/perms');
 exports.run = async (client, message, args) => {
     if (noPerms(message)) return;
 
+    let output = undefined;
     try {
-        message.channel.send(eval(args.join(' ')));
+        output = eval(args.join(' '));
     } catch (err) {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
     }
 
+    if (output.length === 0) return message.channel.send('No output!');
+    if (output.length > 2000) return message.channel.send('Output is too long to send!');
+
+    message.channel.send(output);
 };
 
 exports.help = {

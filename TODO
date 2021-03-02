@@ -1,10 +1,13 @@
 - put links and IDs in the bot in the config
 - switch parse commands to built in regex
 - ?pet - sends the floof pet emoji
+- ?messagesperminute (?mpm) command to tell the average messages per minute of the past hour
 - make ?ban work with IDs
-- auto-quarantine if a non-owner with mention everyone perms pings everyone
-- auto-quarantine if a moderator+ manually kicks/bans 5 or more people
-- auto-quarantine if a moderator+ manually kicks/bans 5 or more channels
+- auto-quarantine if a non-whitelisted user with mention everyone perms pings everyone
+- auto-quarantine if a user manually kicks/bans 5 or more people in a day
+- auto-quarantine if a user manually kicks/bans 5 or more channels in a day
+- auto-quarantine if a user manually deletes 3 or more roles in a day
+- auto-quarantine if a user gives a non-staff role management permissions
 - auto-ban new bots that join the server
 - merge muted and banned into temp.json and merge blacklist and lockdown into data.json
 - make error messages in commands more consistent and use the 'X' emoji
