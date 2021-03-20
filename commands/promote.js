@@ -29,6 +29,7 @@ exports.run = async (client, message, args) => {
         newRole = parseRole(member, roleHierarchy[0]);
         oldRole = "No Staff";
     }
+    if (!roleToGive) roleToGive = parseRole(member, roleHierarchy[0]);
     // action
     const promoteEmbed = new MessageEmbed()
         .setTitle("Promotion: " + member.user.tag)
