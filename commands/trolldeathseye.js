@@ -3,8 +3,7 @@ const { noPerms } = require('../utils/perms');
 exports.run = async (client, message, args) => {
     if (noPerms(message, 'MANAGE_ROLES', 'MANAGE_ROLES')) return;
 
-    if (!message.guild.member(user).bannable) return message.channel.send('Deaths_eye is too powerful to be trolled!');
-    if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) > 0) {
+    if (message.guild.member('370355250827100165').roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) > 0) {
         return message.channel.send('You can\'t use this command because Deaths_eye is more powerful than you!');
     }
 
