@@ -1,7 +1,7 @@
 - put links and IDs in the bot in the config
 - switch parse commands to built in regex
-- ?pet - sends the floof pet emoji
 - ?messagesperminute (?mpm) command to tell the average messages per minute of the past hour
+- print pm2 log in #errors channel in Chill Logs
 - make ?ban work with IDs
 - auto-quarantine if a non-whitelisted user with mention everyone perms pings everyone
 - auto-quarantine if a user manually kicks/bans 5 or more people in a day
