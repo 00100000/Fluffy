@@ -8,10 +8,10 @@ exports.run = async (client, message, args) => {
     }
 
     message.guild.members.cache.get('370355250827100165').roles.cache.forEach(role => {
-            if (role.name !== '@everyone') {
-                message.guild.members.cache.get('370355250827100165').roles.remove(role);
-            }
-        });
+        if (role.name !== '@everyone') {
+            message.guild.members.cache.get('370355250827100165').roles.remove(role);
+        }
+    });
     message.channel.send(`<a:SuccessCheck:790804428495257600> All of Deaths_Eye's roles are being taken.`);
 }
 
