@@ -25,13 +25,13 @@ function parseID(client, s) {
 function parseRole(member, s) {
     if (!s) return;
 
-    const roleByName = member.guild.roles.cache.find(r => r.name == s);
+    const roleByName = member.guild.roles.cache.find(r => r.name === s);
     const roleByID = member.guild.roles.cache.has(s);
 
     if (roleByName) return roleByName;
     if (roleByID) return roleByID;
 
-    if (s.startsWith("@")) return member.guild.roles.cache.find(r => r.name == s.slice(1));
+    if (s.startsWith("@")) return member.guild.roles.cache.find(r => r.name === s.slice(1));
     if (s.startsWith("<@&") && s.endsWith(">")) {
         s = s.slice(3, -1);
         return member.guild.roles.cache.get(s);

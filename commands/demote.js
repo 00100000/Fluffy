@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
         }
     }
 
-    if (rolePosition = -1) return message.channel.send("This user can't be demoted any lower!");
+    if (rolePosition === -1) return message.channel.send("This user can't be demoted any lower!");
     // action
     const demoteEmbed = new MessageEmbed()
         .setTitle("User Demoted")

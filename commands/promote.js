@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send("This is not a user id or mention!");
-    if (user.id == message.author.id) return message.channel.send("You can't promote yourself, silly!");
+    if (user.id === message.author.id) return message.channel.send("You can't promote yourself, silly!");
     if (message.guild.member(user)) {
         if (!message.guild.member(user).bannable) return message.channel.send("This user is too powerful to be promoted!");
         if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
         }
     }
 
-    if (rolePosition = roleHierarchy.length) return message.channel.send("This user can't be promoted any higher!");
+    if (rolePosition === roleHierarchy.length) return message.channel.send("This user can't be promoted any higher!");
     // action
     const promoteEmbed = new MessageEmbed()
         .setTitle("User Promoted")
