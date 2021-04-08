@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     // action
     const demoteEmbed = new MessageEmbed()
         .setTitle("User Demoted")
-        .addField("User", member.tag, false)
+        .addField("User", member.user.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Demoted From", roleToTake.name, false)
         .addField("Server", message.guild.name + `(${message.guild.id})`, false)
