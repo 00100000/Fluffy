@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
     if (member.roles.cache.has(roleHierarchy.length - 1)) return message.channel.send("This member cannot be promoted any higher!");
     // find what role to promote the member to
     for (i = roleHierarchy.length - 2; i >= 0; i--) {
-        if (member.roles.cache.has(roleHierarchy[i])) return roleToGive = parseRole(member, roleHierarchy[i + 1]);
+        if (member.roles.cache.has(roleHierarchy[i])) roleToGive = parseRole(member, roleHierarchy[i + 1]);
     }
     // action
     const promoteEmbed = new MessageEmbed()
