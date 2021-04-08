@@ -1,17 +1,17 @@
-const { MessageEmbed } = require('discord.js');
-const { noPerms } = require('../utils/perms');
-const { jsonReadFile, jsonWriteFile } = require('../utils/file');
-const { embedColor } = require('../config.json');
+const { MessageEmbed } = require("discord.js");
+const { noPerms } = require("../utils/perms");
+const { jsonReadFile, jsonWriteFile } = require("../utils/file");
+const { embedColor } = require("../config.json");
 
 exports.run = async (client, message, args) => {
-    if (noPerms(message, 'MANAGE_CHANNELS', 'ADMINISTRATOR')) return;
+    if (noPerms(message, "MANAGE_CHANNELS", "ADMINISTRATOR")) return;
 
-    let logs = client.channels.cache.get('792819790192050177');
+    let logs = client.channels.cache.get("792819790192050177");
     // action
     const lockdownEmbed = new MessageEmbed()
-        .setTitle('Lockdown')
-        .addField('Moderator', message.author.tag, false)
-        .addField('Server', message.guild.name + `(${message.guild.id})`, false)
+        .setTitle("Lockdown")
+        .addField("Moderator", message.author.tag, false)
+        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 
@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
     }
         
     logs.send(lockdownEmbed).then(async () => {
-        message.guild.channels.cache.filter(channel => channel.type === 'text').forEach(async channel => {
+        message.guild.channels.cache.filter(channel => channel.type === "text").forEach(async channel => {
             // https://discord.js.org/#/docs/main/stable/class/PermissionOverwrites
             const perms = channel.permissionOverwrites.find(p => p.id === ("" + message.guild.roles.everyone));
             // true (allowed), false (denied), null (neutral)
@@ -36,16 +36,16 @@ exports.run = async (client, message, args) => {
 
             lockedDownPerms[guildID] = lockedDownPerms[guildID] || {};
 
-            // brain go WAHHHHHHHH, I think this the first time I've used the bitwise AND operator
-            // we need to know if it's denied, allowed, OR NEUTRAL!!!!
-            // That's why we have to use this weird PermissionOverwrites workaround instead of Permissions.has()
+            // brain go WAHHHHHHHH, I think this the first time I"ve used the bitwise AND operator
+            // we need to know if it"s denied, allowed, OR NEUTRAL!!!!
+            // That"s why we have to use this weird PermissionOverwrites workaround instead of Permissions.has()
             // 2048 is SEND_MESSAGES
             if (perms.allow & 2048) sendMessagePerm = true;
             else if (perms.deny & 2048) sendMessagePerm = false;
             lockedDownPerms[guildID][channel.id] = sendMessagePerm;
 
             channel.updateOverwrite(message.guild.roles.everyone, {
-                'SEND_MESSAGES': false
+                "SEND_MESSAGES": false
             });
         });
 
@@ -58,8 +58,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'lockdown',
-    aliases: ['ld'],
-    description: 'Locks down the server.',
-    usage: 'lockdown'
+    name: "lockdown",
+    aliases: ["ld"],
+    description: "Locks down the server.",
+    usage: "lockdown"
 };

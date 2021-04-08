@@ -1,24 +1,24 @@
-const { MessageEmbed } = require('discord.js');
-const { noPerms } = require('../utils/perms');
-const { embedColor } = require('../config.json');
+const { MessageEmbed } = require("discord.js");
+const { noPerms } = require("../utils/perms");
+const { embedColor } = require("../config.json");
 
 exports.run = async (client, message, args) => {
-    if (noPerms(message, 'MANAGE_MESSAGES', 'MANAGE_MESSAGES')) return;
+    if (noPerms(message, "MANAGE_MESSAGES", "MANAGE_MESSAGES")) return;
 
-    let logs = client.channels.cache.get('793637785147801600');
+    let logs = client.channels.cache.get("793637785147801600");
     let trueCleared;
-    const botPrefixes = ['!', '?', '&', '-', '>', 'u.', 'pls ', '.', 'd?', '+', '%', 's.'];
+    const botPrefixes = ["!", "?", "&", "-", ">", "u.", "pls ", ".", "d?", "+", "%", "s."];
     // user issues
     if (!args[0]) args[0] = 25;
-    if (isNaN(args[0])) return message.channel.send('You must provide a number of messages for me to clear!');
-    if (args[0] > 100 || args[0] < 1) return message.channel.send('You can only clear between 1 and 100 messages!');
+    if (isNaN(args[0])) return message.channel.send("You must provide a number of messages for me to clear!");
+    if (args[0] > 100 || args[0] < 1) return message.channel.send("You can only clear between 1 and 100 messages!");
     // action
     const botclearEmbed = new MessageEmbed()
-        .setTitle('Bot-Related Messages Cleared')
-        .addField('Amount of Messages Filtered', args[0], false)
-        .addField('Moderator', message.author.tag, false)
-        .addField('Channel', message.channel.name + `(${message.channel.id})`, false)
-        .addField('Server', message.guild.name + `(${message.guild.id})`, false)
+        .setTitle("Bot-Related Messages Cleared")
+        .addField("Amount of Messages Filtered", args[0], false)
+        .addField("Moderator", message.author.tag, false)
+        .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
+        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
     message.channel.messages.fetch({ limit: args[0] }).then(messages => {
@@ -39,8 +39,8 @@ exports.run = async (client, message, args) => {
 }
 
 exports.help = {
-    name: 'botclear',
-    aliases: ['bc'],
-    description: 'Purges bot and bot-related messages from a channel.',
-    usage: 'botclear [amount]'
+    name: "botclear",
+    aliases: ["bc"],
+    description: "Purges bot and bot-related messages from a channel.",
+    usage: "botclear [amount]"
 };

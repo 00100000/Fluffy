@@ -1,3 +1,3 @@
 module.exports = async (client) => {
-    client.logger.log('Reconnecting...');
+    client.logger.log("Reconnecting...");
 };

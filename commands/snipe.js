@@ -1,11 +1,11 @@
-const { MessageEmbed } = require('discord.js');
-const { noPerms } = require('../utils/perms');
-const { embedColor } = require('../config.json');
+const { MessageEmbed } = require("discord.js");
+const { noPerms } = require("../utils/perms");
+const { embedColor } = require("../config.json");
 
 exports.run = async (client, message, args) => {
-    if (noPerms(message, 'EMBED_LINKS', 'SEND_MESSAGES')) return;
+    if (noPerms(message, "EMBED_LINKS", "SEND_MESSAGES")) return;
 
-    if (!client.lastDeletedMessageInfo) return message.channel.send('There\'s nothing to snipe!');
+    if (!client.lastDeletedMessageInfo) return message.channel.send("There's nothing to snipe!");
     // action
     try {
         const snipeEmbed = new MessageEmbed()
@@ -20,8 +20,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'snipe',
+    name: "snipe",
     aliases: [],
-    description: 'Shows the last deleted message.',
-    usage: 'snipe'
+    description: "Shows the last deleted message.",
+    usage: "snipe"
 };

@@ -1,20 +1,20 @@
-const { MessageEmbed } = require('discord.js');
-const { embedColor } = require('../config.json');
+const { MessageEmbed } = require("discord.js");
+const { embedColor } = require("../config.json");
 
 module.exports = (client, oldMessage, newMessage) => {
-    let logs = client.channels.cache.get('790446502253428746');
+    let logs = client.channels.cache.get("790446502253428746");
     
     if (oldMessage.author.bot) return;
     if (newMessage.content === oldMessage.content) return;
 
     const updateEmbed = new MessageEmbed()
-        .setTitle('Edit Event')
-        .addField('User', oldMessage.author, false)
-        .addField('Original Message', oldMessage.content, false)
-        .addField('New Message', newMessage.content, false)
-        .addField('Server', oldMessage.guild.name + `(${oldMessage.guild.id})`, false)
+        .setTitle("Edit Event")
+        .addField("User", oldMessage.author, false)
+        .addField("Original Message", oldMessage.content, false)
+        .addField("New Message", newMessage.content, false)
+        .addField("Server", oldMessage.guild.name + `(${oldMessage.guild.id})`, false)
         .setColor(embedColor)
-        .setFooter('Sneaky edit')
+        .setFooter("Sneaky edit")
         .setTimestamp();
 
     logs.send(updateEmbed);

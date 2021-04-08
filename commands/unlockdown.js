@@ -1,17 +1,17 @@
-const { MessageEmbed } = require('discord.js');
-const { noPerms } = require('../utils/perms');
-const { jsonReadFile, jsonWriteFile } = require('../utils/file');
-const { embedColor } = require('../config.json');
+const { MessageEmbed } = require("discord.js");
+const { noPerms } = require("../utils/perms");
+const { jsonReadFile, jsonWriteFile } = require("../utils/file");
+const { embedColor } = require("../config.json");
 
 exports.run = async (client, message, args) => {
-    if (noPerms(message, 'MANAGE_CHANNELS', 'ADMINISTRATOR')) return;
+    if (noPerms(message, "MANAGE_CHANNELS", "ADMINISTRATOR")) return;
 
-    let logs = client.channels.cache.get('792819832818368552');
+    let logs = client.channels.cache.get("792819790192050177");
     // action
     const endlockdownEmbed = new MessageEmbed()
-        .setTitle('Lockdown Ended')
-        .addField('Moderator', message.author.tag, false)
-        .addField('Server', message.guild.name + `(${message.guild.id})`, false)
+        .setTitle("Lockdown Ended")
+        .addField("Moderator", message.author.tag, false)
+        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 
@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
             // brain death
             if (lockedDownPerms?.[guildID]?.[channel.id] !== undefined) {
                 channel.updateOverwrite(message.guild.roles.everyone, {
-                    'SEND_MESSAGES': lockedDownPerms[guildID][channel.id]
+                    "SEND_MESSAGES": lockedDownPerms[guildID][channel.id]
                 });
                     
                 delete lockedDownPerms[guildID][channel.id];
@@ -39,8 +39,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'unlockdown',
-    aliases: ['uld'],
-    description: 'Ends a lockdown.',
-    usage: 'unlockdown'
+    name: "unlockdown",
+    aliases: ["uld"],
+    description: "Ends a lockdown.",
+    usage: "unlockdown"
 };

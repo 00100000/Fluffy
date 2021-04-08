@@ -1,9 +1,9 @@
 function parseUser(client, s) {
     if (!s) return;
-    if (s.startsWith('<@') && s.endsWith('>')) {
+    if (s.startsWith("<@") && s.endsWith(">")) {
         s = s.slice(2, -1);
 
-        if (s.startsWith('!')) {
+        if (s.startsWith("!")) {
             s = s.slice(1);
         }
     }
@@ -12,10 +12,10 @@ function parseUser(client, s) {
 
 function parseID(client, s) {
     if (!s) return;
-    if (s.startsWith('<@') && s.endsWith('>')) {
+    if (s.startsWith("<@") && s.endsWith(">")) {
         s = s.slice(2, -1);
 
-        if (s.startsWith('!')) {
+        if (s.startsWith("!")) {
             s = s.slice(1);
         }
     }
@@ -31,8 +31,8 @@ function parseRole(member, s) {
     if (roleByName) return roleByName;
     if (roleByID) return roleByID;
 
-    if (s.startsWith('@')) return member.guild.roles.cache.find(r => r.name == s.slice(1));
-    if (s.startsWith('<@&') && s.endsWith('>')) {
+    if (s.startsWith("@")) return member.guild.roles.cache.find(r => r.name == s.slice(1));
+    if (s.startsWith("<@&") && s.endsWith(">")) {
         s = s.slice(3, -1);
         return member.guild.roles.cache.get(s);
     }
@@ -45,7 +45,7 @@ function parseChannel(message, s) {
     const channelByID = message.guild.channels.cache.get(s);
     if (channelByID) return channelByID;
 
-    if (s.startsWith('<#') && s.endsWith('>')) {
+    if (s.startsWith("<#") && s.endsWith(">")) {
         s = s.slice(2, -1);
         return message.guild.channels.cache.get(s);
     }

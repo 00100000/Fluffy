@@ -1,6 +1,8 @@
 - put links and IDs in the bot in the config
 - switch parse commands to built in regex
-- ?messagesperminute (?mpm) command to tell the average messages per minute of the past hour
+- ?strike <staff> [reason] gives a staff a strike (delete strikes and demote staff automatically after 3 strikes)
+- ?removestrike <staff> removes a staff member's strike
+- ?strikes [staff] lists a staff member's strikes, defaults to self
 - print pm2 log in #errors channel in Chill Logs
 - make ?ban work with IDs
 - auto-quarantine if a non-whitelisted user with mention everyone perms pings everyone
@@ -9,12 +11,13 @@
 - auto-quarantine if a user manually deletes 3 or more roles in a day
 - auto-quarantine if a user gives a non-staff role management permissions
 - auto-ban new bots that join the server
-- merge muted and banned into temp.json and merge blacklist and lockdown into data.json
+- switch to mongodb for storing data
 - make error messages in commands more consistent and use the 'X' emoji
 - make a util for handling common command errors
 - tell user how long someone was muted/banned for in embed
 - make messageDelete and messageUpdate track what channel a message was deleted in
 - ?quarantine: takes all roles and gives role with access to only 1 channel
+- ?unquarantine: removes the quarantine role and gives users the member role back
 - ?promote to give higher roles
 - ?demote
 - ?userinfo
