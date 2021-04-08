@@ -33,12 +33,12 @@ exports.run = async (client, message, args) => {
         .setTitle("User Demoted")
         .addField("User", user.tag, false)
         .addField("Moderator", message.author.tag, false)
-        .addField("Demoted To", rolePosition === 0 ? "No Staff" : message.guild.member(user).roles.get(roleHierarchy[rolePosition - 1]).name, false)
+        .addField("Demoted To", rolePosition === 0 ? "No Staff" : message.guild.member(user).roles.cache.get(roleHierarchy[rolePosition - 1]).name, false)
         .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 
-    user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name} to ${rolePosition === 0 ? "No Staff" : message.guild.member(user).roles.get(roleHierarchy[rolePosition - 1]).name}`)
+    user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name} to ${rolePosition === 0 ? "No Staff" : message.guild.member(user).roles.cache.get(roleHierarchy[rolePosition - 1]).name}`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
