@@ -1,29 +1,29 @@
-const { jsonCreateFile, jsonReadFile, jsonWriteFile } = require('../utils/file');
+const { jsonCreateFile, jsonReadFile, jsonWriteFile } = require("../utils/file");
 
 module.exports = async client => {
     await client.logger.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.cache.size} server(s).`);
     
-    client.user.setStatus('online');
-    client.user.setActivity('fetch', { type: 'PLAYING' });
+    client.user.setStatus("online");
+    client.user.setActivity("fetch", { type: "PLAYING" });
     
     // Absolute Shit Show
 
-    // set up files if they don't already exist
-    const dataFiles = ['./muted.json', './banned.json', './lockdown.json'];
+    // set up files if they don"t already exist
+    const dataFiles = ["./muted.json", "./banned.json", "./lockdown.json"];
     dataFiles.forEach(async path => {
         await jsonCreateFile(path, {});
     });
-    await jsonCreateFile('./blacklist.json', {blacklist:[]});
+    await jsonCreateFile("./blacklist.json", {blacklist:[]});
     // check for unmuted and unbanned users
     setInterval(async () => {
-        let muted = await jsonReadFile('./muted.json');
-        let banned = await jsonReadFile('./banned.json');
+        let muted = await jsonReadFile("./muted.json");
+        let banned = await jsonReadFile("./banned.json");
 
         Object.keys(muted).forEach(guildID => {
-            let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === 'Muted');
+            let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === "Muted");
 
             Object.keys(muted[guildID]).forEach(userID => {
-                // if the mute isn't timed, we don't need to worry about it
+                // if the mute isn"t timed, we don"t need to worry about it
                 if (muted[guildID][userID] === -1) return;
                 
                 // if the mute IS timed, and the mute has expired, we can unmute them

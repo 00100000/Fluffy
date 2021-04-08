@@ -1,3 +1,3 @@
 module.exports = async () => {
-    console.log('Reconnected');
+    console.log("Reconnected");
 };

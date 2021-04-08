@@ -1,10 +1,10 @@
-const { MessageEmbed } = require('discord.js');
-const { embedColor } = require('../config.json');
-const { noPerms } = require('../utils/perms');
-const { parseUser } = require('../utils/parse');
+const { MessageEmbed } = require("discord.js");
+const { embedColor } = require("../config.json");
+const { noPerms } = require("../utils/perms");
+const { parseUser } = require("../utils/parse");
 
 exports.run = async (client, message, args) => {
-    if (noPerms(message, 'EMBED_LINKS', 'SEND_MESSAGES')) return;
+    if (noPerms(message, "EMBED_LINKS", "SEND_MESSAGES")) return;
 
     let member = undefined;
     if (args[0]) {
@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     }
 
     let avatarEmbed = new MessageEmbed()
-        .setTitle(member.tag + '\'s Avatar')
+        .setTitle(member.tag + "'s Avatar")
         .setImage(member.avatarURL({ dynamic: true }))
         .setColor(embedColor)
         .setTimestamp();
@@ -22,8 +22,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'avatar',
-    aliases: ['av'],
-    description: 'Shows a user\'s avatar',
-    usage: 'av [member]'
+    name: "avatar",
+    aliases: ["av"],
+    description: "Shows a user's avatar",
+    usage: "av [member]"
 };

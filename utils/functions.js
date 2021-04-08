@@ -18,7 +18,7 @@ module.exports = (client) => {
         try {
             // client.logger.log(`Loading Event: ${eventFileName} 👌`);
             const event = require(`../events/${eventFileName}`);
-            const evtName = eventFileName.split('.')[0];
+            const evtName = eventFileName.split(".")[0];
             client.on(evtName, event.bind(null, client));
             return;
         } catch (err) {
@@ -26,17 +26,17 @@ module.exports = (client) => {
         }
     };
 
-    process.on('SIGTERM', async () => {
-        await client.logger.log('SIGTERM signal received.');
-        await client.logger.log('Bot shutting down...');
+    process.on("SIGTERM", async () => {
+        await client.logger.log("SIGTERM signal received.");
+        await client.logger.log("Bot shutting down...");
         await client.destroy(() => {
-            client.logger.log('Bot has shut down.');
+            client.logger.log("Bot has shut down.");
             process.exit(0);
         });
     });
     
-    process.on('unhandledRejection', error => {
-        client.logger.error(`I bet this is Natsumi's fault: ${error}\n\n\nDetails:`);
+    process.on("unhandledRejection", error => {
+        client.logger.error(`I bet this is Natsumi"s fault: ${error}\n\n\nDetails:`);
         console.error(error);
     });
 

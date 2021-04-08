@@ -1,28 +1,28 @@
-const { MessageEmbed } = require('discord.js');
-const { parseChannel } = require('../utils/parse');
-const { noPerms } = require('../utils/perms');
-const { embedColor } = require('../config.json');
+const { MessageEmbed } = require("discord.js");
+const { parseChannel } = require("../utils/parse");
+const { noPerms } = require("../utils/perms");
+const { embedColor } = require("../config.json");
 
 exports.run = async (client, message, args) => {
-    if (noPerms(message, 'MANAGE_CHANNELS', 'MANAGE_CHANNELS')) return;
+    if (noPerms(message, "MANAGE_CHANNELS", "MANAGE_CHANNELS")) return;
 
-    let logs = client.channels.cache.get('792819756176113675');
+    let logs = client.channels.cache.get("792819692216516628");
     let channel = parseChannel(message, args[0]);
     if (!channel) channel = message.channel;
     // user issues
-    if (!channel.isText()) return message.channel.send('You can only use this on a text channel!');
+    if (!channel.isText()) return message.channel.send("You can only use this on a text channel!");
     // action
     const lockEmbed = new MessageEmbed()
-        .setTitle('Channel Unlocked')
-        .addField('Channel', channel.name, false)
-        .addField('Moderator', message.author.tag, false)
-        .addField('Server', message.guild.name + `(${message.guild.id})`, false)
+        .setTitle("Channel Unlocked")
+        .addField("Channel", channel.name, false)
+        .addField("Moderator", message.author.tag, false)
+        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 
     logs.send(lockEmbed).then(() => {
         channel.updateOverwrite(message.guild.roles.everyone ,{
-            'SEND_MESSAGES': true
+            "SEND_MESSAGES": true
         });
     }).then(() => {
         message.channel.send(`<a:SuccessCheck:790804428495257600> #${channel.name} has been unlocked.`);
@@ -32,8 +32,8 @@ exports.run = async (client, message, args) => {
 };
 
 exports.help = {
-    name: 'unlock',
-    aliases: ['ul'],
-    description: 'Unlocks a channel in a server.',
-    usage: 'unlock [channel]'
+    name: "unlock",
+    aliases: ["ul"],
+    description: "Unlocks a channel in a server.",
+    usage: "unlock [channel]"
 };

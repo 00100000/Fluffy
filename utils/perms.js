@@ -1,4 +1,4 @@
-const { owner } = require('../config.json');
+const { owner } = require("../config.json");
 
 function noPerms(message, botPerm, userPerm) {
     // owner-only commands
@@ -6,7 +6,7 @@ function noPerms(message, botPerm, userPerm) {
         if (message.author.id == owner) {
             return false;
         } else {
-            return message.channel.send('<a:ErrorCross:792483434902585344> Only the owner of the bot can use this command!');
+            return message.channel.send("<a:ErrorCross:792483434902585344> Only the owner of the bot can use this command!");
         }
     }
     
@@ -23,9 +23,9 @@ function noPerms(message, botPerm, userPerm) {
     } else {
     // Natsumi-approved ternary spam
         return message.channel.send(
-            '<a:ErrorCross:792483434902585344> '
-            + (botOrUser == 1 ? 'I' : 'You')
-            + ' don\'t have permissions to do this! Required permission: '
+            "<a:ErrorCross:792483434902585344> "
+            + (botOrUser == 1 ? "I" : "You")
+            + " don't have permissions to do this! Required permission: "
             + (botOrUser == 1 ? botPerm : userPerm)
         );
     }
