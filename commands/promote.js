@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
     // -1 = no staff
     let rolePosition = -1;
     for (i = 0; i < roleHierarchy.length; i++) {
-        if (message.guild.member(user).roles.find(r => r.id === roleHierarchy[i])) {
+        if (message.guild.member(user).roles.cache.has(roleHierarchy[i])) {
             rolePosition = i;
         }
     }

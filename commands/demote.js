@@ -22,14 +22,14 @@ exports.run = async (client, message, args) => {
     // -1 = no staff
     let rolePosition = -1;
     for (i = 0; i < roleHierarchy.length; i++) {
-        if (message.guild.member(user).roles.find(r => r.id === roleHierarchy[i])) {
+        if (message.guild.member(user).roles.cache.has(roleHierarchy[i])) {
             rolePosition = i;
         }
     }
 
     if (rolePosition = -1) return message.channel.send("This user can't be demoted any lower!");
     // action
-    const promoteEmbed = new MessageEmbed()
+    const demoteEmbed = new MessageEmbed()
         .setTitle("User Demoted")
         .addField("User", user.tag, false)
         .addField("Moderator", message.author.tag, false)
@@ -38,11 +38,11 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
 
-    user.send(`You've been promoted by ${message.author.tag}, in ${message.guild.name} to ${rolePosition === 0 ? "No Staff" : message.guild.roles.get(roleHierarchy[rolePosition - 1]).name}`)
+    user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name} to ${rolePosition === 0 ? "No Staff" : message.guild.roles.get(roleHierarchy[rolePosition - 1]).name}`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
-    logs.send(promoteEmbed).then(() => {
+    logs.send(demoteEmbed).then(() => {
         message.guild.member(user).roles.remove(roleHierarchy[rolePosition]);
         if (rolePosition === 0) message.guild.member(user).roles.remove(staffRole);
     }).catch(e => {
