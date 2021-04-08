@@ -24,14 +24,14 @@ exports.run = async (client, message, args) => {
     // action
     const demoteEmbed = new MessageEmbed()
         .setTitle("User Demoted")
-        .addField("User", user.tag, false)
+        .addField("User", member.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Demoted From", roleToTake.name, false)
         .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 
-    user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name} to ${roleToTake.name}`)
+    member.user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name} to ${roleToTake.name}`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
