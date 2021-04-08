@@ -24,14 +24,14 @@ exports.run = async (client, message, args) => {
     // action
     const promoteEmbed = new MessageEmbed()
         .setTitle("User Promoted")
-        .addField("User", member.tag, false)
+        .addField("User", member.user.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Promoted To", roleToGive.name, false)
         .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 
-    memberuser.send(`You've been promoted by ${message.author.tag}, in ${message.guild.name} to ${roleToGive.name}`)
+    member.user.send(`You've been promoted by ${message.author.tag}, in ${message.guild.name} to ${roleToGive.name}`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
