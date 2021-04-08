@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
     if (member.roles.cache.has(staffRole)) return message.channel.send("This member cannot be demoted any lower!");
     // find what role to demote the member to
     for (i = roleHierarchy.length - 1; i > 0; i--) {
-        if (member.roles.cache.has(roleHierarchy[i])) return roleToTake = parseRole(member, roleHierarchy[i - 1]);
+        if (member.roles.cache.has(roleHierarchy[i])) roleToTake = parseRole(member, roleHierarchy[i - 1]);
     }
     // action
     const demoteEmbed = new MessageEmbed()
