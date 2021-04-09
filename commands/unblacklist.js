@@ -1,5 +1,5 @@
 const { noPerms } = require("../utils/perms");
-const { jsonReadFile, jsonWriteFile } = require("../utils/file");
+const { jsonReadFile, jsonWriteFile, successEmoji } = require("../utils/file");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message)) return;
@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     // action
     try {
         blacklist.blacklist.splice(blacklist.blacklist.indexOf(args[0]), 1);
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} has been removed from the blacklist.`);
+        message.channel.send(`${successEmoji} ${args[0]} has been removed from the blacklist.`);
         jsonWriteFile("./blacklist.json", blacklist);
     } catch (e) {
         message.channel.send(`\`\`\`${e}\`\`\``);

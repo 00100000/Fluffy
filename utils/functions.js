@@ -38,8 +38,7 @@ module.exports = (client) => {
     });
     
     process.on("unhandledRejection", e => {
-        // client.channels.cache.get(errorChannel).send(e);
-	console.error(e);
+	    console.error(e);
     });
 
 };

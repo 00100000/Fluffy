@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor } = require("../config.json");
+const { embedColor, lockdownChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_CHANNELS", "ADMINISTRATOR")) return;
 
-    let logs = client.channels.cache.get("792819790192050177");
+    let logs = client.channels.cache.get(lockdownChannel);
     // action
     const endlockdownEmbed = new MessageEmbed()
         .setTitle("Lockdown Ended")
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
 
         await jsonWriteFile("lockdown.json", lockedDownPerms);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> The lockdown in ${message.guild.name} has been ended.`);
+        message.channel.send(`${successEmoji} The lockdown in ${message.guild.name} has been ended.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });

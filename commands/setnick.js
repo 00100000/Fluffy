@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { parseUser } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
-const { embedColor } = require("../config.json");
+const { embedColor, nickChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_NICKNAMES", "MANAGE_NICKNAMES")) return;
 
-    let logs = client.channels.cache.get("790650641429168167");
+    let logs = client.channels.cache.get(nickChannel);
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send("This is not a user id or mention!");
@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     // change nick
     message.guild.member(user).setNickname(newNick).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag}"s New Nickname: ${newNick}`);
+        message.channel.send(`${successEmoji} ${user.tag}'s New Nickname: ${newNick}`);
     }).then(() => {
         logs.send(nickEmbed);
     });

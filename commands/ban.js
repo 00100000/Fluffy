@@ -3,12 +3,12 @@ const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { parseUser } = require("../utils/parse");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor } = require("../config.json");
+const { embedColor, banChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "BAN_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = client.channels.cache.get("790446465851850794");
+    let logs = client.channels.cache.get(banChannel);
     let date = undefined;
     let reason = undefined;
     try {
@@ -57,7 +57,7 @@ exports.run = async (client, message, args) => {
         }
         message.guild.members.ban(user, { reason: `${message.author.tag}: ${reason}` });
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been banned.`);
+        message.channel.send(`${successEmoji} ${user.tag} has been banned.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
