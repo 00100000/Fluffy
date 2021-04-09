@@ -33,14 +33,14 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor);
     
     if (oldRole.id === roleHierarchy[0]) member.roles.remove(staffRole);
-    member.user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name}, and you are longer ${oldRole.name}.`)
+    member.user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name} to ${newRole}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
     member.roles.remove(oldRole).then(() => {
         announcements.send(demoteEmbed);
     }).then(() => {
-        message.channel.send(`${successEmoji} ${member.user.tag} has been demoted, losing ${oldRole.name}.`);
+        message.channel.send(`${successEmoji} ${member.user.tag} has been demoted to ${newRole}.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });;
