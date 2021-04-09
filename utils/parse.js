@@ -26,7 +26,7 @@ function parseRole(member, s) {
     if (!s) return;
 
     const roleByName = member.guild.roles.cache.find(r => r.name === s);
-    const roleByID = member.guild.roles.cache.has(s);
+    const roleByID = member.guild.roles.cache.get(s);
 
     if (roleByName) return roleByName;
     if (roleByID) return roleByID;

@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     
     if (!member.roles.cache.has(staffRole)) member.roles.add(staffRole);
-    user.send(`You've been promoted by ${message.author.tag}, in ${message.guild.name} to ${roleToGive.name}.`)
+    member.user.send(`You've been promoted by ${message.author.tag}, in ${message.guild.name} to ${roleToGive.name}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });

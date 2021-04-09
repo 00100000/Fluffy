@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
         .setTimestamp();
     
     if (roleToTake.id === roleHierarchy[0]) member.roles.remove(staffRole);
-    user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name}, and you are longer ${roleToTake.name}.`)
+    member.user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name}, and you are longer ${roleToTake.name}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
