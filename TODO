@@ -1,5 +1,4 @@
-- put links and IDs in the bot in the config
-- switch parse commands to built in regex
+- check if messages being cleared are over 2 weeks old, and don't try to delete them if they are
 - ?strike <staff> [reason] gives a staff a strike (delete strikes and demote staff automatically after 3 strikes)
 - ?removestrike <staff> removes a staff member's strike
 - ?strikes [staff] lists a staff member's strikes, defaults to self
@@ -17,8 +16,6 @@
 - make messageDelete and messageUpdate track what channel a message was deleted in
 - ?quarantine: takes all roles and gives role with access to only 1 channel
 - ?unquarantine: removes the quarantine role and gives users the member role back
-- ?promote to give higher roles
-- ?demote
 - ?userinfo
 - ?serverinfo
 - track punishments (with database)

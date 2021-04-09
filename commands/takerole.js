@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { parseUser, parseRole } = require("../utils/parse");
-const { embedColor } = require("../config.json");
+const { embedColor, roleChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MANAGE_ROLES")) return;
 
-    let logs = client.channels.cache.get("790814385702174750");
+    let logs = client.channels.cache.get(roleChannel);
     let member = message.guild.member(parseUser(client, args[0]));
     if (!member) return message.channel.send("This is not a member id or mention!");
     let roleToTake = parseRole(member, args.slice(1).join(" "));
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
     member.roles.remove(roleToTake).then(() => {
         logs.send(takeEmbed);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${roleToTake.name} has been taken from ${member.user.tag}.`);
+        message.channel.send(`${successEmoji} ${roleToTake.name} has been taken from ${member.user.tag}.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });

@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { parseUser } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
-const { embedColor } = require("../config.json");
+const { embedColor, clearChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_MESSAGES", "MANAGE_MESSAGES")) return;
 
-    let logs = client.channels.cache.get("793627033913131018");
+    let logs = client.channels.cache.get(clearChannel);
     let user = parseUser(client, args[0]);
     let amount = user ? args[1] : args[0];
     let trueCleared;
@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
         }).then(() => {
             logs.send(clearEmbed);
         }).then(() => {
-            message.channel.send(`<a:SuccessCheck:790804428495257600> ${trueCleared} of the last ${amount} messages from ${user.tag} have been cleared.`);
+            message.channel.send(`${successEmoji} ${trueCleared} of the last ${amount} messages from ${user.tag} have been cleared.`);
         }).catch(e => {
             message.channel.send(`\`\`\`${e}\`\`\``);
         });

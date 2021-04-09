@@ -1,5 +1,6 @@
 const { noPerms } = require("../utils/perms");
 const { parseUser } = require("../utils/parse");
+const {successEmoji } = require("../config.json");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
 
 exports.run = async (client, message, args) => {
@@ -12,7 +13,7 @@ exports.run = async (client, message, args) => {
     const blacklist = await jsonReadFile("./blacklist.json");
     try {
         blacklist.blacklist.push(args[0]);
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} has been added to the blacklist.`);
+        message.channel.send(`${successEmoji} ${args[0]} has been added to the blacklist.`);
         jsonWriteFile("./blacklist.json", blacklist);
     } catch (e) {
         message.channel.send(`\`\`\`${e}\`\`\``);

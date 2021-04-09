@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { parseUser } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
-const { embedColor } = require("../config.json");
+const { embedColor, kickChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "KICK_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = client.channels.cache.get("790446455256252446");
+    let logs = client.channels.cache.get(kickChannel);
     let reason = args.slice(1).join(" ");
     let user = parseUser(client, args[0]);
     // user issues
@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
     logs.send(kickEmbed).then(() => {
         message.guild.member(user).kick(`${message.author.tag}: ${reason}`);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been kicked.`);
+        message.channel.send(`${successEmoji} ${user.tag} has been kicked.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });

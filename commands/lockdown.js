@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor } = require("../config.json");
+const { embedColor, lockdownChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_CHANNELS", "ADMINISTRATOR")) return;
 
-    let logs = client.channels.cache.get("792819790192050177");
+    let logs = client.channels.cache.get(lockdownChannel);
     // action
     const lockdownEmbed = new MessageEmbed()
         .setTitle("Lockdown")
@@ -37,8 +37,8 @@ exports.run = async (client, message, args) => {
             lockedDownPerms[guildID] = lockedDownPerms[guildID] || {};
 
             // brain go WAHHHHHHHH, I think this the first time I"ve used the bitwise AND operator
-            // we need to know if it"s denied, allowed, OR NEUTRAL!!!!
-            // That"s why we have to use this weird PermissionOverwrites workaround instead of Permissions.has()
+            // we need to know if it's denied, allowed, OR NEUTRAL!!!!
+            // That's why we have to use this weird PermissionOverwrites workaround instead of Permissions.has()
             // 2048 is SEND_MESSAGES
             if (perms.allow & 2048) sendMessagePerm = true;
             else if (perms.deny & 2048) sendMessagePerm = false;
@@ -51,7 +51,7 @@ exports.run = async (client, message, args) => {
 
         await jsonWriteFile("lockdown.json", lockedDownPerms);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${message.guild.name} has been locked down.`);
+        message.channel.send(`${successEmoji} ${message.guild.name} has been locked down.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });

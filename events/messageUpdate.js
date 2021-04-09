@@ -1,8 +1,8 @@
 const { MessageEmbed } = require("discord.js");
-const { embedColor } = require("../config.json");
+const { embedColor, editEventChannel } = require("../config.json");
 
 module.exports = (client, oldMessage, newMessage) => {
-    let logs = client.channels.cache.get("790446502253428746");
+    let logs = client.channels.cache.get(editEventChannel);
     
     if (oldMessage.author.bot) return;
     if (newMessage.content === oldMessage.content) return;

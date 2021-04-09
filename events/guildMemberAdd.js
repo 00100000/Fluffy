@@ -8,7 +8,7 @@ module.exports = async (client, member) => {
             member.roles.add(muteRole);
         }
     }
-
+    /* joingate
     if (Date.now() - member.user.createdAt < 604800000) {
         member.user.send("Please wait until your account is at least a week old before joining this server! This is to prevent botted user accounts from joining this server.")
             .catch(e => {
@@ -16,4 +16,5 @@ module.exports = async (client, member) => {
         });
         member.kick("Joingate: Account under 1 week old");
     }
+    */
 };

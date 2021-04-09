@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 const { parseUser } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor } = require("../config.json");
+const { embedColor, muteChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MUTE_MEMBERS")) return;
@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
         reason = args.slice(1).join(" ");
     }
     let member = message.guild.member(parseUser(client, args[0]));
-    let logs = client.channels.cache.get("790446444112773130");
+    let logs = client.channels.cache.get(muteChannel);
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
     // user issues
     if (!muteRole) {
@@ -68,7 +68,7 @@ exports.run = async (client, message, args) => {
         await jsonWriteFile("muted.json", muted);
         // timed mute
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been muted${dateMessage}.`);
+        message.channel.send(`${successEmoji} ${member.user.tag} has been muted${dateMessage}.`);
     }).catch(e => {
         console.trace(e);
         message.channel.send(`\`\`\`${e}\`\`\``);

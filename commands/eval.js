@@ -10,8 +10,8 @@ exports.run = async (client, message, args) => {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
     }
 
-    if (output.length === 0) return message.channel.send("No output!");
-    if (output.length > 2000) return message.channel.send("Output is too long to send!");
+    if (output.length === 0) return message.channel.send("No output");
+    if (output.length > 2000) return message.channel.send("Output is too long to send (> 2000 chars)");
 
     message.channel.send(output);
 };

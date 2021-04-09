@@ -1,14 +1,14 @@
 const { MessageEmbed } = require("discord.js");
-const { embedColor } = require("../config.json");
+const { embedColor, deleteEventChannel } = require("../config.json");
 
 module.exports = (client, message) => {
-    let logs = client.channels.cache.get("790446481492017192");
+    let logs = client.channels.cache.get(deleteEventChannel);
 
     if (!message.content) return;
     if (message.author.bot) return;
 
     // SNIPE
-    if (message.guild.id === "735967554757197856") client.lastDeletedMessageInfo = message;
+    if (message.guild.id === mainGuild) client.lastDeletedMessageInfo = message;
 
     const deleteEmbed = new MessageEmbed()
         .setTitle("Delete Event")

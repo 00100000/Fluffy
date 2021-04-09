@@ -3,8 +3,28 @@
     "owner": "693216533614166042",
     "embedColor": "#ffa500",
     "discord": "https://discord.gg/Qtfu7KmCv3",
+    
+    "successEmoji": "<a:SuccessCheck:790804428495257600>",
+    "errorEmoji": "<a:ErrorCross:792483434902585344>",
+
+    "mainGuild": "735967554757197856",
+    "banChannel": "790446465851850794",
+    "botClearChannel": "793637785147801600",
+    "clearChannel": "793627033913131018",
+    "roleChannel": "790814348519407647",
+    "kickChannel": "790446455256252446",
+    "lockChannel": "792819692216516628",
+    "lockdownChannel": "792819790192050177",
+    "muteChannel": "790446444112773130",
+    "nickChannel": "790650641429168167",
+    "warnChannel": "790446365762387968",
+    "deleteEventChannel": "790446481492017192",
+    "editEventChannel": "790446502253428746",
+
+    "staffAnnouncementsChannel": "829737681696981013",
     "errorChannel": "825208155822620672",
     "whitelistedChannel": "797666779731329074",
+
     "staffRole": "755907802832044133",
     "roleHierarchy": [
         "774049837896564736", "755860360166113351", "774050465435615252",

@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { parseChannel } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
-const { embedColor } = require("../config.json");
+const { embedColor, lockChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_CHANNELS", "MANAGE_CHANNELS")) return;
 
-    let logs = client.channels.cache.get("792819692216516628");
+    let logs = client.channels.cache.get(lockChannel);
     let channel = parseChannel(message, args[0]);
     if (!channel) channel = message.channel;
     // user issues
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
             "SEND_MESSAGES": true
         });
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> #${channel.name} has been unlocked.`);
+        message.channel.send(`${successEmoji} #${channel.name} has been unlocked.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });

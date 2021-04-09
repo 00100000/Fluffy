@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { parseUser, parseRole } = require("../utils/parse");
-const { embedColor } = require("../config.json");
+const { embedColor, roleChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MANAGE_ROLES")) return;
 
-    let logs = client.channels.cache.get("790814348519407647");
+    let logs = client.channels.cache.get(roleChannel);
     let member = message.guild.member(parseUser(client, args[0]));
     let roleToGive = parseRole(member, args.slice(1).join(" "));
     // user issues
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
     member.roles.add(roleToGive).then(() => {
         logs.send(giveEmbed);
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been given the role ${roleToGive.name}.`);
+        message.channel.send(`${successEmoji} ${member.user.tag} has been given the role ${roleToGive.name}.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });;

@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { parseUser } = require("../utils/parse");
-const { embedColor } = require("../config.json");
+const { embedColor, warnChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "SEND_MESSAGES", "MANAGE_NICKNAMES")) return;
 
-    let logs = client.channels.cache.get("790446365762387968");
+    let logs = client.channels.cache.get(warnChannel);
     let reason = args.slice(1).join(" ");
     let user = parseUser(client, args[0]);
     // user issues
@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
         message.channel.send("I wasn't able to DM this user.");
     });
     logs.send(warnEmbed).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${user.tag} has been warned for \`${reason}\`.`);
+        message.channel.send(`${successEmoji} ${user.tag} has been warned for \`${reason}\`.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });

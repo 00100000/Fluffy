@@ -2,12 +2,12 @@ const { MessageEmbed } = require("discord.js");
 const { parseID } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor } = require("../config.json");
+const { embedColor, banChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "BAN_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = client.channels.cache.get("790485234968821791");
+    let logs = client.channels.cache.get(banChannel);
     let reason = args.slice(1).join(" ");
     // user issues
     if (!args[0]) return message.channel.send("You didn't provide me with a user to unban!");
@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
         jsonWriteFile("banned.json", banned);
         // timed unban
     }).then(() => {
-        message.channel.send(`<a:SuccessCheck:790804428495257600> ${args[0]} has been unbanned.`);
+        message.channel.send(`${successEmoji} ${args[0]} has been unbanned.`);
     }).catch(e => {
         if (e.includes("Invalid Form Body")) {
             message.channel.send("This is not a valid User ID!");
