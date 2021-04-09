@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
         return message.channel.send("You can't use this command on someone more or just as powerful as you!");
     }
     if (!member.roles.cache.has(staffRole)) return message.channel.send("This user can't be demoted any lower!");
-    if (member.roles.cache.highest.id === roleHierarchy[0]) newRole = "No Staff";
+    if (member.roles.highest.id === roleHierarchy[0]) newRole = "No Staff";
     // find what role to demote a user to
     for (i = 0; i < roleHierarchy.length; i++) {
         if (member.roles.highest.id === roleHierarchy[i]) {

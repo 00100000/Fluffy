@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
     for (i = 0; i < roleHierarchy.length; i++) {
         if (member.roles.highest.id === roleHierarchy[i]) {
             newRole = parseRole(member, roleHierarchy[i + 1]);
-            oldRole = parseRole(member, roleHierarchy[i].name);
+            oldRole = parseRole(member, roleHierarchy[i]).name;
             break;
         }
     }
