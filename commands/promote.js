@@ -9,9 +9,9 @@ exports.run = async (client, message, args) => {
     let logs = client.channels.cache.get("829737681696981013");
     let member = message.guild.member(parseUser(client, args[0]));
     let roleToGive;
-    // user issues
+    // member issues
     if (!member) return message.channel.send("This is not a member id or mention!");
-    if (!message.guild.member(user).bannable) return message.channel.send("This user is too powerful to be promoted!");
+    if (member.bannable) return message.channel.send("This user is too powerful to be promoted!");
     if (member.roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send("You can't use this command on someone more or just as powerful as you!");
     }
