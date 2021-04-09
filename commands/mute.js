@@ -56,7 +56,7 @@ exports.run = async (client, message, args) => {
 
     // I am the ternary wizard
     const dateMessage = date ? " for " + (ms(date, {long: true})) : "";
-    member.send(`You"ve been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}${dateMessage}.`).catch(() => {
+    member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}${dateMessage}.`).catch(() => {
         message.channel.send("I wasn't able to DM this user.");
     });
     member.roles.add(muteRole).then(async () => {

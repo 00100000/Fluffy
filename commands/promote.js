@@ -8,19 +8,22 @@ exports.run = async (client, message, args) => {
 
     let logs = client.channels.cache.get("829737681696981013");
     let member = message.guild.member(parseUser(client, args[0]));
-    let roleToGive = -1;
+    let roleToGive;
     // user issues
     if (!member) return message.channel.send("This is not a member id or mention!");
-    if (member.id === message.author.id) return message.channel.send("You can't promote yourself, silly!");
-    if (!member.bannable) return message.channel.send("This user is too powerful to be promoted!");
+    if (!message.guild.member(user).bannable) return message.channel.send("This user is too powerful to be promoted!");
     if (member.roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send("You can't use this command on someone more or just as powerful as you!");
     }
-    if (member.roles.cache.has(roleHierarchy.length - 1)) return message.channel.send("This member cannot be promoted any higher!");
-    // find what role to promote the member to
-    for (i = roleHierarchy.length - 2; i >= 0; i--) {
-        if (member.roles.cache.has(roleHierarchy[i])) roleToGive = parseRole(member, roleHierarchy[i + 1]);
+    if (member.roles.highest.id === roleHierarchy[roleHierarchy.length - 1]) return message.channel.send("This user can't be promoted any higher!");
+    // find what role to promote a user to
+    for (i = 0; i < roleHierarchy.length; i++) {
+        if (member.roles.highest.id === roleHierarchy[i]) {
+            roleToGive = parseRole(member, roleHierarchy[i + 1]);
+            break;
+        }
     }
+    if (!roleToGive) roleToGive = parseRole(member, roleHierarchy[0]);
     // action
     const promoteEmbed = new MessageEmbed()
         .setTitle("User Promoted")
@@ -30,26 +33,24 @@ exports.run = async (client, message, args) => {
         .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
-
-    member.user.send(`You've been promoted by ${message.author.tag}, in ${message.guild.name} to ${roleToGive.name}`)
+    
+    if (!member.roles.cache.has(staffRole)) member.roles.add(staffRole);
+    user.send(`You've been promoted by ${message.author.tag}, in ${message.guild.name} to ${roleToGive.name}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
-    logs.send(promoteEmbed).then(() => {
-        if (roleToGive === -1) {
-            member.roles.add(staffRole);
-            member.roles.add(roleHierarchy[0]);
-        } else {
-            member.roles.add(roleToGive);
-        }
+    member.roles.add(roleToGive).then(() => {
+        logs.send(promoteEmbed);
+    }).then(() => {
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been promoted to ${roleToGive.name}.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
-    });
+    });;
 };
 
 exports.help = {
     name: "promote",
     aliases: ["p"],
-    description: "Promotes a staff member and DMs them.",
-    usage: "promote <user>"
+    description: "Promotes a staff member.",
+    usage: "promote <member>"
 };
