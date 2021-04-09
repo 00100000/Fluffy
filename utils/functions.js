@@ -1,3 +1,5 @@
+const { errorChannel } = require("../config.json");
+
 module.exports = (client) => {
     client.loadCommand = (cmdFileName) => {
         try {
@@ -35,9 +37,8 @@ module.exports = (client) => {
         });
     });
     
-    process.on("unhandledRejection", error => {
-        client.logger.error(`I bet this is Natsumi"s fault: ${error}\n\n\nDetails:`);
-        console.error(error);
+    process.on("unhandledRejection", e => {
+        client.channels.cache.get(errorChannel).send(e);
     });
 
 };

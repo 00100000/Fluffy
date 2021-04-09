@@ -3,7 +3,6 @@
 - ?strike <staff> [reason] gives a staff a strike (delete strikes and demote staff automatically after 3 strikes)
 - ?removestrike <staff> removes a staff member's strike
 - ?strikes [staff] lists a staff member's strikes, defaults to self
-- print pm2 log in #errors channel in Chill Logs
 - make ?ban work with IDs
 - auto-quarantine if a non-whitelisted user with mention everyone perms pings everyone
 - auto-quarantine if a user manually kicks/bans 5 or more people in a day

@@ -11,41 +11,45 @@ exports.run = async (client, message, args) => {
     let roleToTake;
     // user issues
     if (!member) return message.channel.send("This is not a member id or mention!");
-    if (member.id === message.author.id) return message.channel.send("You can't demote yourself, silly!");
-    if (!member.bannable) return message.channel.send("This user is too powerful to be demoted!");
+    if (!message.guild.member(user).bannable) return message.channel.send("This user is too powerful to be demoted!");
     if (member.roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
         return message.channel.send("You can't use this command on someone more or just as powerful as you!");
     }
-    if (member.roles.cache.has(staffRole)) return message.channel.send("This member cannot be demoted any lower!");
-    // find what role to demote the member to
-    for (i = roleHierarchy.length - 1; i > 0; i--) {
-        if (member.roles.cache.has(roleHierarchy[i])) roleToTake = parseRole(member, roleHierarchy[i - 1]);
+    if (!member.roles.cache.has(staffRole)) return message.channel.send("This user can't be demoted any lower!");
+    // find what role to demote a user to
+    for (i = 0; i < roleHierarchy.length; i++) {
+        if (member.roles.highest.id === roleHierarchy[i]) {
+            roleToTake = parseRole(member, roleHierarchy[i]);
+            break;
+        }
     }
     // action
     const demoteEmbed = new MessageEmbed()
         .setTitle("User Demoted")
         .addField("User", member.user.tag, false)
         .addField("Moderator", message.author.tag, false)
-        .addField("Demoted From", roleToTake.name, false)
+        .addField("Role Lost", roleToGive.name, false)
         .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
-
-    member.user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name} to ${roleToTake.name}`)
+    
+    if (roleToTake.id === roleHierarchy[0]) member.roles.remove(staffRole);
+    user.send(`You've been demoted by ${message.author.tag}, in ${message.guild.name}, and you are longer ${roleToTake.name}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
-    logs.send(demoteEmbed).then(() => {
-        member.roles.remove(roleToTake);
-        if (roleToTake === roleHierarchy[0]) roles.remove(staffRole);
+    member.roles.remove(roleToTake).then(() => {
+        logs.send(demoteEmbed);
+    }).then(() => {
+        message.channel.send(`<a:SuccessCheck:790804428495257600> ${member.user.tag} has been demoted, losing ${roleToTake.name}.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
-    });
+    });;
 };
 
 exports.help = {
     name: "demote",
-    aliases: ["p"],
-    description: "Demotes a staff member and DMs them.",
-    usage: "demote <user>"
+    aliases: ["d"],
+    description: "Demotes a staff member.",
+    usage: "Demote <member>"
 };
