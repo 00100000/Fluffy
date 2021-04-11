@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
         let cmdHelp = cmdObj.help;
 
         let cmdHelpEmbed = new MessageEmbed()
-            .setTitle(`${cmdHelp.name} Command`)
+            .setTitle(cmdHelp.name)
             .setDescription(cmdHelp.description)
             .addField("Usage", `\`${prefix}${cmdHelp.usage}\``, true)
             .setColor(embedColor);

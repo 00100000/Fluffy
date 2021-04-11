@@ -2,14 +2,23 @@
 - ?strike <staff> [reason] gives a staff a strike (delete strikes and demote staff automatically after 3 strikes)
 - ?removestrike <staff> removes a staff member's strike
 - ?strikes [staff] lists a staff member's strikes, defaults to self
+- put links and IDs in the bot in the config
+- switch parse commands to built in regex
+- ?messagesperminute (?mpm) command to tell the average messages per minute of the past hour
+- print pm2 log in #errors channel in Chill Logs
+- ?slowmode
 - make ?ban work with IDs
-- auto-quarantine if a non-whitelisted user with mention everyone perms pings everyone
+- auto-quarantine if a user pings @everyone or @here
 - auto-quarantine if a user manually kicks/bans 5 or more people in a day
 - auto-quarantine if a user manually kicks/bans 5 or more channels in a day
 - auto-quarantine if a user manually deletes 3 or more roles in a day
-- auto-quarantine if a user gives a non-staff role management permissions
+- auto-quarantine if a user manually deletes 3 or more channels in a day
+- auto-quarantine if a user manually creates 3 or more webhooks in a day
+- auto-quarantine if a user gives a non-staff or integration role management permissions
 - auto-ban new bots that join the server
 - switch to mongodb for storing data
+- ?whitelist [duration] to temporarily or permanently whitelist a user from the anti-raid
+- merge muted and banned into temp.json and merge blacklist and lockdown into data.json
 - make error messages in commands more consistent and use the 'X' emoji
 - make a util for handling common command errors
 - tell user how long someone was muted/banned for in embed

@@ -1,5 +1,9 @@
+const { noPerms } = require('../utils/perms');
+
 exports.run = async (client, message, args) => {
-    message.channel.send("https://cdn.discordapp.com/attachments/826269508834295809/826277463113203742/pet.gif");
+    if (noPerms(message, 'SEND_MESSAGES', 'SEND_MESSAGES')) return;
+
+    message.channel.send('https://cdn.discordapp.com/attachments/826269508834295809/826277463113203742/pet.gif');
 }
 
 exports.help = {
