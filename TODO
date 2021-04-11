@@ -19,3 +19,7 @@
 - ?userinfo
 - ?serverinfo
 - track punishments (with database)
+Multi-Server Comptability
+- make some commands not work for non-Chill Hub servers
+- log server actions on in-server logs except for Chill Hub
+- make some features not work for non-Chill Hub servers
