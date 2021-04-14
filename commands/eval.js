@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
 
     let output = undefined;
     try {
-        output = eval(args.join(" "));
+        output = eval(args.join(" ")) + "";
     } catch (err) {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
     }

@@ -1,12 +1,12 @@
-const { owner, errorEmoji } = require("../config.json");
+const { owners, errorEmoji } = require("../config.json");
 
 function noPerms(message, botPerm, userPerm) {
     // owner-only commands
     if (!botPerm) {
-        if (message.author.id === owner) {
+        if (owners.includes(message.author.id)) {
             return false;
         } else {
-            return message.channel.send(errorEmoji + " Only the owner of the bot can use this command!");
+            return message.channel.send(errorEmoji + " Only the owners of the bot can use this command!");
         }
     }
     
