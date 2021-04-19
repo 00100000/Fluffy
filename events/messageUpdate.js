@@ -1,8 +1,9 @@
 const { MessageEmbed } = require("discord.js");
-const { embedColor, editEventChannel } = require("../config.json");
+const { embedColor } = require("../config.json");
+const { setupLogs } = require("../utils/setup");
 
 module.exports = (client, oldMessage, newMessage) => {
-    let logs = client.channels.cache.get(editEventChannel);
+    let logs = setupLogs(message, "event-logs");
     
     if (oldMessage.author.bot) return;
     if (newMessage.content === oldMessage.content) return;
@@ -17,5 +18,5 @@ module.exports = (client, oldMessage, newMessage) => {
         .setFooter("Sneaky edit")
         .setTimestamp();
 
-    logs.send(updateEmbed);
+    logs.send(updateEmbed).catch();
 };

@@ -1,12 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
+const { setupLogs } = require("../utils/setup");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor, lockdownChannel, successEmoji } = require("../config.json");
+const { embedColor, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_CHANNELS", "ADMINISTRATOR")) return;
 
-    let logs = client.channels.cache.get(lockdownChannel);
+    let logs = setupLogs(message, "command-logs");
     // action
     const endlockdownEmbed = new MessageEmbed()
         .setTitle("Lockdown Ended")

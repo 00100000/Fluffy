@@ -1,35 +1,14 @@
+- ?vaporize: ?ban except deletes a person's message history from the past week
 - check if messages being cleared are over 2 weeks old, and don't try to delete them if they are
-- ?strike <staff> [reason] gives a staff a strike (delete strikes and demote staff automatically after 3 strikes)
-- ?removestrike <staff> removes a staff member's strike
-- ?strikes [staff] lists a staff member's strikes, defaults to self
-- switch from the logger to console.error
-- make an error handling function that tells the user there was an error and sends the error to the error channel
-- make logging for all servers
-- track the use of all commands in the VPS (by printing to console)
 - automatically update mute role overwrites when a new channel is made
 - track punishments (with database)
-- ?quarantine: takes all roles and gives role with access to only 1 channel
-- ?unquarantine: removes the quarantine role and gives users the member role back
 - ?slowmode
 - make ?ban work with IDs (for people not in the server)
 - switch to mongodb for storing data
-- ?whitelist [duration] to temporarily or permanently whitelist a user from the anti-raid
-- merge muted and banned into temp.json and merge blacklist and lockdown into data.json
-- make error messages in commands more consistent and use the 'X' emoji
-- make a util for handling common command errors
-- tell user how long someone was muted/banned for in embed
+- make error messages in commands more consistent and use the ErrorCross emoji
 - make messageDelete and messageUpdate track what channel a message was deleted in
 - ?userinfo
 - ?serverinfo
 - switch parse commands to built in regex
-
-ANTIRAID
-- auto-quarantine if a user pings @everyone or @here
-- auto-quarantine if a user manually kicks/bans 5 or more people in a day
-- auto-quarantine if a user manually kicks/bans 5 or more channels in a day
-- auto-quarantine if a user manually deletes 3 or more roles in a day
-- auto-quarantine if a user manually deletes 3 or more channels in a day
-- auto-quarantine if a user manually creates 3 or more webhooks in a day
-- auto-quarantine if a user gives a non-staff or integration role management permissions
-- auto-ban new bots that join the server
-- anti spam (with discordjs-anti-spam)
+- add per-server prefixes
+- add per-server custom ban and kick messages

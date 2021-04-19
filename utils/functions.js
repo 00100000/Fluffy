@@ -1,9 +1,6 @@
-const { errorChannel } = require("../config.json");
-
 module.exports = (client) => {
     client.loadCommand = (cmdFileName) => {
         try {
-            // client.logger.log(`Loading Command: ${cmdFileName} 👌`);
             const props = require(`../commands/${cmdFileName}`);
             if (props.init) props.init(client);
             client.commands.set(props.help.name, props);
@@ -18,7 +15,6 @@ module.exports = (client) => {
 
     client.loadEvent = (eventFileName) => {
         try {
-            // client.logger.log(`Loading Event: ${eventFileName} 👌`);
             const event = require(`../events/${eventFileName}`);
             const evtName = eventFileName.split(".")[0];
             client.on(evtName, event.bind(null, client));
@@ -29,10 +25,9 @@ module.exports = (client) => {
     };
 
     process.on("SIGTERM", async () => {
-        await client.logger.log("SIGTERM signal received.");
-        await client.logger.log("Bot shutting down...");
+        await console.log("SIGTERM signal received.");
         await client.destroy(() => {
-            client.logger.log("Bot has shut down.");
+            console.log("Client destroyed.");
             process.exit(0);
         });
     });
@@ -40,5 +35,4 @@ module.exports = (client) => {
     process.on("unhandledRejection", e => {
 	    console.error(e);
     });
-
 };

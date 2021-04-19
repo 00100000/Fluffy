@@ -1,7 +1,7 @@
 const { jsonCreateFile, jsonReadFile, jsonWriteFile } = require("../utils/file");
 
 module.exports = async client => {
-    await client.logger.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.cache.size} server(s).`);
+    await console.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.cache.size} server(s).`);
     
     client.user.setStatus("online");
     client.user.setActivity("fetch", { type: "PLAYING" });
@@ -20,7 +20,7 @@ module.exports = async client => {
         let banned = await jsonReadFile("./banned.json");
 
         Object.keys(muted).forEach(guildID => {
-            let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === "Muted");
+            let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === "Muted").catch();
 
             Object.keys(muted[guildID]).forEach(userID => {
                 // if the mute isn"t timed, we don"t need to worry about it
@@ -30,7 +30,7 @@ module.exports = async client => {
                 if (Date.now() > muted[guildID][userID]) {
                     // remove muted role
                     try {
-                        client.guilds.cache.get(guildID).member(userID).roles.remove(muteRole);
+                        client.guilds.cache.get(guildID).member(userID).roles.remove(muteRole).catch();
                     } catch (e) {}
                     
                     // delete from muted.json, write to file
@@ -45,7 +45,7 @@ module.exports = async client => {
                 if (banned[guildID][userID] === -1) return;
                 
                 if (Date.now() > banned[guildID][userID]) {
-                    client.guilds.cache.get(guildID).members.unban(userID);
+                    client.guilds.cache.get(guildID).members.unban(userID).catch();
                     
                     delete banned[guildID][userID];
                     jsonWriteFile("banned.json", banned);

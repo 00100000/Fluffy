@@ -2,13 +2,14 @@ const ms = require("ms");
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { parseUser } = require("../utils/parse");
+const { setupLogs } = require("../utils/setup");
+const { embedColor, successEmoji } = require("../config.json");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor, banChannel, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "BAN_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = client.channels.cache.get(banChannel);
+    let logs = setupLogs(message, "command-logs");
     let date = undefined;
     let reason = undefined;
     try {
@@ -41,7 +42,7 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
 
-    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}. You may appeal your ban here: https://discord.gg/xhCCBvzbs8`)
+    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
@@ -53,7 +54,6 @@ exports.run = async (client, message, args) => {
             banned[member.guild.id] = banned[member.guild.id] || {};
             banned[member.guild.id][member.id] = date? (Date.now() + date) : -1;
             await jsonWriteFile("banned.json", banned);
-            // timed ban
         }
         message.guild.members.ban(user, { reason: `${message.author.tag}: ${reason}` });
     }).then(() => {

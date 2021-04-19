@@ -1,7 +1,7 @@
 {
-  "name": "chill-mod",
+  "name": "fluffy",
   "version": "1.0.0",
-  "description": "Chill Hub's Official Discord Bot",
+  "description": "The Cutest Moderation Bot.",
   "main": "app.js",
   "scripts": {
     "start": "node .",
@@ -12,20 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/00100000spacebar/chill-mod"
+    "url": "https://github.com/00100000spacebar/fluffy"
   },
-  "keywords": [
-    "chill",
-    "discord.js",
-    "discord",
-    "bot"
-  ],
   "author": "00100000spacebar",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/00100000spacebar/chill-mod/issues"
+    "url": "https://github.com/00100000spacebar/fluffy/issues"
   },
-  "homepage": "https://github.com/00100000spacebar/chill-mod#README.md",
+  "homepage": "https://github.com/00100000spacebar/fluffy#README.md",
   "dependencies": {
     "chalk": "^4.1.0",
     "discord.js": "^12.5.1",

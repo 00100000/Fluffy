@@ -1,12 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
+const { setupLogs } = require("../utils/setup");
 const { parseUser, parseRole } = require("../utils/parse");
-const { embedColor, roleChannel, successEmoji } = require("../config.json");
+const { embedColor, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MANAGE_ROLES")) return;
 
-    let logs = client.channels.cache.get(roleChannel);
+    let logs = setupLogs(message, "command-logs");
     let member = message.guild.member(parseUser(client, args[0]));
     let roleToGive = parseRole(member, args.slice(1).join(" "));
     // user issues

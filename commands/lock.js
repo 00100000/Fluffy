@@ -1,12 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 const { parseChannel } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
-const { embedColor, lockChannel, successEmoji } = require("../config.json");
+const { setupLogs } = require("../utils/setup");
+const { embedColor, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_CHANNELS", "MANAGE_CHANNELS")) return;
 
-    let logs = client.channels.cache.get(lockChannel);
+    let logs = setupLogs(message, "command-logs");
     let channel = parseChannel(message, args[0]);
     if (!channel) channel = message.channel;
     // user issues

@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const client = new Client({
 	disableMentions:  "everyone",
+	fetchAllMembers: true,
 	messageCacheMaxSize: 500,
 	messageCacheLifetime: 86400,
 	messageSweepInterval: 86400
@@ -15,9 +16,6 @@ const client = new Client({
 client.commands = new Map();
 client.aliases = new Map();
 
-client.logger = require("./utils/logger");
-client.lastDeletedMessageInfo;
-
 require("./utils/functions")(client);
 
 const init = async () => {
@@ -25,17 +23,15 @@ const init = async () => {
 	cmdFiles.forEach(f => {
 		if (!f.endsWith(".js")) return;
 		const response = client.loadCommand(f);
-		if (response) client.logger.error(response);
+		if (response) console.error(response);
 	});
-	client.logger.log(`Loading a total of ${cmdFiles.length} commands.`);
 
 	const evtFiles = await readdir("./events/");
 	evtFiles.forEach(f => {
 		if (!f.endsWith(".js")) return;
 		const response = client.loadEvent(f);
-		if (response) client.logger.error(response);
+		if (response) console.error(response);
 	});
-	client.logger.log(`Loading a total of ${evtFiles.length} events.`);
 
 	client.login(process.env.CLIENT_TOKEN);
 };

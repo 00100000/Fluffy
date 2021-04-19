@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
 
     let user = parseUser(client, args[0]);
     // user issues
-    if (!user) return message.channel.send("This user doesn't share any guilds with the bot!");
+    if (!user) return message.channel.send("This user doesn't share any guilds with me!");
     // action
     const blacklist = await jsonReadFile("./blacklist.json");
     try {

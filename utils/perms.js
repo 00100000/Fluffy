@@ -21,13 +21,12 @@ function noPerms(message, botPerm, userPerm) {
     if (botOrUser === 0) {
         return false;
     } else {
-    // Natsumi-approved ternary spam
         return message.channel.send(
             errorEmoji
             + (botOrUser === 1 ? " I" : " You")
             + " don't have permissions to do this! Required permission: "
             + (botOrUser === 1 ? botPerm : userPerm)
-        );
+        ).catch();
     }
 }
 

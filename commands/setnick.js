@@ -1,12 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 const { parseUser } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
-const { embedColor, nickChannel, successEmoji } = require("../config.json");
+const { setupLogs } = require("../utils/setup");
+const { embedColor, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_NICKNAMES", "MANAGE_NICKNAMES")) return;
 
-    let logs = client.channels.cache.get(nickChannel);
+    let logs = setupLogs(message, "command-logs");
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send("This is not a user id or mention!");

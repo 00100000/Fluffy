@@ -1,8 +1,9 @@
 const { MessageEmbed } = require("discord.js");
-const { embedColor, deleteEventChannel } = require("../config.json");
+const { embedColor } = require("../config.json");
+const { setupLogs } = require("../utils/setup");
 
 module.exports = (client, message) => {
-    let logs = client.channels.cache.get(deleteEventChannel);
+    let logs = setupLogs(message, "event-logs");
 
     if (!message.content) return;
     if (message.author.bot) return;
@@ -16,5 +17,5 @@ module.exports = (client, message) => {
         .setFooter("Alt + F4")
         .setTimestamp();
 
-    logs.send(deleteEmbed);
+    logs.send(deleteEmbed).catch();
 };

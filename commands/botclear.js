@@ -1,11 +1,12 @@
-const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
-const { embedColor, botClearChannel, successEmoji } = require("../config.json");
+const { MessageEmbed } = require("discord.js");
+const { setupLogs } = require("../utils/setup");
+const { embedColor, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_MESSAGES", "MANAGE_MESSAGES")) return;
 
-    let logs = client.channels.cache.get(botClearChannel);
+    let logs = setupLogs(message, "command-logs");
     let trueCleared;
     const botPrefixes = ["!", "?", "&", "-", ">", "u.", "pls ", ".", "d?", "+", "%", "s."];
     // user issues
@@ -41,6 +42,6 @@ exports.run = async (client, message, args) => {
 exports.help = {
     name: "botclear",
     aliases: ["bc"],
-    description: "Purges bot and bot-related messages from a channel.",
+    description: "Tries to purge bot and bot-related messages from a channel.",
     usage: "botclear [amount]"
 };

@@ -1,13 +1,14 @@
 const { MessageEmbed } = require("discord.js");
 const { parseID } = require("../utils/parse");
 const { noPerms } = require("../utils/perms");
+const { setupLogs } = require("../utils/setup");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor, banChannel, successEmoji } = require("../config.json");
+const { embedColor, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "BAN_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = client.channels.cache.get(banChannel);
+    let logs = setupLogs(message, "command-logs");
     let reason = args.slice(1).join(" ");
     // user issues
     if (!args[0]) return message.channel.send("You didn't provide me with a user to unban!");
@@ -26,7 +27,7 @@ exports.run = async (client, message, args) => {
         logs.send(unbanEmbed);
         // timed unban
         let banned = await jsonReadFile("muted.json");
-        delete banned[message.guild.id][parseID(client, args[0])];
+        delete banned[message.guild.id][parseID(args[0])];
         jsonWriteFile("banned.json", banned);
         // timed unban
     }).then(() => {

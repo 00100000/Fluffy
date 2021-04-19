@@ -1,15 +1,16 @@
 const { MessageEmbed } = require("discord.js");
 const { noPerms } = require("../utils/perms");
 const { parseUser } = require("../utils/parse");
+const { setupLogs } = require("../utils/setup");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
-const { embedColor, muteChannel, successEmoji } = require("../config.json");
+const { embedColor, successEmoji } = require("../config.json");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MUTE_MEMBERS")) return;
 
     let reason = args.slice(1).join(" ");
     let member = message.guild.member(parseUser(client, args[0]));
-    let logs = client.channels.cache.get(muteChannel);
+    let logs = setupLogs(message, "command-logs");
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
     // user issues
     if (!muteRole) {
