@@ -69,4 +69,5 @@ package-lock.json
 # Punishments
 muted.json
 banned.json
+lockdown.json
 blacklist.json

@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     }
 
     let avatarEmbed = new MessageEmbed()
-        .setTitle(member.tag + "'s Avatar")
+        .setTitle(member.user.tag + "'s Avatar")
         .setImage(member.avatarURL({ format: "png", dynamic: true, size: 4096 }))
         .setColor(embedColor)
         .setTimestamp();
