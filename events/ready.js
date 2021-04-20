@@ -20,7 +20,7 @@ module.exports = async client => {
         let banned = await jsonReadFile("./banned.json");
 
         Object.keys(muted).forEach(guildID => {
-            let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === "Muted").catch();
+            let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === "Muted");
 
             Object.keys(muted[guildID]).forEach(userID => {
                 // if the mute isn"t timed, we don"t need to worry about it

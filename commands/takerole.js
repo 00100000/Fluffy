@@ -7,7 +7,7 @@ const { embedColor, successEmoji } = require("../config.json");
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MANAGE_ROLES")) return;
 
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let member = message.guild.member(parseUser(client, args[0]));
     if (!member) return message.channel.send("This is not a member id or mention!");
     let roleToTake = parseRole(member, args.slice(1).join(" "));

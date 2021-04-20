@@ -7,7 +7,7 @@ const { embedColor, successEmoji } = require("../config.json");
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_NICKNAMES", "MANAGE_NICKNAMES")) return;
 
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) return message.channel.send("This is not a user id or mention!");

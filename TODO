@@ -3,6 +3,7 @@
 - automatically update mute role overwrites when a new channel is made
 - track punishments (with database)
 - ?slowmode
+- switch all errors to e.stack
 - make ?ban work with IDs (for people not in the server)
 - switch to mongodb for storing data
 - make error messages in commands more consistent and use the ErrorCross emoji

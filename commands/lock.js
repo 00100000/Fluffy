@@ -7,7 +7,7 @@ const { embedColor, successEmoji } = require("../config.json");
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_CHANNELS", "MANAGE_CHANNELS")) return;
 
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let channel = parseChannel(message, args[0]);
     if (!channel) channel = message.channel;
     // user issues

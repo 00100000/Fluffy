@@ -6,7 +6,7 @@ const { embedColor, successEmoji } = require("../config.json");
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_MESSAGES", "MANAGE_MESSAGES")) return;
 
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let trueCleared;
     const botPrefixes = ["!", "?", "&", "-", ">", "u.", "pls ", ".", "d?", "+", "%", "s."];
     // user issues

@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
         reason = args.slice(1).join(" ");
     }
     let member = message.guild.member(parseUser(client, args[0]));
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
     // user issues
     if (!muteRole) {

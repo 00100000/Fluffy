@@ -8,7 +8,7 @@ const { embedColor, successEmoji } = require("../config.json");
 exports.run = async (client, message, args) => {
     if (noPerms(message, "BAN_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let reason = args.slice(1).join(" ");
     // user issues
     if (!args[0]) return message.channel.send("You didn't provide me with a user to unban!");

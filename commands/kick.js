@@ -7,7 +7,7 @@ const { embedColor, successEmoji } = require("../config.json");
 exports.run = async (client, message, args) => {
     if (noPerms(message, "KICK_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let reason = args.slice(1).join(" ");
     let user = parseUser(client, args[0]);
     // user issues
@@ -36,7 +36,7 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         message.channel.send(`${successEmoji} ${user.tag} has been kicked.`);
     }).catch(e => {
-        message.channel.send(`\`\`\`${e}\`\`\``);
+        message.channel.send(`\`\`\`${e.stack}\`\`\``);
     });
 };
 

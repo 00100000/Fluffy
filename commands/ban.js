@@ -9,7 +9,7 @@ const { jsonReadFile, jsonWriteFile } = require("../utils/file");
 exports.run = async (client, message, args) => {
     if (noPerms(message, "BAN_MEMBERS", "BAN_MEMBERS")) return;
 
-    let logs = setupLogs(message, "command-logs");
+    let logs = await setupLogs(message, "command-logs");
     let date = undefined;
     let reason = undefined;
     try {
