@@ -15,5 +15,6 @@ module.exports = async (client, message) => {
     if (!cmd) return;
     if (blacklist.includes(message.author.id)) return;
     // execute command
+    if (!message.guild.me.permissions.has("ADMINISTRATOR")) return "This bot cannot function properly without Administrator. In the future, we plan to make it still functional with less perms, sorry for the inconvenience.";
     cmd.run(client, message, args);
 };
