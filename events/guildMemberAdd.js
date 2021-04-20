@@ -1,7 +1,7 @@
 const { jsonReadFile } = require("../utils/file");
 
 module.exports = async (client, member) => {
-    if (!client.guilds.cache.get(guildID).me.permissions.has("ADMINISTRATOR")) return;
+    if (!client.guilds.cache.get(member.guild.id).me.permissions.has("ADMINISTRATOR")) return;
 
     let muted = await jsonReadFile("muted.json");
     if (Object.keys(muted).includes(member.guild.id)) {
