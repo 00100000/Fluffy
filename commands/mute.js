@@ -26,16 +26,20 @@ exports.run = async (client, message, args) => {
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
     // user issues
     if (!muteRole) {
-        muteRole = await message.guild.createRole({
-            name: "Muted",
-            color: "#000000",
-            permissions: []
+        muteRole = await message.guild.roles.create({
+            data: {
+                name: "Muted",
+                color: "#000000",
+                permissions: 0
+            },
+            reason: "Automatic setup of Muted role"
         });
-        message.guild.channels.forEach(async (channel, id) => {
-            await channel.overwritePermissions(muteRole, {
-                SEND_MESSAGES: false,
-                ADD_REACTIONS: false
-            });
+        message.guild.channels.cache.forEach(async (channel, id) => {
+            if (channel.type == "voice") {
+                await channel.createOverwrite(muteRole, { CONNECT: false }, "Automatic setup of Muted role");
+            } else {
+                await channel.createOverwrite(muteRole, { SEND_MESSAGES: false, ADD_REACTIONS: false }, "Automatic setup of Muted role");
+            }
         });
     }
 

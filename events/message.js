@@ -6,6 +6,7 @@ module.exports = async (client, message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;
+    if (!message.guild.me.permissions.has("SEND_MESSAGES")) return;
     // command and args parsing
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
@@ -15,6 +16,8 @@ module.exports = async (client, message) => {
     if (!cmd) return;
     if (blacklist.includes(message.author.id)) return;
     // execute command
-    if (!message.guild.me.permissions.has("ADMINISTRATOR")) return "This bot cannot function properly without Administrator. In the future, we plan to make it still functional with less perms, sorry for the inconvenience.";
+    if (!message.guild.me.permissions.has("ADMINISTRATOR")) return message.channel.send(
+        "This bot cannot function properly without Administrator. In the future, we plan to make it still functional with less perms, sorry for the inconvenience."
+    ).catch();
     cmd.run(client, message, args);
 };

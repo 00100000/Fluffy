@@ -1,9 +1,10 @@
 {
-    "discord": "https://discord.gg/Qtfu7KmCv3",
+    "discord": "https://discord.gg/2ABNPvexdJ",
     "embedColor": "#ffa500",
     "errorChannel": "825208155822620672",
     "errorEmoji": "<a:ErrorCross:792483434902585344>",
+    "invite": "https://fluffy.cf",
     "owners": ["693216533614166042", "192615247448768512"],
-    "prefix": "?",
+    "prefix": "}",
     "successEmoji": "<a:SuccessCheck:790804428495257600>"
 }
