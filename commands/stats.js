@@ -23,6 +23,7 @@ exports.run = async (client, message, args) => {
         .addField("Discord.js", `v${discordVersion}`, true)
         .addField("Node", `${process.version}`, true)
         .addField("Bot Version", version, true)
+        .addField("Commit", client.commit, true)
         .setFooter(`Made with <3 and discord.js by 00100000#0032`)
         .setTimestamp();
 
