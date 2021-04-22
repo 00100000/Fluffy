@@ -56,5 +56,5 @@ module.exports = async client => {
                 }
             });
         });
-    }, 15000);
+    }, 30000);
 };
