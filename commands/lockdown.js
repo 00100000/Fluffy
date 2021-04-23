@@ -41,8 +41,10 @@ exports.run = async (client, message, args) => {
             // we need to know if it's denied, allowed, OR NEUTRAL!!!!
             // That's why we have to use this weird PermissionOverwrites workaround instead of Permissions.has()
             // 2048 is SEND_MESSAGES
-            if (perms.allow & 2048) sendMessagePerm = true;
+            if (perms === undefined) sendMessagePerm = null;
+            else if (perms.allow & 2048) sendMessagePerm = true;
             else if (perms.deny & 2048) sendMessagePerm = false;
+            
             lockedDownPerms[guildID][channel.id] = sendMessagePerm;
 
             channel.updateOverwrite(message.guild.roles.everyone, {

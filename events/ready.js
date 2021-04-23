@@ -20,6 +20,7 @@ module.exports = async client => {
         let banned = await jsonReadFile("./banned.json");
 
         Object.keys(muted).forEach(guildID => {
+            if (!client.guilds.cache.has(guildID)) return;
             if (!client.guilds.cache.get(guildID).me.permissions.has("ADMINISTRATOR")) return;
             let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === "Muted");
 
@@ -42,6 +43,7 @@ module.exports = async client => {
         });
         // same thing for banned, but we unban them instead of unmuting them
         Object.keys(banned).forEach(guildID => {
+            if (!client.guilds.cache.has(guildID)) return;
             if (!client.guilds.cache.get(guildID).me.permissions.has("ADMINISTRATOR")) return;
             Object.keys(banned[guildID]).forEach(userID => {
                 if (banned[guildID][userID] === -1) return;
@@ -54,5 +56,5 @@ module.exports = async client => {
                 }
             });
         });
-    }, 15000);
+    }, 30000);
 };
