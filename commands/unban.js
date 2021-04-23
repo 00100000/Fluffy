@@ -33,9 +33,9 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         message.channel.send(`${successEmoji} ${args[0]} has been unbanned.`);
     }).catch(e => {
-        if (e.includes("Invalid Form Body")) {
+        if (e.message.includes("Invalid Form Body")) {
             message.channel.send("This is not a valid User ID!");
-        } else if (e.includes("Unknown Ban")) {
+        } else if (e.message.includes("Unknown Ban")) {
             message.channel.send("This user is not banned!");
         } else {
             message.channel.send(`\`\`\`${e}\`\`\``);

@@ -19,5 +19,6 @@ module.exports = async (client, message) => {
     if (!message.guild.me.permissions.has("ADMINISTRATOR")) return message.channel.send(
         "This bot cannot function properly without Administrator. In the future, we plan to make it still functional with less perms, sorry for the inconvenience."
     ).catch();
+    console.log(`${message.author.tag} (${message.author.id}) used ${command} in ${message.guild.name} (${message.guild.id})`);
     cmd.run(client, message, args);
 };
