@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor)
         .setTimestamp();
 
-    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}. To appeal your ban, please visit https://discord.gg/HnmQD93mv4`)
+    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
