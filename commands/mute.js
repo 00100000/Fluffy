@@ -16,6 +16,8 @@ exports.run = async (client, message, args) => {
         reason = args.slice(2).join(" ");
         date = ms(args[1]);
         if (date === undefined) throw new Error("Not a date! Sad.");
+        if (date < ms("10s")) return message.channel.send("Mute length must be longer than 10 seconds");
+        if (date > ms("90d")) return message.channel.send("Mute length must be shorter than 90 days");
     } catch {
         // not a valid date, or not provided
         // we know the format must be ?mute <userid> <reason>

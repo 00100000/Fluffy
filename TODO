@@ -4,7 +4,6 @@
 - track punishments (with database)
 - ?slowmode
 - remove the addField(server) from all logging embeds
-- make the limit for all timed actions (mutes and bans) between 10 seconds - 90 days
 - put reasons for doing actions in audit logs for kick, mute, ban, etc...
 - track the usage of all commands in a global log channel
 - ?invite for a link to invite the bot and send the support server link
