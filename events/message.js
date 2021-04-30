@@ -21,4 +21,5 @@ module.exports = async (client, message) => {
     ).catch();
     console.log(`${message.author.tag} (${message.author.id}) used ${command} in ${message.guild.name} (${message.guild.id})`);
     cmd.run(client, message, args);
+    client.commandsRun++;
 };
