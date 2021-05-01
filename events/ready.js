@@ -1,4 +1,5 @@
 const { jsonCreateFile, jsonReadFile, jsonWriteFile } = require("../utils/file");
+const { mutedRole } = require("../utils/muted");
 
 module.exports = async client => {
     await console.log(`Logged in as ${client.user.tag} (${client.user.id}) in ${client.guilds.cache.size} server(s).`);
@@ -19,10 +20,10 @@ module.exports = async client => {
         let muted = await jsonReadFile("./muted.json");
         let banned = await jsonReadFile("./banned.json");
 
-        Object.keys(muted).forEach(guildID => {
+        Object.keys(muted).forEach(async guildID => {
             if (!client.guilds.cache.has(guildID)) return;
             if (!client.guilds.cache.get(guildID).me.permissions.has("ADMINISTRATOR")) return;
-            let muteRole = client.guilds.cache.get(guildID).roles.cache.find(r => r.name === "Muted");
+            let muteRole = await mutedRole(client.guilds.cache.get(guildID));
 
             Object.keys(muted[guildID]).forEach(userID => {
                 // if the mute isn"t timed, we don"t need to worry about it

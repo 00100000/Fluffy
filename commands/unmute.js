@@ -4,6 +4,7 @@ const { parseUser } = require("../utils/parse");
 const { setupLogs } = require("../utils/setup");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
 const { embedColor, successEmoji } = require("../config.json");
+const { mutedRole } = require("../utils/muted");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MUTE_MEMBERS")) return;
@@ -11,21 +12,7 @@ exports.run = async (client, message, args) => {
     let reason = args.slice(1).join(" ");
     let member = message.guild.member(parseUser(client, args[0]));
     let logs = await setupLogs(message, "command-logs");
-    let muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
-    // user issues
-    if (!muteRole) {
-        muteRole = await message.guild.createRole({
-            name: "Muted",
-            color: "#000000",
-            permissions: []
-        });
-        message.guild.channels.forEach(async (channel, id) => {
-            await channel.overwritePermissions(muteRole, {
-                SEND_MESSAGES: false,
-                ADD_REACTIONS: false
-            });
-        });
-    }
+    let muteRole = await mutedRole(message.guild);
 
     if (!member) return message.channel.send("This is not a member id or mention!");
     if (!reason) reason = "Served punishment";

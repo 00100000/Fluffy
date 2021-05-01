@@ -1,4 +1,5 @@
 const { jsonReadFile } = require("../utils/file");
+const { mutedRole } = require("../utils/muted");
 
 module.exports = async (client, member) => {
     if (!client.guilds.cache.get(member.guild.id).me.permissions.has("ADMINISTRATOR")) return;
@@ -6,7 +7,7 @@ module.exports = async (client, member) => {
     let muted = await jsonReadFile("muted.json");
     if (Object.keys(muted).includes(member.guild.id)) {
         if (Object.keys(muted[member.guild.id]).includes(member.id)) {
-            let muteRole = member.guild.roles.cache.find(r => r.name === "Muted").catch();
+            let muteRole = await mutedRole(member.guild);
             member.roles.add(muteRole).catch();
         }
     }

@@ -5,6 +5,7 @@ const { noPerms } = require("../utils/perms");
 const { setupLogs } = require("../utils/setup");
 const { jsonReadFile, jsonWriteFile } = require("../utils/file");
 const { embedColor, successEmoji } = require("../config.json");
+const { mutedRole } = require("../utils/muted");
 
 exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_ROLES", "MUTE_MEMBERS")) return;
@@ -25,25 +26,7 @@ exports.run = async (client, message, args) => {
     }
     let member = message.guild.member(parseUser(client, args[0]));
     let logs = await setupLogs(message, "command-logs");
-    let muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
-    // user issues
-    if (!muteRole) {
-        muteRole = await message.guild.roles.create({
-            data: {
-                name: "Muted",
-                color: "#000000",
-                permissions: 0
-            },
-            reason: "Automatic setup of Muted role"
-        });
-        message.guild.channels.cache.forEach(async (channel, id) => {
-            if (channel.type == "voice") {
-                await channel.createOverwrite(muteRole, { CONNECT: false }, "Automatic setup of Muted role");
-            } else {
-                await channel.createOverwrite(muteRole, { SEND_MESSAGES: false, ADD_REACTIONS: false }, "Automatic setup of Muted role");
-            }
-        });
-    }
+    let muteRole = await mutedRole(message.guild);
 
     if (!member) return message.channel.send("This is not a member id or mention!");
     if (!reason) reason = "Disruptive behavior";
