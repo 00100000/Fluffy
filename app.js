@@ -13,8 +13,6 @@ const client = new Client({
 	messageSweepInterval: 86400
 });
 
-client.commandsRun = 0;
-
 client.commit = require('child_process').execSync('git rev-parse --short HEAD').toString().trim();
 
 client.commands = new Map();

@@ -1,11 +1,11 @@
 - ?vaporize: ?ban except deletes a person's message history from the past week
+- ?softban: ?vaporize except it unbans a person immediately afterwards
 - check if messages being cleared are over 2 weeks old, and don't try to delete them if they are
 - automatically update mute role overwrites when a new channel is made
 - track punishments (with database)
 - ?slowmode
 - remove the addField(server) from all logging embeds
 - put reasons for doing actions in audit logs for kick, mute, ban, etc...
-- track the usage of all commands in a global log channel
 - ?invite for a link to invite the bot and send the support server link
 - ?setup - guides the user through setting up Fluffy in their server with messageCollectors
 - make ?bc check if any symbols are in the first 3 characters of a message
@@ -17,4 +17,3 @@
 - ?serverinfo
 - switch parse commands to built in regex
 - add per-server prefixes
-- add per-server custom ban and kick messages

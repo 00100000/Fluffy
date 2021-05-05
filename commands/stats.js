@@ -2,7 +2,6 @@ require("moment-duration-format");
 const moment = require("moment");
 const { MessageEmbed, version: discordVersion } = require("discord.js");
 const { noPerms } = require("../utils/perms");
-const { version } = require("../package.json");
 const { embedColor } = require("../config.json");
 
 exports.run = async (client, message, args) => {
@@ -21,10 +20,7 @@ exports.run = async (client, message, args) => {
         .addField("Uptime", botUptime, true)
         .addField("Memory", `${Math.round(memUsage)} MB`, true)
         .addField("Discord.js", `v${discordVersion}`, true)
-        .addField("Node", `${process.version}`, true)
-        .addField("Bot Version", version, true)
         .addField("Commit", client.commit, true)
-        .addField("Commands Run", `${client.commandsRun} commands`, true)
         .setFooter(`Made with <3 and discord.js by 00100000#0032`)
         .setTimestamp();
 
