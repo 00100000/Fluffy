@@ -5,6 +5,7 @@ const { setupLogs } = require("../utils/setup");
 module.exports = async (client, oldMessage, newMessage) => {
     if (oldMessage.author.bot) return;
     if (newMessage.content === oldMessage.content) return;
+    if (!newMessage.content || !oldMessage.content) return;
     if (!newMessage.guild.me.permissions.has("ADMINISTRATOR")) return;
 
     let logs = await setupLogs(newMessage, "event-logs");

@@ -5,7 +5,8 @@ exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_MESSAGES", "MANAGE_MESSAGES")) return;
 
     let trueCleared;
-    const botPrefixes = ["!", "?", "&", "-", ">", "u.", "pls ", ".", "d?", "+", "%", "s."];
+    const botPrefixes = ["!", "@", "$", "%", "^", "&", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|", 
+";", ":", , "'", '"', ",", ".", "<", ">", "?", "pls"];
     // user issues
     if (!args[0]) args[0] = 25;
     if (isNaN(args[0])) return message.channel.send("You must provide a number of messages for me to clear!");
@@ -13,7 +14,7 @@ exports.run = async (client, message, args) => {
     // action
     message.channel.messages.fetch({ limit: args[0] }).then(messages => {
         const toClear = messages.filter(m => m.author.bot || botPrefixes.some(p => {
-            return (m.content.toLowerCase().startsWith(p));
+            return (m.content.substring(0, 3).includes(p));
         }));
         trueCleared = toClear.array().length;
         message.channel.bulkDelete(toClear);

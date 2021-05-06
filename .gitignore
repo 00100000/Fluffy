@@ -62,7 +62,6 @@ typings/
 
 # Other
 data/
-.DS_Store
 nodemon.json
 package-lock.json
 
