@@ -27,7 +27,6 @@ exports.run = async (client, message, args) => {
         .addField("Moderator", message.author.tag, false)
         .addField("Old Nickname", oldNick, false)
         .addField("New Nickname", newNick, false)
-        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
     // change nick

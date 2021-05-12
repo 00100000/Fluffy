@@ -12,7 +12,6 @@ exports.run = async (client, message, args) => {
     const lockdownEmbed = new MessageEmbed()
         .setTitle("Lockdown")
         .addField("Moderator", message.author.tag, false)
-        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 

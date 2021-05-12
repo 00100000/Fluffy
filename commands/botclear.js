@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
 
     let trueCleared;
     const botPrefixes = ["!", "@", "$", "%", "^", "&", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|", 
-";", ":", , "'", '"', ",", ".", "<", ">", "?", "pls"];
+";", "'", '"', ",", ".", "<", ">", "?", "pls"];
     // user issues
     if (!args[0]) args[0] = 25;
     if (isNaN(args[0])) return message.channel.send("You must provide a number of messages for me to clear!");

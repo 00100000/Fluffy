@@ -19,7 +19,6 @@ exports.run = async (client, message, args) => {
         .addField("User", args[0], false)
         .addField("Moderator", message.author.tag, false)
         .addField("Reason", reason, false)
-        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 

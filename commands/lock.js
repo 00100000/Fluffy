@@ -17,7 +17,6 @@ exports.run = async (client, message, args) => {
         .setTitle("Channel Locked")
         .addField("Channel", channel.name, false)
         .addField("Moderator", message.author.tag, false)
-        .addField("Server", message.guild.name + `(${message.guild.id})`, false)
         .setColor(embedColor)
         .setTimestamp();
 

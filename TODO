@@ -6,12 +6,11 @@
 - automatically update mute role overwrites when a new channel is made
 - track punishments (with database)
 - ?slowmode
-- remove the addField(server) from all logging embeds
 - put reasons for doing actions in audit logs for kick, mute, ban, etc...
 - ?invite for a link to invite the bot and send the support server link
 - ?setup - guides the user through setting up Fluffy in their server with messageCollectors
 - switch to mongodb for storing data
-- make error messages in commands more consistent and use the ErrorCross emoji
+- make error messages in commands more consistent and use the ErrorCross emoji (maybe make a util to handle them)
 - make messageDelete and messageUpdate track what channel a message was deleted in
 - ?userinfo
 - ?serverinfo

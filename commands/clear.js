@@ -29,7 +29,6 @@ exports.run = async (client, message, args) => {
             .addField("User", user.tag, false)
             .addField("Moderator", message.author.tag, false)
             .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
-            .addField("Server", message.guild.name + `(${message.guild.id})`, false)
             .setColor(embedColor)
             .setTimestamp();
         message.channel.messages.fetch({ limit: amount }).then(messages => {
@@ -49,7 +48,6 @@ exports.run = async (client, message, args) => {
             .addField("Amount of Messages", amount, false)
             .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
             .addField("Moderator", message.author.tag, false)
-            .addField("Server", message.guild.name + `(${message.guild.id})`, false)
             .setColor(embedColor)
             .setTimestamp();
         message.delete().then(() => {
