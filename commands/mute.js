@@ -68,5 +68,5 @@ exports.help = {
     name: "mute",
     aliases: ["m"],
     description: "Silence someone with the power of the mute command.",
-    usage: "mute <member> <reason>"
+    usage: "mute <member> <duration> <reason>"
 };

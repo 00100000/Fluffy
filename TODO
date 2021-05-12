@@ -1,11 +1,10 @@
-- make ?ban work with IDs (for people not in the server)
 - ?vaporize: ?ban except deletes a person's message history from the past week
 - ?softban: ?vaporize except it unbans a person immediately afterwards
-- ?userid [user]: gets a user's ID
 - check if messages being cleared are over 2 weeks old, and don't try to delete them if they are
 - automatically update mute role overwrites when a new channel is made
 - track punishments (with database)
 - ?slowmode
+- if only an integer is given as the duration of a punishment, automatically assume it's in minutes. Also, switch from ms to our own millisecond parser
 - put reasons for doing actions in audit logs for kick, mute, ban, etc...
 - ?invite for a link to invite the bot and send the support server link
 - ?setup - guides the user through setting up Fluffy in their server with messageCollectors

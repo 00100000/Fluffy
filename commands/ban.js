@@ -26,7 +26,15 @@ exports.run = async (client, message, args) => {
     }
     let user = parseUser(client, args[0]);
     // user issues
-    if (!user) return message.channel.send("This is not a user id or mention!");
+    if (!user) {
+        message.guild.members.ban(user, { reason: `${message.author.tag}: ${reason}` })
+            .then(() => {
+                message.channel.send(`${successEmoji} ${user} has been banned.`);
+            }).catch(e => {
+                message.channel.send("This is not a user id or mention!");
+            });
+        return;
+    }
     if (message.guild.member(user)) {
         if (!message.guild.member(user).bannable) return message.channel.send("This user is too powerful to be banned!");
         if (message.guild.member(user).roles.highest.comparePositionTo(message.guild.member(message.author).roles.highest) >= 0) {
@@ -68,5 +76,5 @@ exports.help = {
     name: "ban",
     aliases: ["b"],
     description: "Bans a user for a reason and DMs them.",
-    usage: "ban <user> <reason>"
+    usage: "ban <user> <duration> <reason>"
 };
