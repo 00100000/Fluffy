@@ -9,12 +9,14 @@ module.exports = async (client, message) => {
 
     let logs = await setupLogs(message, "event-logs");
 
-    const deleteEmbed = new MessageEmbed()
-        .setTitle("Delete Event")
-        .addField("Author", message.author, false)
-        .addField("Message", message.content, false)
-        .setColor(embedColor)
-        .setTimestamp();
+    if (logs) {
+        const deleteEmbed = new MessageEmbed()
+            .setTitle("Delete Event")
+            .addField("Author", message.author, false)
+            .addField("Message", message.content, false)
+            .setColor(embedColor)
+            .setTimestamp();
 
-    logs.send(deleteEmbed).catch();
+        logs.send(deleteEmbed);
+    }
 };

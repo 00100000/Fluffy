@@ -8,7 +8,7 @@ module.exports = async (client, member) => {
     if (Object.keys(muted).includes(member.guild.id)) {
         if (Object.keys(muted[member.guild.id]).includes(member.id)) {
             let muteRole = await mutedRole(member.guild);
-            member.roles.add(muteRole).catch();
+            member.roles.add(muteRole);
         }
     }
 };

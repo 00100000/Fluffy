@@ -33,7 +33,7 @@ module.exports = async client => {
                 if (Date.now() > muted[guildID][userID]) {
                     // remove muted role
                     try {
-                        client.guilds.cache.get(guildID).member(userID).roles.remove(muteRole).catch();
+                        client.guilds.cache.get(guildID).member(userID).roles.remove(muteRole);
                     } catch (e) {}
                     
                     // delete from muted.json, write to file
@@ -50,7 +50,7 @@ module.exports = async client => {
                 if (banned[guildID][userID] === -1) return;
                 
                 if (Date.now() > banned[guildID][userID]) {
-                    client.guilds.cache.get(guildID).members.unban(userID).catch();
+                    client.guilds.cache.get(guildID).members.unban(userID);
                     
                     delete banned[guildID][userID];
                     jsonWriteFile("banned.json", banned);

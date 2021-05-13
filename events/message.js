@@ -1,4 +1,4 @@
-const { blacklist } = require("../blacklist.json");
+const existsSync = require("fs").existsSync;
 const { prefix } = require("../config.json");
 
 module.exports = async (client, message) => {
@@ -14,11 +14,13 @@ module.exports = async (client, message) => {
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
     // check if valid command or blacklisted author
     if (!cmd) return;
-    if (blacklist.includes(message.author.id)) return;
+    if (existsSync("../blacklist.json")) {
+        if (require("../blacklist.json").includes(message.author.id)) return;
+    }
     // execute command
     if (!message.guild.me.permissions.has("ADMINISTRATOR")) return message.channel.send(
         "This bot cannot function properly without Administrator. In the future, we plan to make it still functional with less perms, sorry for the inconvenience."
-    ).catch();
+    );
     console.log(`${message.author.tag} (${message.author.id}) used ${command} in ${message.guild.name} (${message.guild.id})`);
     cmd.run(client, message, args);
 };

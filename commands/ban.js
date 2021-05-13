@@ -27,6 +27,7 @@ exports.run = async (client, message, args) => {
     let user = parseUser(client, args[0]);
     // user issues
     if (!user) {
+        user = args[0];
         message.guild.members.ban(user, { reason: `${message.author.tag}: ${reason}` })
             .then(() => {
                 message.channel.send(`${successEmoji} ${user} has been banned.`);

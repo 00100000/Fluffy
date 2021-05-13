@@ -26,7 +26,7 @@ function noPerms(message, botPerm, userPerm) {
             + (botOrUser === 1 ? " I" : " You")
             + " don't have permissions to do this! Required permission: "
             + (botOrUser === 1 ? botPerm : userPerm)
-        ).catch();
+        );
     }
 }
 

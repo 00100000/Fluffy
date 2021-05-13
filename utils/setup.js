@@ -1,4 +1,5 @@
 async function setupLogs(message, logsName) {
+    if (!message.guild.me.permissions.has("ADMINISTRATOR")) return;
     let logs = message.guild.channels.cache.find(c => c.name === logsName);
     if (!logs) {
         try {
