@@ -17,8 +17,7 @@ exports.run = async (client, message, args) => {
         .setTitle("Channel Locked")
         .addField("Channel", channel.name, false)
         .addField("Moderator", message.author.tag, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
 
     logs.send(lockEmbed).then(() => {
         channel.updateOverwrite(message.guild.roles.everyone ,{

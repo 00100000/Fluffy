@@ -15,7 +15,7 @@ module.exports = async (client, message) => {
             .addField("Author", message.author, false)
             .addField("Message", message.content, false)
             .setColor(embedColor)
-            .setTimestamp();
+            
 
         logs.send(deleteEmbed);
     }

@@ -12,9 +12,7 @@ exports.run = async (client, message, args) => {
     const lockdownEmbed = new MessageEmbed()
         .setTitle("Lockdown")
         .addField("Moderator", message.author.tag, false)
-        .setColor(embedColor)
-        .setTimestamp();
-
+        .setColor(embedColor);
     
     let lockedDownPerms = await jsonReadFile("lockdown.json");
     const guildID = message.guild.id;

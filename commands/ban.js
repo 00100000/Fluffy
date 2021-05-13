@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
     // user issues
     if (!user) {
         user = args[0];
-        message.guild.members.ban(user, { reason: `${message.author.tag}: ${reason}` })
+        message.guild.members.ban(user, { reason: `${message.author.tag}: ${args.slice(1).join(" ")}` })
             .then(() => {
                 message.channel.send(`${successEmoji} ${user} has been banned.`);
             }).catch(e => {
@@ -49,8 +49,7 @@ exports.run = async (client, message, args) => {
         .addField("User", user.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Reason", reason, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);  
 
     user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`)
         .catch(() => {

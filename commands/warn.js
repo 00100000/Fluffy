@@ -24,8 +24,7 @@ exports.run = async (client, message, args) => {
         .addField("User", user.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Reason", reason, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
 
     user.send(`You've been warned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
         message.channel.send("I wasn't able to DM this user.");

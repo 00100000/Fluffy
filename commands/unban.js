@@ -19,8 +19,7 @@ exports.run = async (client, message, args) => {
         .addField("User", args[0], false)
         .addField("Moderator", message.author.tag, false)
         .addField("Reason", reason, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
 
     message.guild.members.unban(args[0]).then(async () => {
         logs.send(unbanEmbed);

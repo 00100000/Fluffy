@@ -40,8 +40,7 @@ exports.run = async (client, message, args) => {
         .addField("User", member.user.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Reason", reason, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
 
     // I am the ternary wizard
     const dateMessage = date ? " for " + (ms(date, {long: true})) : "";

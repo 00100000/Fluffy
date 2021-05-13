@@ -36,8 +36,7 @@ exports.run = async (client, message, args) => {
         .addField("Bot Commands", helpCmds.join(" | "))
         .addField("Found an issue?", "Please report any issues to " + owners.map(o => `<@${o}>`).join("/"))
         .setColor(embedColor)
-        .setFooter(`Made with <3 and discord.js by 00100000#0032`)
-        .setTimestamp();
+        .setFooter(`Made with <3 and discord.js by 00100000#0032`);
 
     message.channel.send(helpEmbed).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);

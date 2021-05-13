@@ -26,8 +26,7 @@ exports.run = async (client, message, args) => {
         .addField("User", member.user.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Role", roleToGive.name, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
 
     member.roles.add(roleToGive).then(() => {
         logs.send(giveEmbed);

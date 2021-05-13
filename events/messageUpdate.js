@@ -17,7 +17,7 @@ module.exports = async (client, oldMessage, newMessage) => {
             .addField("Original Message", oldMessage.content, false)
             .addField("New Message", newMessage.content, false)
             .setColor(embedColor)
-            .setTimestamp();
+            
 
         logs.send(updateEmbed);
     }

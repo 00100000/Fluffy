@@ -16,8 +16,8 @@ exports.run = async (client, message, args) => {
     let avatarEmbed = new MessageEmbed()
         .setTitle(user.tag + "'s Avatar")
         .setImage(user.avatarURL({ format: "png", dynamic: true, size: 4096 }))
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
+
     message.channel.send(avatarEmbed);
 };
 

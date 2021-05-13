@@ -27,8 +27,7 @@ exports.run = async (client, message, args) => {
         .addField("Moderator", message.author.tag, false)
         .addField("Old Nickname", oldNick, false)
         .addField("New Nickname", newNick, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
     // change nick
     message.guild.member(user).setNickname(newNick).then(() => {
         message.channel.send(`${successEmoji} ${user.tag}'s New Nickname: ${newNick}`);

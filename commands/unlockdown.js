@@ -12,8 +12,7 @@ exports.run = async (client, message, args) => {
     const endlockdownEmbed = new MessageEmbed()
         .setTitle("Lockdown Ended")
         .addField("Moderator", message.author.tag, false)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
 
     logs.send(endlockdownEmbed).then(async () => {
         let lockedDownPerms = await jsonReadFile("lockdown.json");

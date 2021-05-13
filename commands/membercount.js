@@ -8,8 +8,7 @@ exports.run = async (client, message, args) => {
     const countEmbed = new MessageEmbed()
         .setAuthor(message.guild.name, message.guild.iconURL())
         .setDescription("Members: " + message.guild.members.cache.size)
-        .setColor(embedColor)
-        .setTimestamp();
+        .setColor(embedColor);
     
     message.channel.send(countEmbed).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);

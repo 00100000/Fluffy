@@ -29,8 +29,8 @@ exports.run = async (client, message, args) => {
             .addField("User", user.tag, false)
             .addField("Moderator", message.author.tag, false)
             .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
-            .setColor(embedColor)
-            .setTimestamp();
+            .setColor(embedColor);
+            
         message.channel.messages.fetch({ limit: amount }).then(messages => {
             const toClear = messages.filter(m => m.author.id === user.id);
             trueCleared = toClear.array().length;
@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
             .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
             .addField("Moderator", message.author.tag, false)
             .setColor(embedColor)
-            .setTimestamp();
+            
         message.delete().then(() => {
             message.channel.bulkDelete(amount, true);
         }).then(() => {

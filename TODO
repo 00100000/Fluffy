@@ -4,10 +4,11 @@
 - automatically update mute role overwrites when a new channel is made
 - track punishments (with database)
 - ?slowmode
-- if only an integer is given as the duration of a punishment, automatically assume it's in minutes. Also, switch from ms to our own millisecond parser
+- if only an integer is given as the duration of a punishment, automatically assume it's in minutes. Also, switch from ms to our own millisecond parser (probably a parseMs() function in parse.js)
 - put reasons for doing actions in audit logs for kick, mute, ban, etc...
 - ?invite for a link to invite the bot and send the support server link
-- ?setup - guides the user through setting up Fluffy in their server with messageCollectors
+- make logging be done by channel IDs rather than names
+- ?setup - guides the user through setting up Fluffy's logs in their server with messageCollectors
 - switch to mongodb for storing data
 - make error messages in commands more consistent and use the ErrorCross emoji (maybe make a util to handle them)
 - make messageDelete and messageUpdate track what channel a message was deleted in
