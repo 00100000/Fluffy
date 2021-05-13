@@ -6,7 +6,7 @@ module.exports = async (client, message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;
-    if (!message.channel.permissionsFor(message.guild.me).includes("SEND_MESSAGES")) return;
+    if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
     // command and args parsing
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
