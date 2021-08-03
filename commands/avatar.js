@@ -24,6 +24,6 @@ exports.run = async (client, message, args) => {
 exports.help = {
     name: "avatar",
     aliases: ["av"],
-    description: "Shows a user's avatar",
+    description: "Displays a user's avatar",
     usage: "av [member]"
 };
