@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
         .addField("User", user.tag, false)
         .addField("Moderator", message.author.tag, false)
         .addField("Reason", reason, false)
-        .setColor(embedColor);  
+        .setColor(embedColor);
 
     user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`)
         .catch(() => {

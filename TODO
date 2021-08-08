@@ -1,13 +1,9 @@
-- ?vaporize: ?ban except deletes a person's message history from the past week
-- ?softban: ?vaporize except it unbans a person immediately afterwards
-- check if messages being cleared are over 2 weeks old, and don't try to delete them if they are
 - automatically update mute role overwrites when a new channel is made
+- every 24 hours, check if mute role overwrites are properly set up on all servers. If they aren't, set them up automatically
 - track punishments (with database)
-- ?slowmode
+- ?slowmode <time>
 - if only an integer is given as the duration of a punishment, automatically assume it's in minutes. Also, switch from ms to our own millisecond parser (probably a parseMs() function in parse.js)
-- put reasons for doing actions in audit logs for kick, mute, ban, etc...
-- ?invite for a link to invite the bot and send the support server link
-- make logging be done by channel IDs rather than names
+- allow server owners to bypass having to have a higher role than the user they are using a command on
 - ?setup - guides the user through setting up Fluffy's logs in their server with messageCollectors
 - switch to mongodb for storing data
 - make error messages in commands more consistent and use the ErrorCross emoji (maybe make a util to handle them)

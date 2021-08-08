@@ -30,11 +30,11 @@ exports.run = async (client, message, args) => {
             .addField("Moderator", message.author.tag, false)
             .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
             .setColor(embedColor);
-            
+
         message.channel.messages.fetch({ limit: amount }).then(messages => {
             const toClear = messages.filter(m => m.author.id === user.id);
             trueCleared = toClear.array().length;
-            message.channel.bulkDelete(toClear);
+            message.channel.bulkDelete(toClear, true);
         }).then(() => {
             logs.send(clearEmbed);
         }).then(() => {
@@ -43,17 +43,17 @@ exports.run = async (client, message, args) => {
             message.channel.send(`\`\`\`${e}\`\`\``);
         });
     } else {
-        const nukeEmbed = new MessageEmbed()
+        const clearEmbed = new MessageEmbed()
             .setTitle("Messages Cleared")
             .addField("Amount of Messages", amount, false)
             .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
             .addField("Moderator", message.author.tag, false)
-            .setColor(embedColor)
-            
+            .setColor(embedColor);
+
         message.delete().then(() => {
             message.channel.bulkDelete(amount, true);
         }).then(() => {
-            logs.send(nukeEmbed);
+            logs.send(clearEmbed);
         }).catch(e => {
             message.channel.send(`\`\`\`${e}\`\`\``);
         });
