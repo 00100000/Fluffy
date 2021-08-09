@@ -15,11 +15,11 @@ exports.run = async (client, message, args) => {
     } catch (e) {
         message.channel.send(`\`\`\`${e}\`\`\``);
     }
-};
+}
 
 exports.help = {
     name: "unblacklist",
     aliases: [],
     description: "Unblacklists someone from using this bot.",
     usage: "unblacklist <id>"
-};
+}

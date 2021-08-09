@@ -11,4 +11,4 @@ exports.help = {
     aliases: [],
     description: "Cuddle with Fluffy!",
     usage: "cuddle"
-};
+}

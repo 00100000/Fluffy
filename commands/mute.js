@@ -42,9 +42,8 @@ exports.run = async (client, message, args) => {
         .addField("Reason", reason, false)
         .setColor(embedColor);
 
-    // I am the ternary wizard
-    const dateMessage = date ? " for " + (ms(date, {long: true})) : "";
-    member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason}${dateMessage}.`).catch(() => {
+    const dateMessage = date ? "for " + (ms(date, {long: true})) : "indefinitely";
+    member.send(`You've been muted by ${message.author.tag}, in ${message.guild.name} for ${reason} ${dateMessage}.`).catch(() => {
         message.channel.send("I wasn't able to DM this user.");
     });
     member.roles.add(muteRole).then(async () => {
@@ -56,7 +55,7 @@ exports.run = async (client, message, args) => {
         await jsonWriteFile("muted.json", muted);
         // timed mute
     }).then(() => {
-        message.channel.send(`${successEmoji} ${member.user.tag} has been muted${dateMessage}.`);
+        message.channel.send(`${successEmoji} ${member.user.tag} has been muted ${dateMessage}.`);
     }).catch(e => {
         console.trace(e);
         message.channel.send(`\`\`\`${e}\`\`\``);

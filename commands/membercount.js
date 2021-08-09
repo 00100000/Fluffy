@@ -9,15 +9,15 @@ exports.run = async (client, message, args) => {
         .setAuthor(message.guild.name, message.guild.iconURL())
         .setDescription("Members: " + message.guild.members.cache.size)
         .setColor(embedColor);
-    
+
     message.channel.send(countEmbed).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "membercount",
     aliases: ["members", "mc"],
     description: "Tells you how many users are in a guild.",
     usage: "membercount"
-};
+}

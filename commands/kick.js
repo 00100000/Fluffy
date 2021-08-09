@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
         .addField("Moderator", message.author.tag, false)
         .addField("Reason", reason, false)
         .setColor(embedColor);
-    
+
     user.send(`You've been kicked by ${message.author.tag}, in ${message.guild.name} for ${reason}.`).catch(() => {
         message.channel.send("I wasn't able to DM this user.");
     });
@@ -36,11 +36,11 @@ exports.run = async (client, message, args) => {
     }).catch(e => {
         message.channel.send(`\`\`\`${e.stack}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "kick",
     aliases: ["k"],
     description: "Kicks a user for a reason and DMs them.",
     usage: "kick <user> <reason>"
-};
+}

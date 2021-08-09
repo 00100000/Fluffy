@@ -34,11 +34,11 @@ exports.run = async (client, message, args) => {
     }).then(() => {
         logs.send(nickEmbed);
     });
-};
+}
 
 exports.help = {
     name: "setnick",
     aliases: ["nick", "sn"],
     description: "For changing naughty nicknames on mobile, and keeping track of them.",
     usage: "setnick <user> <new nickname>"
-};
+}

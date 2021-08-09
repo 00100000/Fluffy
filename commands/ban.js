@@ -51,7 +51,8 @@ exports.run = async (client, message, args) => {
         .addField("Reason", reason, false)
         .setColor(embedColor);
 
-    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason}.`)
+	const dateMessage = date ? "for " + (ms(date, { long: true })) : "indefinitely";
+    user.send(`You've been banned by ${message.author.tag}, in ${message.guild.name} for ${reason} ${dateMessage}.`)
         .catch(() => {
             message.channel.send("I wasn't able to DM this user.");
         });
@@ -60,21 +61,21 @@ exports.run = async (client, message, args) => {
             // timed ban
             let member = message.guild.member(user);
             let banned = await jsonReadFile("banned.json");
-            banned[member.guild.id] = banned[member.guild.id] || {};
+            banned[member.guild.id] = banned[member.guild.id] || {}
             banned[member.guild.id][member.id] = date? (Date.now() + date) : -1;
             await jsonWriteFile("banned.json", banned);
         }
         message.guild.members.ban(user, { reason: `${message.author.tag}: ${reason}` });
     }).then(() => {
-        message.channel.send(`${successEmoji} ${user.tag} has been banned.`);
+        message.channel.send(`${successEmoji} ${user.tag} has been banned ${dateMessage}.`);
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "ban",
     aliases: ["b"],
     description: "Bans a user for a reason and DMs them.",
     usage: "ban <user> <duration> <reason>"
-};
+}

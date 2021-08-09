@@ -35,11 +35,11 @@ exports.run = async (client, message, args) => {
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "takerole",
     aliases: ["trole", "tr"],
     description: "Takes a role from a member.",
     usage: "takerole <member> <role>"
-};
+}

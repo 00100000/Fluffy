@@ -34,11 +34,11 @@ exports.run = async (client, message, args) => {
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "warn",
     aliases: ["w"],
     description: "Warns a user.",
     usage: "warn <user> <reason>"
-};
+}

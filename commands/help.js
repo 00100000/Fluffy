@@ -41,11 +41,11 @@ exports.run = async (client, message, args) => {
     message.channel.send(helpEmbed).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "help",
     aliases: ["h"],
     description: "View all commands and where to receive bot support.",
     usage: "help <command>"
-};
+}

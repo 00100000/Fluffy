@@ -24,9 +24,11 @@ exports.run = async (client, message, args) => {
     message.guild.members.unban(args[0]).then(async () => {
         logs.send(unbanEmbed);
         // timed unban
-        let banned = await jsonReadFile("banned.json");
-        delete banned[message.guild.id][parseID(args[0])];
-        jsonWriteFile("banned.json", banned);
+		try {
+			let banned = await jsonReadFile("banned.json");
+			delete banned[message.guild.id][parseID(args[0])];
+			jsonWriteFile("banned.json", banned);
+		} catch (e) {}
         // timed unban
     }).then(() => {
         message.channel.send(`${successEmoji} ${args[0]} has been unbanned.`);
@@ -39,11 +41,11 @@ exports.run = async (client, message, args) => {
             message.channel.send(`\`\`\`${e}\`\`\``);
         }
     });
-};
+}
 
 exports.help = {
     name: "unban",
     aliases: ["ub"],
     description: "Unbans a user for a reason and DMs them.",
     usage: "unban <user> <reason>"
-};
+}

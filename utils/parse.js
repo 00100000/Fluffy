@@ -57,4 +57,4 @@ module.exports = {
     parseID,
     parseRole,
     parseChannel
-};
+}

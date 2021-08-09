@@ -65,4 +65,4 @@ exports.help = {
     aliases: ["c"],
     description: "Purges messages from a specific channel. Optionally from a user. Defaults to 25.",
     usage: "clear [user] [amount]"
-};
+}

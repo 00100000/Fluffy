@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
     if (noPerms(message, "MANAGE_MESSAGES", "MANAGE_MESSAGES")) return;
 
     let trueCleared;
-    const botPrefixes = ["!", "@", "$", "%", "^", "&", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|", 
+    const botPrefixes = ["!", "@", "$", "%", "^", "&", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|",
 ";", "'", '"', ",", ".", "<", ">", "?", "pls"];
     // user issues
     if (!args[0]) args[0] = 25;
@@ -32,4 +32,4 @@ exports.help = {
     aliases: ["bc"],
     description: "Tries to purge bot and bot-related messages from a channel.",
     usage: "botclear [amount]"
-};
+}

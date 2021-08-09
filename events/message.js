@@ -19,5 +19,8 @@ module.exports = async (client, message) => {
     if (!message.guild.me.permissions.has("ADMINISTRATOR")) return message.channel.send(
         "This bot cannot function properly without Administrator. In the future, we plan to make it still functional with less perms, sorry for the inconvenience."
     );
-    cmd.run(client, message, args);
-};
+    cmd.run(client, message, args).catch(e => {
+		message.channel.send("An error occured while processing this command!");
+		console.log(e);
+	});
+}

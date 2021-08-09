@@ -42,11 +42,11 @@ exports.run = async (client, message, args) => {
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "unmute",
     aliases: ["um"],
     description: "Unsilence someone.",
     usage: "unmute <member> <reason>"
-};
+}

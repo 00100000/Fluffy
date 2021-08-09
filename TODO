@@ -1,14 +1,14 @@
-- automatically update mute role overwrites when a new channel is made
-- every 24 hours, check if mute role overwrites are properly set up on all servers. If they aren't, set them up automatically
-- track punishments (with database)
-- ?slowmode <time>
-- if only an integer is given as the duration of a punishment, automatically assume it's in minutes. Also, switch from ms to our own millisecond parser (probably a parseMs() function in parse.js)
-- allow server owners to bypass having to have a higher role than the user they are using a command on
-- ?setup - guides the user through setting up Fluffy's logs in their server with messageCollectors
-- switch to mongodb for storing data
-- make error messages in commands more consistent and use the ErrorCross emoji (maybe make a util to handle them)
 - make messageDelete and messageUpdate track what channel a message was deleted in
 - ?userinfo
 - ?serverinfo
 - switch parse commands to built in regex
+- if only an integer is given as the duration of a punishment, automatically assume it's in minutes.
+- allow server owners to bypass having to have a higher role than the user they are using a command on
+- switch to mongodb for storing data
+- track punishments (with database)
+- make Fluffy compatible without admin by making a noBotPerms() method that checks Fluffy's per-channel and per-server perms needed when running a command
+- ?setup - guides the user through setting up Fluffy's logs in their server with messageCollectors
+- make error messages in commands more consistent and use the ErrorCross emoji (maybe make a util to handle them)
 - add per-server prefixes
+- automatically update mute role overwrites when a new channel is made
+- every 24 hours, check if mute role overwrites are properly set up on all servers. If they aren't, set them up automatically

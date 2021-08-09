@@ -14,4 +14,4 @@ async function setupLogs(message, logsName) {
 
 module.exports = {
     setupLogs
-};
+}

@@ -12,4 +12,4 @@ exports.help = {
     aliases: [],
     description: "Get a link to Fluffy's support server!",
     usage: "discord"
-};
+}

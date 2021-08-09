@@ -49,11 +49,11 @@ exports.run = async (client, message, args) => {
 	}).catch(e => {
 		message.channel.send(`\`\`\`${e}\`\`\``);
 	});
-};
+}
 
 exports.help = {
 	name: "softban",
 	aliases: ["sb"],
 	description: "Bans a user and erases their message history from the past week.",
 	usage: "softban <user> <reason>"
-};
+}

@@ -13,18 +13,18 @@ exports.run = async (client, message, args) => {
         .setTitle("Lockdown")
         .addField("Moderator", message.author.tag, false)
         .setColor(embedColor);
-    
+
     let lockedDownPerms = await jsonReadFile("lockdown.json");
     const guildID = message.guild.id;
 
-    lockedDownPerms[guildID] = lockedDownPerms[guildID] || {};
+    lockedDownPerms[guildID] = lockedDownPerms[guildID] || {}
 
     // if the guild is already in a lockdown, wait until they unlockdown first.
     if (Object.keys(lockedDownPerms[guildID]).length) {
         await jsonWriteFile("lockdown.json", lockedDownPerms);
         return message.channel.send("The guild is already in lockdown! Use `?unlockdown`.");
     }
-        
+
     logs.send(lockdownEmbed).then(async () => {
         message.guild.channels.cache.filter(channel => channel.type === "text").forEach(async channel => {
             // https://discord.js.org/#/docs/main/stable/class/PermissionOverwrites
@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
             // true (allowed), false (denied), null (neutral)
             let sendMessagePerm = null;
 
-            lockedDownPerms[guildID] = lockedDownPerms[guildID] || {};
+            lockedDownPerms[guildID] = lockedDownPerms[guildID] || {}
 
             // brain go WAHHHHHHHH, I think this the first time I"ve used the bitwise AND operator
             // we need to know if it's denied, allowed, OR NEUTRAL!!!!
@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
             if (perms === undefined) sendMessagePerm = null;
             else if (perms.allow & 2048) sendMessagePerm = true;
             else if (perms.deny & 2048) sendMessagePerm = false;
-            
+
             lockedDownPerms[guildID][channel.id] = sendMessagePerm;
 
             channel.updateOverwrite(message.guild.roles.everyone, {
@@ -55,11 +55,11 @@ exports.run = async (client, message, args) => {
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "lockdown",
     aliases: ["ld"],
     description: "Locks down the server.",
     usage: "lockdown"
-};
+}

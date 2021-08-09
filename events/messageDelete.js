@@ -14,9 +14,8 @@ module.exports = async (client, message) => {
             .setTitle("Delete Event")
             .addField("Author", message.author, false)
             .addField("Message", message.content, false)
-            .setColor(embedColor)
-            
+            .setColor(embedColor);
 
         logs.send(deleteEmbed);
     }
-};
+}

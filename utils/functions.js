@@ -11,7 +11,7 @@ module.exports = (client) => {
         } catch (err) {
             return `Unable to load command ${cmdFileName}: ${err}`;
         }
-    };
+    }
 
     client.loadEvent = (eventFileName) => {
         try {
@@ -22,7 +22,7 @@ module.exports = (client) => {
         } catch (err) {
             return `Unable to load event ${eventFileName}: ${err}`;
         }
-    };
+    }
 
     process.on("SIGTERM", async () => {
         await console.log("SIGTERM signal received.");
@@ -31,8 +31,8 @@ module.exports = (client) => {
             process.exit(0);
         });
     });
-    
+
     process.on("unhandledRejection", e => {
 	    console.error(e);
     });
-};
+}

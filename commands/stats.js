@@ -21,16 +21,16 @@ exports.run = async (client, message, args) => {
         .addField("Memory", `${Math.round(memUsage)} MB`, true)
         .addField("Discord.js", `v${discordVersion}`, true)
         .addField("Commit", client.commit, true)
-        .setFooter(`Made with <3 and discord.js by 00100000#0032`);  
+        .setFooter(`Made with <3 and discord.js by 00100000#0032`);
 
     message.channel.send(statsEmbed).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "stats",
     aliases: ["s"],
     description: "View bot statistics.",
     usage: "stats"
-};
+}

@@ -1,7 +1,7 @@
 // we can assume noPerms(message, "MANAGE_ROLES", "MUTE_MEMBERS") was already called, so no need for more perm checks
 async function mutedRole(guild) {
     let muteRole = guild.roles.cache.find(r => r.name === "Muted");
-    
+
     if (!muteRole) {
         muteRole = await guild.roles.create({
             data: {
@@ -26,4 +26,4 @@ async function mutedRole(guild) {
 
 module.exports = {
     mutedRole
-};
+}

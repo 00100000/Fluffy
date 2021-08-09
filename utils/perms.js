@@ -9,7 +9,7 @@ function noPerms(message, botPerm, userPerm) {
             return message.channel.send(errorEmoji + " Only the owners of the bot can use this command!");
         }
     }
-    
+
     let botOrUser = 0;
     // checks if bot or user is missing permissions
     if (!message.guild.me.permissions.has(botPerm)) {
@@ -32,4 +32,4 @@ function noPerms(message, botPerm, userPerm) {
 
 module.exports = {
     noPerms
-};
+}

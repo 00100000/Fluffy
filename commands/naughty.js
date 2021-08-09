@@ -11,4 +11,4 @@ exports.help = {
     aliases: [],
     description: "Fluffy has been a bad boy!",
     usage: "naughty"
-};
+}

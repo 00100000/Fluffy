@@ -14,11 +14,11 @@ exports.run = async (client, message, args) => {
     if (output.length > 2000) return message.channel.send("Output is too long to send (> 2000 chars)");
 
     message.channel.send(output);
-};
+}
 
 exports.help = {
     name: "eval",
     aliases: ["e"],
     description: "Run raw Javascript code via the bot.",
     usage: "eval <code>"
-};
+}

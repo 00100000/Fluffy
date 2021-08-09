@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
                 channel.updateOverwrite(message.guild.roles.everyone, {
                     "SEND_MESSAGES": lockedDownPerms[guildID][channel.id]
                 });
-                    
+
                 delete lockedDownPerms[guildID][channel.id];
             }
         });
@@ -35,11 +35,11 @@ exports.run = async (client, message, args) => {
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "unlockdown",
     aliases: ["uld"],
     description: "Ends a lockdown.",
     usage: "unlockdown"
-};
+}

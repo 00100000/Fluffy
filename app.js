@@ -36,6 +36,6 @@ const init = async () => {
 	});
 
 	client.login(process.env.CLIENT_TOKEN);
-};
+}
 
 init();

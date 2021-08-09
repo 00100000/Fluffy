@@ -18,11 +18,11 @@ exports.run = async (client, message, args) => {
     } catch (e) {
         message.channel.send(`\`\`\`${e}\`\`\``);
     }
-};
+}
 
 exports.help = {
     name: "blacklist",
     aliases: [],
     description: "Bans someone from using this bot.",
     usage: "blacklist <id>"
-};
+}

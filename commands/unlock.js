@@ -28,11 +28,11 @@ exports.run = async (client, message, args) => {
     }).catch(e => {
         message.channel.send(`\`\`\`${e}\`\`\``);
     });
-};
+}
 
 exports.help = {
     name: "unlock",
     aliases: ["ul"],
     description: "Unlocks a channel in a server.",
     usage: "unlock [channel]"
-};
+}

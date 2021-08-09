@@ -19,11 +19,11 @@ exports.run = async (client, message, args) => {
         .setColor(embedColor);
 
     message.channel.send(avatarEmbed);
-};
+}
 
 exports.help = {
     name: "avatar",
     aliases: ["av"],
     description: "Shows a user's avatar",
     usage: "av [member]"
-};
+}
