@@ -7,11 +7,12 @@ exports.run = async (client, message, args) => {
     if (noPerms(message, "EMBED_LINKS", "SEND_MESSAGES")) return;
 
     let user = undefined;
-    if (args[0]) {
-        user = parseUser(client, args[0]);
-    } else {
-        user = message.author;
-    }
+    if (!args[0]) {
+		user = message.author;
+	} else {
+		user = parseUser(client, args[0]);
+	}
+	if (!user) return message.channel.send("This is not a valid user or user ID!");
 
     let avatarEmbed = new MessageEmbed()
         .setTitle(user.tag + "'s Avatar")

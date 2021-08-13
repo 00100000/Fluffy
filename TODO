@@ -1,9 +1,8 @@
-- make messageDelete and messageUpdate track what channel a message was deleted in
 - ?userinfo
 - ?serverinfo
 - switch parse commands to built in regex
-- if only an integer is given as the duration of a punishment, automatically assume it's in minutes.
 - allow server owners to bypass having to have a higher role than the user they are using a command on
+- send thank you/help message when Fluffy is added to a server
 - switch to mongodb for storing data
 - track punishments (with database)
 - make Fluffy compatible without admin by making a noBotPerms() method that checks Fluffy's per-channel and per-server perms needed when running a command

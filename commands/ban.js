@@ -15,6 +15,8 @@ exports.run = async (client, message, args) => {
     try {
         // assume the format is ?ban <userid> <date> <reason>
         reason = args.slice(2).join(" ");
+		// if date ends with a number, assume it's in minutes
+		if (args[1].match(/[0-9]$/)) args[1] += "m";
         date = ms(args[1]);
         if (date === undefined) throw new Error("Not a date!");
         if (date < ms("10s")) return message.channel.send("Ban length must be longer than 10 seconds");

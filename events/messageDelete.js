@@ -13,6 +13,7 @@ module.exports = async (client, message) => {
         const deleteEmbed = new MessageEmbed()
             .setTitle("Delete Event")
             .addField("Author", message.author, false)
+			.addField("Channel", `<#${message.channel.id}>`, false)
             .addField("Message", message.content, false)
             .setColor(embedColor);
 

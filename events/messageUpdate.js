@@ -14,6 +14,7 @@ module.exports = async (client, oldMessage, newMessage) => {
         const updateEmbed = new MessageEmbed()
             .setTitle("Edit Event")
             .addField("User", oldMessage.author, false)
+			.addField("Channel", `<#${oldMessage.channel.id}>`, false)
             .addField("Original Message", oldMessage.content, false)
             .addField("New Message", newMessage.content, false)
             .setColor(embedColor);
