@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     let logs = await setupLogs(message, "command-logs");
     let user = parseUser(client, args[0]);
     let amount = user ? args[1] : args[0];
-    let trueCleared;
+    let trueCleared = undefined;
     // user issues
     if (!amount) amount = 25;
     if (isNaN(amount)) return message.channel.send("You must provide a number of messages for me to clear!");
@@ -23,18 +23,20 @@ exports.run = async (client, message, args) => {
                 return message.channel.send("You can't use this command on someone more or just as powerful as you!");
             }
         }
-        const clearEmbed = new MessageEmbed()
-            .setTitle("User's Messages Cleared")
-            .addField("Amount of Messages", amount, false)
-            .addField("User", user.tag, false)
-            .addField("Moderator", message.author.tag, false)
-            .addField("Channel", message.channel.name + `(${message.channel.id})`, false)
-            .setColor(embedColor);
-
+		let clearEmbed;
         message.channel.messages.fetch({ limit: amount }).then(messages => {
             const toClear = messages.filter(m => m.author.id === user.id);
             trueCleared = toClear.array().length;
             message.channel.bulkDelete(toClear, true);
+
+			clearEmbed = new MessageEmbed()
+				.setTitle("User's Messages Cleared")
+				.addField("Messages Filtered", amount, false)
+				.addField("Messages Cleared", trueCleared, false)
+				.addField("User", user.tag, false)
+				.addField("Moderator", message.author.tag, false)
+				.addField("Channel", message.channel.name + `(${message.channel.id})`, false)
+				.setColor(embedColor);
         }).then(() => {
             logs.send(clearEmbed);
         }).then(() => {
